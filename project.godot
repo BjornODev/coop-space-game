@@ -36,6 +36,8 @@ folder_colors={
 "res://Framework/Input Handling/": "purple",
 "res://Framework/Player Select Screen/": "yellow",
 "res://Framework/Splitscreen/": "orange",
+"res://Space Game/": "purple",
+"res://Space Game/Space Ship/": "gray",
 "res://YOUR GAME/": "green"
 }
 

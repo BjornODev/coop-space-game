@@ -1,0 +1,9 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Space Game/space_game.gd" id="1_game"]
+[ext_resource type="PackedScene" uid="uid://bhwcc1uyk7lhw" path="res://Space Game/Space Ship/Spaceship_Scene.tscn" id="2_ship"]
+
+[node name="Space Game" type="Node2D"]
+script = ExtResource("1_game")
+
+[node name="SpaceshipScene" parent="." instance=ExtResource("2_ship")]
