@@ -184,4 +184,4 @@ func start_game() -> void:
 		# an array of booleans that equals [true, false, true, true], etc. that contains the existence of P1, P2, P3, and P4
 		joined_players.assign([(currently_used_controls[0] != ""), (currently_used_controls[1] != ""), (currently_used_controls[2] != ""), (currently_used_controls[3] != "")])
 		# then actually start the thing
-		framework_control.start_game(player_count, joined_players)
+		framework_control.start_game(player_count, joined_players, framework_control.zoom_matching)

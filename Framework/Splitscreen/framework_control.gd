@@ -47,6 +47,9 @@ var in_3d: bool = false
 @export var vertical_2_player_splitscreen: bool = true
 ## Set to 0 to remove black lines between screens entirely, or increase if you want bigger lines between screens.
 @export var splitscreen_line_thickness: int = 2
+## If true, when playing a 2d splitscreen game, cameras will zoom out as the player count increases to prevent loss of visibility.
+## If this makes your textures look weird, set to false instead.
+@export var zoom_matching: bool = true
 
 ## Number of players. Used to set up splitscreen, and also passed into children.
 var player_count: int = 4
@@ -128,7 +131,7 @@ func start_player_select() -> void:
 	update_player_view_count()
 
 ## Starts up actual game.
-func start_game(new_player_count: int, joined_players: Array[bool]) -> void:
+func start_game(new_player_count: int, joined_players: Array[bool], zoom_match: bool) -> void:
 	player_count = new_player_count
 	
 	if game_scene != null:
@@ -149,7 +152,7 @@ func start_game(new_player_count: int, joined_players: Array[bool]) -> void:
 	
 	player_view_p1.add_game(game_scene)
 	# Game should have this method so we can give it player count.
-	game_scene.start(player_count, joined_players)
+	game_scene.start(player_count, joined_players, zoom_match)
 	update_player_view_count()
 
 ## This method is purely for testing. Reduces player count by 1 every time it times out, then updates screens to match.

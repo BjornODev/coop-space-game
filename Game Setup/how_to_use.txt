@@ -1,1 +1,44 @@
-TODO: Fill this out :) smile
+Welcome to the Coop Framework!
+
+This framework handles connecting controllers and splitscreen for you!
+
+//// SETUP ////
+
+Here's the steps to getting this framework set up for your project.
+
+1. Create a new Player scene
+	a. Create a Player2D or Player3D scene.
+
+2. Create a new Game scene
+	a. Create a Game2D or Game3D scene.
+	b. Set the "Player Scene" property to the Player you created in step 1.
+
+3. Modify the Framework Control, the main scene of this project.
+	a. Set the "Game Scene" property to the Game scene you created in step 2.
+	b. Modify any other properties as you see fit.
+
+That's all the setup!
+You can change properties in the Framework Control to suit your game as well.
+
+
+
+//// INPUTS ////
+
+To access a player's corresopnding input, use the following template:
+	CoopInput.get_player(player_number).UP
+		This returns the "UP" input dependent on a player's player_number.
+	
+	A line of code that uses this may look like:
+		if Input.is_action_just_pressed(CoopInput.get_player(player_number).A):
+			jump()
+	
+	If you want to know what inputs correspond to a given input name, hover over the input.
+		This will give a description of what the input is in different control schemes.
+
+
+
+//// CONTROLLERS ////
+
+If you are using the 8BitDo controllers provided by the club, and they aren't connecting to your computer,
+try holding B when plugging them in. This changes how the inputs are detected by your computer,
+and is recognized by more devices.

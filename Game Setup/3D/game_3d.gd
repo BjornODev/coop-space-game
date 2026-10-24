@@ -1,7 +1,7 @@
-## Extend this class to set up a 2D coop game!
+## Extend this class to set up a 3D coop game!
 class_name Game3D extends Game
 
-func start(player_count: int, joined_players: Array[bool]) -> void:
+func start(player_count: int, joined_players: Array[bool], _zoom_matching: bool) -> void:
 	var stored_players = []
 	
 	# adds players to scene by player_num so they match their control scheme
