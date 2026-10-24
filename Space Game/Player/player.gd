@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody2D
 
 @onready var sprite = $"Sprite2D"
+@onready var item_manager: Node = $ItemManager
 
 var camera: Camera2D
 

@@ -38,6 +38,8 @@ folder_colors={
 "res://Framework/Splitscreen/": "orange",
 "res://Space Game/": "purple",
 "res://Space Game/Space Ship/": "gray",
+"res://Space Game/Space Ship/Processing/": "red",
+"res://Space Game/Space Ship/Processing/PhysicsItem/": "blue",
 "res://YOUR GAME/": "green"
 }
 
@@ -96,6 +98,7 @@ controller_4_join_alt={
 
 [layer_names]
 
+2d_physics/layer_2="Player"
 2d_physics/layer_15="Framework Cursors"
 2d_physics/layer_16="Framework UI"
 
