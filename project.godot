@@ -36,6 +36,10 @@ folder_colors={
 "res://Framework/Input Handling/": "purple",
 "res://Framework/Player Select Screen/": "yellow",
 "res://Framework/Splitscreen/": "orange",
+"res://Game Setup/": "pink",
+"res://Game Setup/2D/": "yellow",
+"res://Game Setup/3D/": "green",
+"res://Game Setup/Base Classes/": "gray",
 "res://YOUR GAME/": "green"
 }
 

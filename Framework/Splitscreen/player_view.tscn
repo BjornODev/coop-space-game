@@ -9,12 +9,15 @@ stretch = true
 script = ExtResource("1_keegh")
 
 [node name="SubViewport" type="SubViewport" parent="." unique_id=1616282869]
+unique_name_in_owner = true
 handle_input_locally = false
 size = Vector2i(2, 2)
 render_target_update_mode = 4
 
 [node name="Camera2D" type="Camera2D" parent="SubViewport" unique_id=1977641057]
+unique_name_in_owner = true
 process_mode = 4
 
 [node name="Camera3D" type="Camera3D" parent="SubViewport" unique_id=949264647]
+unique_name_in_owner = true
 process_mode = 4

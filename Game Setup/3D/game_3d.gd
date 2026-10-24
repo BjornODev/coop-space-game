@@ -1,18 +1,16 @@
-extends Node3D
+## Extend this class to set up a 2D coop game!
+class_name Game3D extends Game
 
-var player = preload("res://Example Game 3D/scenes/player.tscn")
-
-## Indicates the number of players in the game.
-var number_of_players: int
-
-## Starts the game with the given number of players, and an array of the players that did join.
 func start(player_count: int, joined_players: Array[bool]) -> void:
 	var stored_players = []
 	
 	# adds players to scene by player_num so they match their control scheme
 	for i in joined_players.size():
 		if joined_players[i]:
-			var new_player = player.instantiate()
+			var new_player : Player3D = (load(PLAYER_SCENE) as PackedScene).instantiate() as Player3D
+			if new_player ==  null:
+				printerr("%s: Player scene in PLAYER_SCENE export does not inherit from Player3D. If you have set up your own player, replace the Player3D typecasting in this game_3d.gd with your custom class!" % self)
+				return
 			add_child(new_player)
 			new_player.set_player_num(i + 1)
 			stored_players.append(new_player)
@@ -22,5 +20,3 @@ func start(player_count: int, joined_players: Array[bool]) -> void:
 		stored_players[i].set_camera(Cameras.get_camera(i + 1))
 	
 	number_of_players = player_count
-	
-	

@@ -1,16 +1,15 @@
 # This node is in control of handling player viewports for games.
-extends Control
+class_name FrameworkControl extends Control
 
 ## Always 4, but I'd rather it be obvious when 4 shows up in code.
 const MAX_PLAYER_COUNT = 4
 
-@onready var grid_container: GridContainer = %"GridContainer"
-
-@onready var player_view_p1: SubViewportContainer = %"Player View P1"
-@onready var player_view_p2: SubViewportContainer = %"Player View P2"
-@onready var player_view_p3: SubViewportContainer = %"Player View P3"
-@onready var player_view_p4: SubViewportContainer = %"Player View P4"
-@onready var player_viewport_containers: Array[SubViewportContainer] = [
+@onready var grid_container: GridContainer = %"GridContainer" as GridContainer
+@onready var player_view_p1: PlayerView = %"Player View P1" as PlayerView
+@onready var player_view_p2: PlayerView = %"Player View P2" as PlayerView
+@onready var player_view_p3: PlayerView = %"Player View P3" as PlayerView
+@onready var player_view_p4: PlayerView = %"Player View P4" as PlayerView
+@onready var player_viewport_containers: Array[PlayerView] = [
 	player_view_p1,
 	player_view_p2,
 	player_view_p3,
@@ -18,9 +17,10 @@ const MAX_PLAYER_COUNT = 4
 ]
 
 ## The game starts with this screen to connect players before starting.
-@onready var player_select_screen: PackedScene = preload("res://Framework/Player Select Screen/player_select_screen.tscn")
+const PLAYER_SELECT_SCREEN = preload("uid://d2he756o6q1d4")
+
 ## We should assign this to a base Node scene we create for them so they don't have to touch this part.
-@export var game: PackedScene = preload("res://Example Game 2D/scenes/example_game.tscn")
+@export_file("*.tscn") var GAME_SCENE : String
 
 ## Determines the minimum number of players your game can have. Ranges from 1 to 4.
 ## This will likely be fetched from export settings on the developer's actual game in the future.
@@ -38,7 +38,7 @@ const MAX_PLAYER_COUNT = 4
 @export var allow_controller: bool = true
 
 ## If true, the game will load 3D cameras instead of 2D ones.
-@export var in_3d: bool = false
+var in_3d: bool = false
 
 ## Set to false if you want all players to share the same screen.
 @export var splitscreen: bool = true
@@ -58,7 +58,8 @@ var player_count: int = 4
 # var world: Node
 
 ## Swaps between player_select and actual game world.
-var child_scene: Node
+var player_select_screen : PlayerSelectScreen
+var game_scene : Game
 
 func _ready() -> void:
 	# readies cameras, individually instead of a loop to prevent writing a setter that devs might accidentally use
@@ -112,24 +113,43 @@ func update_player_view_count() -> void:
 ## Starts up player select.
 func start_player_select() -> void:
 	player_count = 1
-	if child_scene != null:
-		child_scene.queue_free()
-	child_scene = player_select_screen.instantiate()
-	child_scene.assign_framework_control(self)
-	player_view_p1.add_game(child_scene)
-	child_scene.player_select_screen_start(minimum_players, maximum_players, allow_wasd, allow_arrow_keys, allow_controller)
+	
+	if game_scene != null:
+		game_scene.queue_free()
+		await game_scene.tree_exited
+	if player_select_screen != null:
+		player_select_screen.queue_free()
+		await player_select_screen.tree_exited
+	
+	player_select_screen = PLAYER_SELECT_SCREEN.instantiate() as PlayerSelectScreen
+	player_select_screen.assign_framework_control(self)
+	player_view_p1.add_game(player_select_screen)
+	player_select_screen.player_select_screen_start(minimum_players, maximum_players, allow_wasd, allow_arrow_keys, allow_controller)
 	update_player_view_count()
 
 ## Starts up actual game.
 func start_game(new_player_count: int, joined_players: Array[bool]) -> void:
 	player_count = new_player_count
-	if child_scene != null:
-		child_scene.queue_free()
-	child_scene = game.instantiate()
-	player_view_p1.add_game(child_scene)
+	
+	if game_scene != null:
+		game_scene.queue_free()
+		await game_scene.tree_exited
+	if player_select_screen != null:
+		player_select_screen.queue_free()
+		await player_select_screen.tree_exited
+	
+	game_scene = (load(GAME_SCENE) as PackedScene).instantiate() as Game
+	
+	# checking for if the game is 2D or 3D here means the player won't have to set 
+	# the in_3d var manually anymore!
+	if game_scene is Game2D:
+		set_3d(false)
+	else:
+		set_3d(true)
+	
+	player_view_p1.add_game(game_scene)
 	# Game should have this method so we can give it player count.
-	if child_scene.has_method("start"):
-		child_scene.start(player_count, joined_players)
+	game_scene.start(player_count, joined_players)
 	update_player_view_count()
 
 ## This method is purely for testing. Reduces player count by 1 every time it times out, then updates screens to match.

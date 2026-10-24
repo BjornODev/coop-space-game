@@ -1,8 +1,8 @@
-extends SubViewportContainer
+class_name PlayerView extends SubViewportContainer
 
-@onready var subviewport = $"SubViewport"
-@onready var camera_2d = $"SubViewport/Camera2D"
-@onready var camera_3d = $"SubViewport/Camera3D"
+@onready var subviewport: SubViewport = %SubViewport as SubViewport
+@onready var camera_2d: Camera2D = %Camera2D as Camera2D
+@onready var camera_3d: Camera3D = %Camera3D as Camera3D
 
 func set_viewport_world_2d(new_world_2d: World2D) -> void:
 	subviewport.world_2d = new_world_2d

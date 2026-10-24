@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://bsket3o1le7p1"]
 
 [ext_resource type="Script" uid="uid://cswojpfuuv2a1" path="res://Framework/Splitscreen/framework_control.gd" id="1_y8o0t"]
-[ext_resource type="PackedScene" uid="uid://bemsyclecc3nw" path="res://Example Game 3D/scenes/example_game.tscn" id="2_kgcid"]
 [ext_resource type="PackedScene" uid="uid://d3en6jxphfac4" path="res://Framework/Splitscreen/player_view.tscn" id="3_3tjwf"]
 
 [node name="Framework Control" type="Control" unique_id=186729224]
@@ -12,8 +11,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_y8o0t")
-game = ExtResource("2_kgcid")
-in_3d = true
+GAME_SCENE = "uid://bemsyclecc3nw"
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=802773407]
 unique_name_in_owner = true

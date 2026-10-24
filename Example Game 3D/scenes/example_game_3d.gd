@@ -1,0 +1,1 @@
+class_name ExampleGame3D extends Game3D

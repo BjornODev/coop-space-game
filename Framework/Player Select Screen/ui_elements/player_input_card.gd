@@ -1,12 +1,12 @@
-extends Control
+class_name PlayerInputCard extends Control
 
 ## Determines player that the card is hooked up to.
 @export_range(1, 4) var player_num: int = 1
 
-@onready var sprite = $"Player Input Card Sprite"
-@onready var timer = $"InputHint Timer"
-@onready var anim = $"AnimationPlayer"
-@onready var disconnect_button = $"Disconnect"
+@onready var sprite : PlayerInputCardSprite = $"Player Input Card Sprite" as PlayerInputCardSprite
+@onready var timer : Timer = $"InputHint Timer" as Timer
+@onready var anim : AnimationPlayer = $"AnimationPlayer" as AnimationPlayer
+@onready var disconnect_button : TextureButton = $"Disconnect" as TextureButton
 
 ## When true, this player needs to connect to the game for it to start.
 var needs_to_exist_to_play_game: bool = false
@@ -14,7 +14,7 @@ var needs_to_exist_to_play_game: bool = false
 ## When true, you can disconnect.
 var connected: bool = false
 
-var player_select_screen: Node
+var player_select_screen: PlayerSelectScreen
 
 ## Determines what inputs are hinted when no player is connected.
 ## 1 represents keyboard_wasd, 2 represents keyboard_arrow_keys, 3 represents controller.
@@ -86,5 +86,5 @@ func disconnect_pressed() -> void:
 func _on_texture_button_pressed() -> void:
 	disconnect_pressed()
 
-func set_player_select_screen(screen: Node) -> void:
+func set_player_select_screen(screen: PlayerSelectScreen) -> void:
 	player_select_screen = screen

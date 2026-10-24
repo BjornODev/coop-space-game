@@ -10,7 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://bktvmwlyvxokj" path="res://Framework/Player Select Screen/assets/player_input_card/p1/controls.png" id="5_qvd6o"]
 [ext_resource type="Script" uid="uid://cvycrbsndygph" path="res://Framework/Player Select Screen/ui_elements/disconnect.gd" id="6_beris"]
 [ext_resource type="Texture2D" uid="uid://366n7qfd2f4q" path="res://Framework/Player Select Screen/assets/disconnect_spritesheet.png" id="6_n3q4h"]
-[ext_resource type="Script" uid="uid://doip7h8wi4ext" path="res://Framework/Player Select Screen/ui_elements/disconnect_area_2d.gd" id="8_01qer"]
+[ext_resource type="Script" uid="uid://doip7h8wi4ext" path="res://Framework/Player Select Screen/ui_elements/player_cursor_custom_mouse_area_collider.gd" id="8_01qer"]
 [ext_resource type="Texture2D" uid="uid://c7ry2ul5ongmh" path="res://Framework/Player Select Screen/assets/disconnect_back.png" id="11_tx6k2"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_3q73j"]
@@ -226,7 +226,7 @@ wait_time = 1.5
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1101917504]
 libraries/ = SubResource("AnimationLibrary_y7g5w")
 
-[node name="Disconnect" type="TextureButton" parent="." unique_id=1798312036 node_paths=PackedStringArray("parent")]
+[node name="Disconnect" type="TextureButton" parent="." unique_id=1798312036 node_paths=PackedStringArray("player_input_card")]
 visible = false
 modulate = Color(1, 1, 1, 0)
 self_modulate = Color(1, 1, 1, 0)
@@ -241,7 +241,7 @@ texture_normal = ExtResource("3_g4eks")
 texture_pressed = ExtResource("4_o5dok")
 texture_hover = ExtResource("5_n3q4h")
 script = ExtResource("6_beris")
-parent = NodePath("..")
+player_input_card = NodePath("..")
 
 [node name="FakeSprite" type="Sprite2D" parent="Disconnect" unique_id=993497284]
 position = Vector2(20, 12)
@@ -263,17 +263,17 @@ theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "[center]Leave"
 
-[node name="Area2D" type="Area2D" parent="Disconnect" unique_id=814809513 node_paths=PackedStringArray("parent_button")]
+[node name="DisconnectArea2D" type="Area2D" parent="Disconnect" unique_id=814809513 node_paths=PackedStringArray("parent_button")]
 position = Vector2(20, 12)
 collision_layer = 32768
 collision_mask = 16384
 script = ExtResource("8_01qer")
 parent_button = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Disconnect/Area2D" unique_id=1447907896]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Disconnect/DisconnectArea2D" unique_id=1447907896]
 shape = SubResource("RectangleShape2D_bk7jt")
 
 [connection signal="timeout" from="InputHint Timer" to="." method="_on_input_hint_timer_timeout"]
 [connection signal="pressed" from="Disconnect" to="." method="_on_texture_button_pressed"]
-[connection signal="area_entered" from="Disconnect/Area2D" to="Disconnect" method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Disconnect/Area2D" to="Disconnect" method="_on_area_2d_area_exited"]
+[connection signal="area_entered" from="Disconnect/DisconnectArea2D" to="Disconnect" method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="Disconnect/DisconnectArea2D" to="Disconnect" method="_on_area_2d_area_exited"]

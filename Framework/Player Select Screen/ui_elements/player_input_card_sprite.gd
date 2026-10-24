@@ -1,6 +1,6 @@
-extends Sprite2D
+class_name PlayerInputCardSprite extends Sprite2D
 
-@onready var child_sprite: Sprite2D = $"Controls"
+@onready var child_sprite: Sprite2D = $"Controls" as Sprite2D
 
 ## Loaded whenever the player is joined, for this sprite.
 var primary_connected_texture: Texture
@@ -8,14 +8,14 @@ var primary_connected_texture: Texture
 var secondary_connected_texture: Texture
 
 ## Loaded whenever the player is disconnected, for this sprite.
-@onready var primary_disconnected_texture: Texture = load("res://Framework/Player Select Screen/assets/player_input_card/p0/base_light.png")
+@onready var primary_disconnected_texture: Texture = load("res://Framework/Player Select Screen/assets/player_input_card/p0/base_light.png") as Texture
 ## Loaded whenever the player is disconnected, for this sprite's child sprite.
-@onready var secondary_disconnected_texture: Texture = load("res://Framework/Player Select Screen/assets/player_input_card/p0/controls.png")
+@onready var secondary_disconnected_texture: Texture = load("res://Framework/Player Select Screen/assets/player_input_card/p0/controls.png") as Texture
 
 ## Run when player number is assigned.
 func setup_textures(player_num: int) -> void:
-	primary_connected_texture = load("res://Framework/Player Select Screen/assets/player_input_card/p" + str(player_num) + "/base_light.png")
-	secondary_connected_texture = load("res://Framework/Player Select Screen/assets/player_input_card/p" + str(player_num) + "/controls.png")
+	primary_connected_texture = load("res://Framework/Player Select Screen/assets/player_input_card/p" + str(player_num) + "/base_light.png") as Texture
+	secondary_connected_texture = load("res://Framework/Player Select Screen/assets/player_input_card/p" + str(player_num) + "/controls.png") as Texture
 
 func set_connected(connected: bool) -> void:
 	if connected:

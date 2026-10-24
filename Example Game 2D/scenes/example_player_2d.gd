@@ -1,15 +1,25 @@
-extends CharacterBody2D
+class_name ExamplePlayer2D extends Player2D
 
 @onready var sprite = $"Sprite2D"
 @onready var tiny_sprite = $"Tiny Sprite"
-
-var camera: Camera2D
 
 const SPEED = 200
 const DASH_MULTIPLIER = 2.0
 const SNEAK_MULTIPLIER = 0.5
 
-var player_number: int = 1
+func set_player_num(player_num: int) -> void:
+	super(player_num)
+	set_sprite_frame_from_player_num()
+	set_position_from_player_num()
+
+
+func set_sprite_frame_from_player_num() -> void:
+	sprite.frame = player_number - 1
+
+
+func set_position_from_player_num() -> void:
+	position.x = player_number * 120 - 240
+
 
 func _physics_process(_delta: float) -> void:
 	if Input.is_action_pressed(CoopInput.get_player(player_number).Y):
@@ -29,13 +39,3 @@ func _physics_process(_delta: float) -> void:
 	
 	if Input.is_action_just_pressed(CoopInput.get_player(player_number).START) or Input.is_action_just_pressed(CoopInput.get_player(player_number).SELECT):
 		process_mode = PROCESS_MODE_DISABLED
-	
-
-func set_player_num(player_num: int) -> void:
-	player_number = player_num
-	sprite.frame = player_num - 1
-	position.x = player_number * 120 - 240
-	
-
-func set_camera(new_camera: Camera2D) -> void:
-	camera = new_camera

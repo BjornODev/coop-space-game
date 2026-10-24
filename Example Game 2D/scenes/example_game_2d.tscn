@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://tbq21h2pw7k5"]
+
+[ext_resource type="Script" uid="uid://0v6yncf8sj1n" path="res://Example Game 2D/scenes/example_game_2d.gd" id="1_mku3n"]
+[ext_resource type="Texture2D" uid="uid://c6df44tthmwdi" path="res://Example Game 2D/assets/IMG_0618.jpeg" id="2_5woct"]
+
+[node name="Example Game" type="Node" unique_id=42510566]
+script = ExtResource("1_mku3n")
+PLAYER_SCENE = "uid://bvoswhpcw6t30"
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1576830577]
+rotation = -3.1415925
+texture = ExtResource("2_5woct")

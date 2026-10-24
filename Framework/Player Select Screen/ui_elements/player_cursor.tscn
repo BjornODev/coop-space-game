@@ -23,15 +23,15 @@ vframes = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=468002956]
 shape = SubResource("CircleShape2D_bk7jt")
 
-[node name="Area2D" type="Area2D" parent="." unique_id=1502906786]
+[node name="PlayerCursorCustomMouseArea" type="Area2D" parent="." unique_id=1502906786]
 position = Vector2(-14, -46)
 collision_layer = 16384
 collision_mask = 32768
 script = ExtResource("3_5mldd")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1405425551]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCursorCustomMouseArea" unique_id=1405425551]
 shape = SubResource("CircleShape2D_ocnln")
 debug_color = Color(0.9642418, 4.813075e-07, 0.49680513, 0.41960785)
 
-[connection signal="area_entered" from="Area2D" to="Area2D" method="_on_area_entered"]
-[connection signal="area_exited" from="Area2D" to="Area2D" method="_on_area_exited"]
+[connection signal="area_entered" from="PlayerCursorCustomMouseArea" to="PlayerCursorCustomMouseArea" method="_on_area_entered"]
+[connection signal="area_exited" from="PlayerCursorCustomMouseArea" to="PlayerCursorCustomMouseArea" method="_on_area_exited"]

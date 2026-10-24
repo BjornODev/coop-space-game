@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bemsyclecc3nw"]
 
-[ext_resource type="Script" uid="uid://bd0klx83ij0x4" path="res://Example Game 3D/scenes/example_game.gd" id="1_yoai5"]
+[ext_resource type="Script" uid="uid://bd0klx83ij0x4" path="res://Example Game 3D/scenes/example_game_3d.gd" id="1_yoai5"]
 [ext_resource type="Texture2D" uid="uid://6rcywtnqjtvb" path="res://Example Game 3D/assets/grass.png" id="2_yoai5"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_bk7jt"]
@@ -29,8 +29,9 @@ sky_material = SubResource("ProceduralSkyMaterial_3f5e3")
 background_mode = 2
 sky = SubResource("Sky_ocnln")
 
-[node name="Example Game" type="Node3D" unique_id=139932738]
+[node name="Example Game" type="Node" unique_id=1345926565]
 script = ExtResource("1_yoai5")
+PLAYER_SCENE = "uid://dckfp35yfxda2"
 
 [node name="StaticBody3D" type="StaticBody3D" parent="." unique_id=1580362075]
 

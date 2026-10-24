@@ -1,0 +1,1 @@
+class_name ExampleGame2D extends Game2D
