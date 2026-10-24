@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dl6adtmtiuejo" path="res://Space Game/space_game.gd" id="1_game"]
 [ext_resource type="PackedScene" uid="uid://bhwcc1uyk7lhw" path="res://Space Game/Space Ship/Spaceship_Scene.tscn" id="2_ship"]
-[ext_resource type="PackedScene" uid="uid://b2ws0k15hkd16" path="res://Space Game/Space Ship/Processing/processing_unit.tscn" id="2_xy06q"]
+[ext_resource type="PackedScene" uid="uid://b2ws0k15hkd16" path="res://Space Game/Space Ship/Processing/MainUnit/processing_unit.tscn" id="2_xy06q"]
 
 [node name="Space Game" type="Node2D" unique_id=1468521417]
 script = ExtResource("1_game")

@@ -39,6 +39,8 @@ folder_colors={
 "res://Space Game/": "purple",
 "res://Space Game/Space Ship/": "gray",
 "res://Space Game/Space Ship/Processing/": "red",
+"res://Space Game/Space Ship/Processing/FuelUnit/": "red",
+"res://Space Game/Space Ship/Processing/MainUnit/": "orange",
 "res://Space Game/Space Ship/Processing/PhysicsItem/": "blue",
 "res://YOUR GAME/": "green"
 }

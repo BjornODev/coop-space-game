@@ -1,6 +1,6 @@
 extends Node2D
 
-@onready var input_terminal: Interactable = $InputTerminal
+@onready var refining_terminal: Interactable = $RefiningTerminal
 @onready var process_progress: TextureProgressBar = $ProcessProgress
 @onready var valve: Interactable = $Valve
 
@@ -11,7 +11,7 @@ var item_ready : bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	input_terminal.connect("item_added", process_new_item)
+	refining_terminal.connect("item_added", process_new_item)
 	valve.connect("valve_interacted", _on_valve_interaction)
 
 func process_new_item(item : Dictionary) -> void:
@@ -22,16 +22,16 @@ func _on_valve_interaction(player : Player) -> void:
 		return
 	
 	var item : Dictionary = item_in_unit
-	
 	item_in_unit = {}
 	
-	if count >= 1.0: # "over-processed"
-		return 
+	#update status if needed
+	if count >= 1.0: # over-processed, as in "overrefined"
+		item["Status"] = "overrefined" 
 	elif count >= 0.59: # just right
-		player.item_manager.add_item(item)
+		item["Status"] = "refined"
 	
-	# "under-processed"
-	
+	# if stil under-processed, returns as still "unrefined"
+	player.item_manager.add_item(item)
 
 
 func _process(delta: float) -> void:

@@ -1,0 +1,170 @@
+[gd_scene format=3 uid="uid://b2ws0k15hkd16"]
+
+[ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/Processing/PhysicsItem/physics_item.tscn" id="1_jd8dc"]
+[ext_resource type="Script" uid="uid://cdgfx3gba43j6" path="res://Space Game/Space Ship/Processing/input_terminal.gd" id="2_rpqro"]
+[ext_resource type="Script" uid="uid://cl4pc4neljt4c" path="res://Space Game/Space Ship/Processing/MainUnit/main_unit.gd" id="3_kqprp"]
+[ext_resource type="Script" uid="uid://072xl5gw5y0o" path="res://Space Game/Space Ship/Processing/MainUnit/valve.gd" id="3_ym24x"]
+[ext_resource type="Script" uid="uid://e7aci72v8qh" path="res://Space Game/Space Ship/Processing/FuelUnit/fuel_input_unit.gd" id="5_ym24x"]
+[ext_resource type="Script" uid="uid://bcsylrlyj1b0h" path="res://Space Game/Space Ship/Processing/MainUnit/fuel_bar.gd" id="6_0qman"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tvh"]
+size = Vector2(73.5, 72.75)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_dye4d"]
+size = Vector2(71.5, 72)
+
+[sub_resource type="Gradient" id="Gradient_kqprp"]
+offsets = PackedFloat32Array(0, 0.5777202, 0.5984456, 0.9352332, 1)
+colors = PackedColorArray(1, 1, 0.72156864, 1, 1, 0.73333335, 0, 1, 0, 0.5803922, 0, 1, 0.50322586, 0.28832382, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k2tvh"]
+gradient = SubResource("Gradient_kqprp")
+fill = 3
+fill_from = Vector2(0.5, 0.5)
+fill_to = Vector2(0.5, 0)
+metadata/_snap_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_ym24x"]
+offsets = PackedFloat32Array(0, 0.992228)
+colors = PackedColorArray(0.7404021, 0.4058119, 0.048504785, 1, 1, 1, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_0qman"]
+gradient = SubResource("Gradient_ym24x")
+height = 120
+
+[sub_resource type="Gradient" id="Gradient_0qman"]
+offsets = PackedFloat32Array(0, 0.98704666)
+colors = PackedColorArray(0.60784316, 1, 0, 1, 0.2627451, 0.21568628, 0.043137256, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_1lglt"]
+gradient = SubResource("Gradient_0qman")
+height = 120
+
+[node name="ProcessingUnit" type="Node2D" unique_id=1845550927]
+
+[node name="PhysicsItem" parent="." unique_id=519446977 instance=ExtResource("1_jd8dc")]
+position = Vector2(45.000015, 186.25003)
+
+[node name="MainUnit" type="Node2D" parent="." unique_id=639789528]
+script = ExtResource("3_kqprp")
+
+[node name="Valve" type="Area2D" parent="MainUnit" unique_id=2117903995]
+position = Vector2(160.08698, 16.588104)
+script = ExtResource("3_ym24x")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainUnit/Valve" unique_id=1037846382]
+position = Vector2(0, -5)
+shape = SubResource("RectangleShape2D_k2tvh")
+
+[node name="Standin" type="ColorRect" parent="MainUnit/Valve" unique_id=1394800737]
+offset_left = -41.336945
+offset_top = -42.0
+offset_right = 37.663055
+offset_bottom = 40.0
+color = Color(0.97387916, 0.40186578, 0, 1)
+
+[node name="Label" type="Label" parent="MainUnit/Valve/Standin" unique_id=188794907]
+layout_mode = 0
+offset_left = 8.2499695
+offset_top = 6.4118958
+offset_right = 98.24997
+offset_bottom = 81.411896
+text = "Refining 
+Out"
+
+[node name="RefiningTerminal" type="Area2D" parent="MainUnit" unique_id=932807065]
+position = Vector2(-157.41306, 14.088104)
+script = ExtResource("2_rpqro")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainUnit/RefiningTerminal" unique_id=1342741042]
+position = Vector2(-1.3369446, 0.16189575)
+shape = SubResource("RectangleShape2D_dye4d")
+
+[node name="Standin" type="ColorRect" parent="MainUnit/RefiningTerminal" unique_id=207345089]
+offset_left = -41.336945
+offset_top = -34.838104
+offset_right = 37.663055
+offset_bottom = 40.0
+color = Color(0, 0.73333335, 0, 1)
+
+[node name="Label" type="Label" parent="MainUnit/RefiningTerminal/Standin" unique_id=114733275]
+layout_mode = 0
+offset_left = 8.75
+offset_top = 11.75
+offset_right = 72.75
+offset_bottom = 60.75
+text = "Refining
+In"
+
+[node name="ProcessProgress" type="TextureProgressBar" parent="MainUnit" unique_id=1845651235]
+offset_left = -31.0
+offset_top = -123.0
+offset_right = 33.0
+offset_bottom = -59.0
+max_value = 1.0
+step = 0.01
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_k2tvh")
+
+[node name="ColorRect" type="ColorRect" parent="MainUnit/ProcessProgress" unique_id=1376073457]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -34.0
+offset_top = -27.0
+offset_right = 88.0
+offset_bottom = 100.0
+color = Color(0.69467354, 0.69467354, 0.6946735, 1)
+
+[node name="FuelInputUnit" type="Node2D" parent="." unique_id=1105895068]
+position = Vector2(210, 1)
+script = ExtResource("5_ym24x")
+
+[node name="FuelTerminal" type="Area2D" parent="FuelInputUnit" unique_id=1969798446]
+position = Vector2(210, -48)
+script = ExtResource("2_rpqro")
+quality_status = "refined"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FuelInputUnit/FuelTerminal" unique_id=1854843609]
+position = Vector2(-1.6607056, 3.9165955)
+shape = SubResource("RectangleShape2D_k2tvh")
+
+[node name="Standin" type="ColorRect" parent="FuelInputUnit/FuelTerminal" unique_id=636218962]
+offset_left = -43.0
+offset_top = -37.0
+offset_right = 36.0
+offset_bottom = 45.0
+color = Color(0.972549, 0.15686275, 0.29411766, 1)
+
+[node name="Label" type="Label" parent="FuelInputUnit/FuelTerminal/Standin" unique_id=1484491119]
+layout_mode = 0
+offset_left = 16.336945
+offset_top = -2.1618958
+offset_right = 106.336945
+offset_bottom = 72.838104
+text = "Fuel
+In"
+
+[node name="FuelBar" type="TextureProgressBar" parent="FuelInputUnit" unique_id=451001456]
+offset_left = 279.0
+offset_top = -104.0
+offset_right = 337.0
+offset_bottom = 19.0
+fill_mode = 3
+texture_progress = SubResource("GradientTexture2D_0qman")
+script = ExtResource("6_0qman")
+
+[node name="ColorRect" type="ColorRect" parent="FuelInputUnit/FuelBar" unique_id=37405915]
+show_behind_parent = true
+layout_mode = 0
+offset_left = -31.0
+offset_top = -3.0
+offset_right = 91.0
+offset_bottom = 124.0
+color = Color(0.69467354, 0.69467354, 0.6946735, 1)
+
+[node name="ImpurityBar" type="TextureProgressBar" parent="FuelInputUnit/FuelBar" unique_id=20051491]
+layout_mode = 0
+offset_right = 64.0
+offset_bottom = 121.0
+fill_mode = 3
+texture_progress = SubResource("GradientTexture2D_1lglt")
