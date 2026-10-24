@@ -5,7 +5,8 @@
 [ext_resource type="Script" uid="uid://cl4pc4neljt4c" path="res://Space Game/Space Ship/Processing/MainUnit/main_unit.gd" id="3_kqprp"]
 [ext_resource type="Script" uid="uid://072xl5gw5y0o" path="res://Space Game/Space Ship/Processing/MainUnit/valve.gd" id="3_ym24x"]
 [ext_resource type="Script" uid="uid://e7aci72v8qh" path="res://Space Game/Space Ship/Processing/FuelUnit/fuel_input_unit.gd" id="5_ym24x"]
-[ext_resource type="Script" uid="uid://bcsylrlyj1b0h" path="res://Space Game/Space Ship/Processing/MainUnit/fuel_bar.gd" id="6_0qman"]
+[ext_resource type="Script" uid="uid://bcsylrlyj1b0h" path="res://Space Game/Space Ship/Processing/FuelUnit/fuel_bar.gd" id="6_0qman"]
+[ext_resource type="Script" uid="uid://rsxq3pvr15nb" path="res://Space Game/Space Ship/Processing/FuelUnit/impurity_drain.gd" id="7_i4eb1"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tvh"]
 size = Vector2(73.5, 72.75)
@@ -44,6 +45,12 @@ height = 120
 
 [node name="PhysicsItem" parent="." unique_id=519446977 instance=ExtResource("1_jd8dc")]
 position = Vector2(45.000015, 186.25003)
+
+[node name="PhysicsItem2" parent="." unique_id=1741861349 instance=ExtResource("1_jd8dc")]
+position = Vector2(-57.83368, 177.12741)
+
+[node name="PhysicsItem3" parent="." unique_id=38308933 instance=ExtResource("1_jd8dc")]
+position = Vector2(-20.565704, 241.01541)
 
 [node name="MainUnit" type="Node2D" parent="." unique_id=639789528]
 script = ExtResource("3_kqprp")
@@ -168,3 +175,29 @@ offset_right = 64.0
 offset_bottom = 121.0
 fill_mode = 3
 texture_progress = SubResource("GradientTexture2D_1lglt")
+
+[node name="ImpurityDrain" type="Area2D" parent="FuelInputUnit" unique_id=680313023]
+position = Vector2(316.74158, 57.833008)
+script = ExtResource("7_i4eb1")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="FuelInputUnit/ImpurityDrain" unique_id=868876569]
+position = Vector2(-1.6607056, 3.9165955)
+shape = SubResource("RectangleShape2D_k2tvh")
+
+[node name="Standin" type="ColorRect" parent="FuelInputUnit/ImpurityDrain" unique_id=646721359]
+offset_left = -43.0
+offset_top = -37.0
+offset_right = 36.0
+offset_bottom = 45.0
+color = Color(0.74674416, 0.34729627, 0.80891544, 1)
+
+[node name="Label" type="Label" parent="FuelInputUnit/ImpurityDrain/Standin" unique_id=288471004]
+layout_mode = 0
+offset_left = 8.258423
+offset_top = 13.166992
+offset_right = 98.25842
+offset_bottom = 88.16699
+text = "Impurity
+Drain"
+
+[node name="DrainTimer" type="Timer" parent="FuelInputUnit/ImpurityDrain" unique_id=119707000]
