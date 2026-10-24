@@ -1,7 +1,7 @@
 ## Extend this class to set up a 2D coop game!
 class_name Game2D extends Game
 
-func start(player_count: int, joined_players: Array[bool]) -> void:
+func start(player_count: int, joined_players: Array[bool], zoom_matching: bool) -> void:
 	var stored_players = []
 	
 	# adds players to scene by player_num so they match their control scheme
@@ -17,12 +17,13 @@ func start(player_count: int, joined_players: Array[bool]) -> void:
 	
 	# then iterates through player list to assign cameras by order so they match splitscreen set-up
 	for i in stored_players.size():
-		if player_count >= 3:
-			# zooms out cameras for when there's more players?
-			Cameras.get_camera(i + 1).zoom = Vector2(0.5, 0.5)
-		elif player_count == 2:
-			# zooms out cameras for when there's more players?
-			Cameras.get_camera(i + 1).zoom = Vector2(0.75, 0.75)
+		if zoom_matching:
+			if player_count >= 3:
+				# zooms out cameras for when there's more players?
+				Cameras.get_camera(i + 1).zoom = Vector2(0.5, 0.5)
+			elif player_count == 2:
+				# zooms out cameras for when there's more players?
+				Cameras.get_camera(i + 1).zoom = Vector2(0.75, 0.75)
 		stored_players[i].set_camera(Cameras.get_camera(i + 1))
 	
 	number_of_players = player_count

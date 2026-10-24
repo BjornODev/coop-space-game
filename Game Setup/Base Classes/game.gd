@@ -14,5 +14,5 @@
 ## Indicates the number of players in the game.
 var number_of_players: int
 
-## Sets up player inputs given a number of players. DO NOT CALL THIS FUNC ON YOUR OWN!!
-@abstract func start(player_count: int, joined_players: Array[bool]) -> void
+## Sets up player inputs given a number of players. DO NOT CALL THIS FUNCTION ON YOUR OWN!!
+@abstract func start(player_count: int, joined_players: Array[bool], zoom_matching: bool) -> void
