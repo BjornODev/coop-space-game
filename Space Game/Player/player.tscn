@@ -1,21 +1,21 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://btbloowmcl88g"]
 
-[ext_resource type="Script" path="res://Space Game/Player/player.gd" id="1_player"]
-[ext_resource type="Texture2D" path="res://Space Game/Player/assets/player.png" id="2_sprite"]
+[ext_resource type="Script" uid="uid://c82wxempnefjv" path="res://Space Game/Player/player.gd" id="1_player"]
+[ext_resource type="Texture2D" uid="uid://daqcwaks4ba2p" path="res://Space Game/Player/assets/player.png" id="2_sprite"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 50.0
 
-[node name="Player" type="CharacterBody2D"]
+[node name="Player" type="CharacterBody2D" unique_id=721297586]
 collision_layer = 2
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_player")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1978802206]
 shape = SubResource("CircleShape2D_player")
 
-[node name="Sprite2D" type="Sprite2D" parent="."]
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1901765313]
 texture_filter = 1
 texture = ExtResource("2_sprite")
 hframes = 2

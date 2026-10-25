@@ -1,0 +1,39 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Space Game/Space Ship/Processing/ship_engine.gd" id="1_engine"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/canister_slot.tscn" id="2_slot"]
+
+[node name="Engine" type="Node2D"]
+script = ExtResource("1_engine")
+
+[node name="Body" type="ColorRect" parent="."]
+offset_left = -80.0
+offset_top = -60.0
+offset_right = 80.0
+offset_bottom = 60.0
+mouse_filter = 2
+color = Color(0.5, 0.2, 0.2, 1)
+
+[node name="FuelBar" type="ProgressBar" parent="."]
+offset_left = -110.0
+offset_top = -95.0
+offset_right = 110.0
+offset_bottom = -70.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="FuelBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Fuel"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Slot" parent="." instance=ExtResource("2_slot")]
+position = Vector2(0, 110)
