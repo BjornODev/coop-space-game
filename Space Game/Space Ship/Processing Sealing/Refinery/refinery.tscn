@@ -1,0 +1,181 @@
+[gd_scene format=3 uid="uid://bxfwl3b2nki0d"]
+
+[ext_resource type="Script" uid="uid://41o88mvoa2in" path="res://Space Game/Space Ship/Processing Sealing/Refinery/refinery.gd" id="1_refinery"]
+[ext_resource type="Script" uid="uid://cd5p4ofa8t4c" path="res://Space Game/Space Ship/Processing Sealing/Refinery/sealer.gd" id="2_sealer"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing Sealing/Canister/canister_slot.tscn" id="3_slot"]
+[ext_resource type="PackedScene" uid="uid://6knfg11m6n1n" path="res://Space Game/Space Ship/Processing Sealing/Refinery/seal_lever.tscn" id="4_lever"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing Sealing/Refinery/vent_valve.tscn" id="5_valve"]
+
+[node name="Refinery" type="Node2D" unique_id=102748737 node_paths=PackedStringArray("left_valve", "right_valve")]
+script = ExtResource("1_refinery")
+left_valve = NodePath("VentValveLeft")
+right_valve = NodePath("VentValveRight")
+
+[node name="Body" type="ColorRect" parent="." unique_id=676650641]
+offset_left = -150.0
+offset_top = -100.0
+offset_right = 150.0
+offset_bottom = 100.0
+mouse_filter = 2
+color = Color(0.35, 0.35, 0.4, 1)
+
+[node name="NameLabel" type="Label" parent="." unique_id=577838654]
+offset_left = -150.0
+offset_top = 70.0
+offset_right = 150.0
+offset_bottom = 93.0
+text = "Refinery"
+horizontal_alignment = 1
+
+[node name="Chute" type="Node2D" parent="." unique_id=2134520897]
+position = Vector2(0, -100)
+
+[node name="ChuteBody" type="ColorRect" parent="Chute" unique_id=1855512109]
+offset_left = -20.0
+offset_top = -60.0
+offset_right = 20.0
+mouse_filter = 2
+color = Color(0.55, 0.45, 0.35, 1)
+
+[node name="DeliveryTimer" type="Timer" parent="Chute" unique_id=1519476345]
+wait_time = 5.0
+
+[node name="PressureBar" type="ProgressBar" parent="." unique_id=1082781893]
+offset_left = -140.0
+offset_top = -85.0
+offset_right = 140.0
+offset_bottom = -60.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="PressureBar" unique_id=1493662491]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Pressure"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RawBar" type="ProgressBar" parent="." unique_id=756256194]
+offset_left = -140.0
+offset_top = -50.0
+offset_right = 140.0
+offset_bottom = -25.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="RawBar" unique_id=1841971858]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Raw"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="RefinedBar" type="ProgressBar" parent="." unique_id=394694585]
+offset_left = -140.0
+offset_top = -15.0
+offset_right = 140.0
+offset_bottom = 10.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="RefinedBar" unique_id=1504809661]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Refined"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sealer" type="Node2D" parent="." unique_id=927376679 node_paths=PackedStringArray("refinery", "slot", "lever_a", "lever_b")]
+position = Vector2(-75, 170)
+script = ExtResource("2_sealer")
+refinery = NodePath("..")
+slot = NodePath("Slot")
+lever_a = NodePath("../SealLeverA")
+lever_b = NodePath("../SealLeverB")
+
+[node name="Slot" parent="Sealer" unique_id=1232766012 instance=ExtResource("3_slot")]
+
+[node name="SealBar" type="ProgressBar" parent="Sealer" unique_id=1858451565]
+offset_left = -80.0
+offset_top = 100.0
+offset_right = 80.0
+offset_bottom = 120.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="Sealer/SealBar" unique_id=1163359214]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Seal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sealer2" type="Node2D" parent="." unique_id=1946720424 node_paths=PackedStringArray("refinery", "slot", "lever_a", "lever_b")]
+position = Vector2(75, 170)
+script = ExtResource("2_sealer")
+refinery = NodePath("..")
+slot = NodePath("Slot")
+lever_a = NodePath("../SealLeverA")
+lever_b = NodePath("../SealLeverB")
+
+[node name="Slot" parent="Sealer2" unique_id=1221504705 instance=ExtResource("3_slot")]
+
+[node name="SealBar" type="ProgressBar" parent="Sealer2" unique_id=920862831]
+offset_left = -80.0
+offset_top = 100.0
+offset_right = 80.0
+offset_bottom = 120.0
+mouse_filter = 2
+max_value = 1.0
+step = 0.001
+show_percentage = false
+
+[node name="Label" type="Label" parent="Sealer2/SealBar" unique_id=2090179296]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Seal"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SealLeverA" parent="." unique_id=1936800031 instance=ExtResource("4_lever")]
+position = Vector2(-350, 50)
+zoom_multiplier = 0.5
+
+[node name="SealLeverB" parent="." unique_id=1109664041 instance=ExtResource("4_lever")]
+position = Vector2(350, 50)
+zoom_multiplier = 0.5
+
+[node name="VentValveLeft" parent="." unique_id=1829702457 instance=ExtResource("5_valve")]
+position = Vector2(-650, 250)
+
+[node name="VentValveRight" parent="." unique_id=829829045 instance=ExtResource("5_valve")]
+position = Vector2(650, 250)
+side = 1
