@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://6knfg11m6n1n"]
 
-[ext_resource type="Script" uid="uid://byhduep46q832" path="res://Space Game/Space Ship/Processing/Processing Utility/hold_interactable.gd" id="1_kpskk"]
+[ext_resource type="Script" uid="uid://byhduep46q832" path="res://Space Game/Space Ship/Processing Sealing/Processing Utility/hold_interactable.gd" id="1_kpskk"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_range"]
 radius = 60.0

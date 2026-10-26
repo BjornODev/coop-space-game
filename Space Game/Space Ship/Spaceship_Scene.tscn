@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d0q5iak5s4qvt" path="res://Space Game/Space Ship/spaceship_scene.gd" id="1_v5hyi"]
 [ext_resource type="Script" uid="uid://712abu8pk1he" path="res://Space Game/Space Ship/interface_test.gd" id="2_fer4a"]
-[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/processing.tscn" id="3_sn48e"]
+[ext_resource type="PackedScene" uid="uid://cmvn21wydpxdy" path="res://Space Game/Space Ship/Processing Sealing/processing.tscn" id="3_sn48e"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3p2av"]
 radius = 164.00305

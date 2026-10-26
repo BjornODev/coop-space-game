@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" uid="uid://pkr78rn8lkki" path="res://Space Game/Space Ship/Processing/Refinery/vent_valve.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://pkr78rn8lkki" path="res://Space Game/Space Ship/Processing Sealing/Refinery/vent_valve.gd" id="1_script"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_range"]
 radius = 60.0

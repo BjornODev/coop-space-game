@@ -1,13 +1,13 @@
 [gd_scene format=3 uid="uid://nmqmee41iqef"]
 
-[ext_resource type="Script" uid="uid://crc80xoyjsive" path="res://Space Game/Space Ship/Processing/Canister/canister.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://crc80xoyjsive" path="res://Space Game/Space Ship/Processing Sealing/Canister/canister.gd" id="1_byme7"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_grab"]
 radius = 40.0
 
 [node name="Canister" type="Area2D" unique_id=1977214247]
 z_index = 1
-script = ExtResource("1_script")
+script = ExtResource("1_byme7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1287840044]
 shape = SubResource("CircleShape2D_grab")

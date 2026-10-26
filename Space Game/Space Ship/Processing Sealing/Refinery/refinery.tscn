@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://bxfwl3b2nki0d"]
 
-[ext_resource type="Script" uid="uid://41o88mvoa2in" path="res://Space Game/Space Ship/Processing/Refinery/refinery.gd" id="1_refinery"]
-[ext_resource type="Script" uid="uid://cd5p4ofa8t4c" path="res://Space Game/Space Ship/Processing/Refinery/sealer.gd" id="2_sealer"]
-[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/Canister/canister_slot.tscn" id="3_slot"]
-[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/Refinery/seal_lever.tscn" id="4_lever"]
-[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/Refinery/vent_valve.tscn" id="5_valve"]
+[ext_resource type="Script" uid="uid://41o88mvoa2in" path="res://Space Game/Space Ship/Processing Sealing/Refinery/refinery.gd" id="1_refinery"]
+[ext_resource type="Script" uid="uid://cd5p4ofa8t4c" path="res://Space Game/Space Ship/Processing Sealing/Refinery/sealer.gd" id="2_sealer"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing Sealing/Canister/canister_slot.tscn" id="3_slot"]
+[ext_resource type="PackedScene" uid="uid://6knfg11m6n1n" path="res://Space Game/Space Ship/Processing Sealing/Refinery/seal_lever.tscn" id="4_lever"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing Sealing/Refinery/vent_valve.tscn" id="5_valve"]
 
 [node name="Refinery" type="Node2D" unique_id=102748737 node_paths=PackedStringArray("left_valve", "right_valve")]
 script = ExtResource("1_refinery")
