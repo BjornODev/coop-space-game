@@ -1,6 +1,13 @@
 # This node is in control of handling player viewports for games.
 class_name FrameworkControl extends Control
 
+# Temporary macOS mapping fix for the club's 8BitDo Ultimate 2C controllers.
+# Standard controls work, but some extra buttons are mapped incorrectly.
+# If controller compatibility becomes an issue, replace this with
+# a more robust, platform-specific mapping system. (Easy I am just lazy)
+#The on ready portion is on line 75 btw
+const EIGHTBITDO_ULTIMATE_2C_MAC = "03003919c82d00001d30000001000000,8BitDo Ultimate 2C Wired Controller,a:b0,b:b1,y:b4,x:b3,start:b11,back:b10,leftstick:b13,rightstick:b14,leftshoulder:b6,rightshoulder:b7,dpup:b11,dpleft:b13,dpdown:b12,dpright:b14,leftx:a0,lefty:a1,rightx:a2,righty:a3,lefttrigger:a5,righttrigger:a4,platform:Mac OS X"
+
 ## Always 4, but I'd rather it be obvious when 4 shows up in code.
 const MAX_PLAYER_COUNT = 4
 
@@ -65,6 +72,9 @@ var player_select_screen : PlayerSelectScreen
 var game_scene : Game
 
 func _ready() -> void:
+	#This is the other portion of the MACOS Controller Fix <:
+	if OS.get_name() == "macOS":
+		Input.add_joy_mapping(EIGHTBITDO_ULTIMATE_2C_MAC, true)
 	# readies cameras, individually instead of a loop to prevent writing a setter that devs might accidentally use
 	set_3d(in_3d)
 	# modifies grid container to match splitscreen preferences
