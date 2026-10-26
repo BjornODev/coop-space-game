@@ -1,6 +1,7 @@
 class_name Player extends CharacterBody2D
 
 @onready var sprite = $"Sprite2D"
+@onready var item_manager: Node = $ItemManager
 
 var camera: Camera2D
 
@@ -89,9 +90,11 @@ func stop_interaction(interactable: Interactable) -> void:
 func _try_interact() -> void:
 	var candidates: Array = _nearby_interactables.filter(func(i): return is_instance_valid(i) and i.can_interact(self))
 	if candidates.is_empty():
+		item_manager.drop_held_item(get_global_position())
 		return
 	candidates.sort_custom(func(a, b): return global_position.distance_squared_to(a.global_position) < global_position.distance_squared_to(b.global_position))
 	candidates[0].interact(self)
+	
 
 ## Eases the camera toward a position and zoom. Returns true once it has arrived.
 func _move_camera_toward(target_position: Vector2, target_zoom: Vector2, delta: float) -> bool:

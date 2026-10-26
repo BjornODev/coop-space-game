@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dxkxaxces7ohy"]
+
+[ext_resource type="Script" uid="uid://btfc0yh41dd2e" path="res://Space Game/Space Ship/Processing/PhysicsItem/grab_area.gd" id="1_bx25t"]
+[ext_resource type="Script" uid="uid://cnn7nern0hot4" path="res://Space Game/Space Ship/Processing/PhysicsItem/physics_item.gd" id="1_h87dn"]
+[ext_resource type="Texture2D" uid="uid://bixo5j0bckefl" path="res://icon.svg" id="3_sv3s2"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k2tvh"]
+radius = 24.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qb0yc"]
+radius = 13.0
+
+[node name="PhysicsItem" type="RigidBody2D" unique_id=519446977]
+collision_layer = 4
+collision_mask = 6
+mass = 100.0
+gravity_scale = 0.0
+linear_damp = 0.7
+script = ExtResource("1_h87dn")
+
+[node name="GrabArea" type="Area2D" parent="." unique_id=1245249988]
+collision_layer = 0
+script = ExtResource("1_bx25t")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="GrabArea" unique_id=1552884472]
+shape = SubResource("CircleShape2D_k2tvh")
+debug_color = Color(0.35611734, 0.6186383, 0, 0.41960785)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2120077839]
+shape = SubResource("CircleShape2D_qb0yc")
+debug_color = Color(0.8325948, 0.39155352, 0, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1367506181]
+position = Vector2(0, -2)
+scale = Vector2(0.5481928, 0.6447368)
+texture = ExtResource("3_sv3s2")
+region_enabled = true
+region_rect = Rect2(23.200043, 29.59999, 83.19998, 76)
