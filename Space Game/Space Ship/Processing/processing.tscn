@@ -1,10 +1,10 @@
 [gd_scene format=3 uid="uid://cmvn21wydpxdy"]
 
 [ext_resource type="Script" uid="uid://bdodcv3m313hp" path="res://Space Game/Space Ship/Processing/ship_processing.gd" id="1_processing"]
-[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/canister.tscn" id="2_canister"]
-[ext_resource type="Script" uid="uid://o1arvr2ux77c" path="res://Space Game/Space Ship/Processing/grab_router.gd" id="3_router"]
-[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/refinery.tscn" id="4_refinery"]
-[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/ship_engine.tscn" id="5_engine"]
+[ext_resource type="PackedScene" uid="uid://nmqmee41iqef" path="res://Space Game/Space Ship/Processing/Canister/canister.tscn" id="2_canister"]
+[ext_resource type="Script" uid="uid://o1arvr2ux77c" path="res://Space Game/Space Ship/Processing/Processing Utility/grab_router.gd" id="3_router"]
+[ext_resource type="PackedScene" uid="uid://bxfwl3b2nki0d" path="res://Space Game/Space Ship/Processing/Refinery/refinery.tscn" id="4_refinery"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/Engine/ship_engine.tscn" id="5_engine"]
 
 [node name="Processing" type="Node2D" unique_id=1196255365 node_paths=PackedStringArray("refinery", "left_engine", "right_engine")]
 script = ExtResource("1_processing")

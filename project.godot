@@ -38,6 +38,9 @@ folder_colors={
 "res://Framework/Splitscreen/": "orange",
 "res://Space Game/": "purple",
 "res://Space Game/Space Ship/": "gray",
+"res://Space Game/Space Ship/Processing/Canister/": "teal",
+"res://Space Game/Space Ship/Processing/Engine/": "red",
+"res://Space Game/Space Ship/Processing/Refinery/": "orange",
 "res://YOUR GAME/": "green"
 }
 

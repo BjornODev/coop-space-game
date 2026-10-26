@@ -1,6 +1,6 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://Space Game/Space Ship/Processing/canister_slot.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://d2hflu7ttl11" path="res://Space Game/Space Ship/Processing/Canister/canister_slot.gd" id="1_script"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_range"]
 radius = 70.0

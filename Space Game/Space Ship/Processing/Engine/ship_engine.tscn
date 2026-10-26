@@ -1,7 +1,7 @@
 [gd_scene format=3]
 
-[ext_resource type="Script" path="res://Space Game/Space Ship/Processing/ship_engine.gd" id="1_engine"]
-[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/canister_slot.tscn" id="2_slot"]
+[ext_resource type="Script" uid="uid://iou63702dom3" path="res://Space Game/Space Ship/Processing/Engine/ship_engine.gd" id="1_engine"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Processing/Canister/canister_slot.tscn" id="2_slot"]
 
 [node name="Engine" type="Node2D"]
 script = ExtResource("1_engine")
