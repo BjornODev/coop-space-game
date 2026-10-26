@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://6knfg11m6n1n"]
+
+[ext_resource type="Script" uid="uid://byhduep46q832" path="res://Space Game/Space Ship/Processing Sealing/Processing Utility/hold_interactable.gd" id="1_kpskk"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_range"]
+radius = 60.0
+
+[node name="SealLever" type="Area2D" unique_id=15994176]
+script = ExtResource("1_kpskk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1411174339]
+shape = SubResource("CircleShape2D_range")
+
+[node name="Body" type="ColorRect" parent="." unique_id=1941914520]
+offset_left = -10.0
+offset_top = -30.0
+offset_right = 10.0
+offset_bottom = 30.0
+mouse_filter = 2
+color = Color(0.9, 0.9, 0.2, 1)
+
+[node name="NameLabel" type="Label" parent="." unique_id=1093287258]
+offset_left = -60.0
+offset_top = -58.0
+offset_right = 60.0
+offset_bottom = -35.0
+text = "Seal Lever"
+horizontal_alignment = 1
+
+[node name="StateLabel" type="Label" parent="." unique_id=1442886270]
+offset_left = -60.0
+offset_top = 35.0
+offset_right = 60.0
+offset_bottom = 58.0
+text = "-"
+horizontal_alignment = 1
