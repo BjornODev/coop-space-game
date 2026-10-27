@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AsteroidPalette" format=3 uid="uid://cbhotvfgtpewj"]
+
+[ext_resource type="Script" uid="uid://cft3hjhlc5e7g" path="res://Space Game/Space Ship/Bridge/Radar/asteroid_palette.gd" id="1_script"]
+
+[sub_resource type="Gradient" id="Gradient_value"]
+offsets = PackedFloat32Array(0, 0.33, 0.66, 1)
+colors = PackedColorArray(0.92, 0.18, 0.15, 1, 1, 0.55, 0.1, 1, 1, 0.92, 0.2, 1, 0.55, 1, 0.55, 1)
+
+[resource]
+script = ExtResource("1_script")
+value_gradient = SubResource("Gradient_value")

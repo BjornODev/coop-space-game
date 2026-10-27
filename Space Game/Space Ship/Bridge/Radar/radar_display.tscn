@@ -1,0 +1,43 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Space Game/Space Ship/Bridge/Radar/radar_display.gd" id="1_script"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Radar/radar_blip.tscn" id="2_blip"]
+[ext_resource type="Resource" path="res://Space Game/Space Ship/Bridge/Radar/asteroid_palette.tres" id="3_palette"]
+
+[node name="RadarDisplay" type="Control"]
+clip_contents = true
+custom_minimum_size = Vector2(320, 320)
+layout_mode = 3
+anchors_preset = 0
+offset_right = 320.0
+offset_bottom = 320.0
+mouse_filter = 2
+script = ExtResource("1_script")
+blip_scene = ExtResource("2_blip")
+palette = ExtResource("3_palette")
+
+[node name="Background" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Blips" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VelocityLine" type="Line2D" parent="."]
+width = 1.0
+default_color = Color(1, 1, 1, 0.5)
+
+[node name="ShipMarker" type="Polygon2D" parent="."]
+polygon = PackedVector2Array(0, -0.5, 0.4, 0.5, -0.4, 0.5)
