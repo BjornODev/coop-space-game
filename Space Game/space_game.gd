@@ -1,15 +1,12 @@
-extends Node2D
+extends Game2D
 
 var player = preload("res://Space Game/Player/player.tscn")
 
 ## Distance between players when they spawn.
 const SPAWN_SPACING = 120
 
-## Indicates the number of players in the game.
-var number_of_players: int
-
 ## Called by the framework once player select is done.
-func start(player_count: int, joined_players: Array[bool]) -> void:
+func start(player_count: int, joined_players: Array[bool], _zoom_matching) -> void:
 	var stored_players = []
 
 	# player number comes from joined_players index so each player keeps the controls they joined with
