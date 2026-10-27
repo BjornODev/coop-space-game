@@ -38,13 +38,13 @@ folder_colors={
 "res://Framework/Splitscreen/": "orange",
 "res://Space Game/": "purple",
 "res://Space Game/Space Ship/": "gray",
+"res://Space Game/Space Ship/Processing Sealing/Canister/": "teal",
+"res://Space Game/Space Ship/Processing Sealing/Engine/": "red",
+"res://Space Game/Space Ship/Processing Sealing/Refinery/": "orange",
 "res://Space Game/Space Ship/Processing/": "red",
 "res://Space Game/Space Ship/Processing/FuelUnit/": "red",
 "res://Space Game/Space Ship/Processing/MainUnit/": "orange",
 "res://Space Game/Space Ship/Processing/PhysicsItem/": "blue",
-"res://Space Game/Space Ship/Processing Sealing/Canister/": "teal",
-"res://Space Game/Space Ship/Processing Sealing/Engine/": "red",
-"res://Space Game/Space Ship/Processing Sealing/Refinery/": "orange",
 "res://YOUR GAME/": "green"
 }
 
