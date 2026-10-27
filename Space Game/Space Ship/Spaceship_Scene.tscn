@@ -1,0 +1,35 @@
+[gd_scene format=3 uid="uid://bhwcc1uyk7lhw"]
+
+[ext_resource type="Script" uid="uid://d0q5iak5s4qvt" path="res://Space Game/Space Ship/spaceship_scene.gd" id="1_v5hyi"]
+[ext_resource type="Script" uid="uid://712abu8pk1he" path="res://Space Game/Space Ship/interface_test.gd" id="2_fer4a"]
+[ext_resource type="PackedScene" uid="uid://cmvn21wydpxdy" path="res://Space Game/Space Ship/Processing Sealing/processing.tscn" id="3_sn48e"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3p2av"]
+radius = 164.00305
+
+[node name="SpaceshipScene" type="Node2D" unique_id=1429332466]
+script = ExtResource("1_v5hyi")
+
+[node name="InterfaceTest" type="Area2D" parent="." unique_id=1453877772]
+visible = false
+position = Vector2(585, 289)
+script = ExtResource("2_fer4a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="InterfaceTest" unique_id=511874491]
+shape = SubResource("CircleShape2D_3p2av")
+
+[node name="ColorRect" type="ColorRect" parent="InterfaceTest" unique_id=1936705082]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -164.0
+offset_top = -164.0
+offset_right = 164.0
+offset_bottom = 164.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 0.19215687, 1, 1)
+
+[node name="Processing" parent="." unique_id=565008341 instance=ExtResource("3_sn48e")]

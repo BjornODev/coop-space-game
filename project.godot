@@ -36,10 +36,15 @@ folder_colors={
 "res://Framework/Input Handling/": "purple",
 "res://Framework/Player Select Screen/": "yellow",
 "res://Framework/Splitscreen/": "orange",
-"res://Game Setup/": "pink",
-"res://Game Setup/2D/": "yellow",
-"res://Game Setup/3D/": "green",
-"res://Game Setup/Base Classes/": "gray",
+"res://Space Game/": "purple",
+"res://Space Game/Space Ship/": "gray",
+"res://Space Game/Space Ship/Processing Sealing/Canister/": "teal",
+"res://Space Game/Space Ship/Processing Sealing/Engine/": "red",
+"res://Space Game/Space Ship/Processing Sealing/Refinery/": "orange",
+"res://Space Game/Space Ship/Processing/": "red",
+"res://Space Game/Space Ship/Processing/FuelUnit/": "red",
+"res://Space Game/Space Ship/Processing/MainUnit/": "orange",
+"res://Space Game/Space Ship/Processing/PhysicsItem/": "blue",
 "res://YOUR GAME/": "green"
 }
 
@@ -98,6 +103,7 @@ controller_4_join_alt={
 
 [layer_names]
 
+2d_physics/layer_2="Player"
 2d_physics/layer_15="Framework Cursors"
 2d_physics/layer_16="Framework UI"
 
