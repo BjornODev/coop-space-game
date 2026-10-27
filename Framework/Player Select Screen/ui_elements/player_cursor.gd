@@ -1,10 +1,11 @@
-extends CharacterBody2D
+class_name PlayerCursor extends CharacterBody2D
 
 @export var player_number: int = 1
 
-@onready var sprite = $"Sprite2D"
+@onready var sprite : Sprite2D = $"Sprite2D" as Sprite2D
 ## Assigns own player number to this node.
-@onready var area = $"Area2D"
+#@onready var area : PlayerCursorCustomMouseArea = $"Area2D" as PlayerCursorCustomMouseArea
+@onready var player_cursor_custom_mouse_area: PlayerCursorCustomMouseArea = $PlayerCursorCustomMouseArea
 
 ## Rises all the way to 1
 var accel: float = 0
@@ -17,7 +18,7 @@ const SPEED: int = 800
 
 func _ready() -> void:
 	sprite.frame = player_number - 1
-	area.player_number = player_number
+	player_cursor_custom_mouse_area.player_number = player_number
 	deactivate()
 
 ## Used to show and start fetching inputs.

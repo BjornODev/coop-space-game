@@ -1,15 +1,15 @@
-extends TextureButton
+class_name Disconnect extends TextureButton
 
-@export var parent: Node
+@export var player_input_card: PlayerInputCard
 
-@onready var sprite = $"FakeSprite"
+@onready var sprite : Sprite2D = $"FakeSprite"
 
 ## When greater than 0, stays highlighted.
 var bodies_inside: int = 0
 
 ## Called by child when clicked.
 func clicked() -> void:
-	parent.disconnect_pressed()
+	player_input_card.disconnect_pressed()
 
 func _on_area_2d_area_entered(_area: Area2D) -> void:
 	bodies_inside += 1

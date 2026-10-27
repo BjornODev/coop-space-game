@@ -1,11 +1,7 @@
-extends CharacterBody3D
+class_name ExamplePlayer3D extends Player3D
 
 @onready var mesh = $"MeshInstance3D"
 @onready var camera_pivot = $"Camera Pivot"
-
-var camera: Camera3D
-
-var player_number: int = 1
 
 var current_grav: float
 
@@ -26,8 +22,27 @@ const MAX_SPEED: float = 10.0
 const GRAV: float = -40.0
 const GROUND_ACCEL: float = 120.0
 
+## Sets meshes based on player num so players are distinguishable from each other
+func set_player_mesh_based_on_num() -> void:
+	mesh.mesh = MeshInstance3D.new()
+	mesh.mesh = CapsuleMesh.new()
+	mesh.mesh.material = load("res://Example Game 3D/assets/material_p" + str(player_number) + ".tres")
+
+## Offsets player position so players don't all spawn on top of each other
+func set_player_position_based_on_num() -> void:
+	position.y = 1
+	position.x = player_number * 4
+
+
+func set_player_num(player_num: int) -> void:
+	# run normal func behavior
+	super(player_num)
+	# tack on some extra logic
+	set_player_mesh_based_on_num()
+	set_player_position_based_on_num()
+
+
 func _physics_process(delta: float) -> void:
-	
 	# input buffering
 	if Input.is_action_just_pressed(CoopInput.get_player(player_number).A):
 		jump_buffer = JUMP_BUFFER_MAX
@@ -78,14 +93,3 @@ func _physics_process(delta: float) -> void:
 	velocity.y = current_grav
 	move_and_slide()
 	camera.position = camera_pivot.global_position
-
-func set_player_num(player_num: int) -> void:
-	player_number = player_num
-	mesh.mesh = MeshInstance3D.new()
-	mesh.mesh = CapsuleMesh.new()
-	mesh.mesh.material = load("res://Example Game 3D/assets/material_p" + str(player_number) + ".tres")
-	position.y = 1
-	position.x = player_number * 4
-
-func set_camera(new_camera: Camera3D) -> void:
-	camera = new_camera

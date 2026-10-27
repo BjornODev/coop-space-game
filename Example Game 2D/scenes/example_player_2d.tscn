@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bvoswhpcw6t30"]
 
-[ext_resource type="Script" uid="uid://cywjqo66fw4j5" path="res://Example Game 2D/scenes/example_player.gd" id="1_w5njd"]
+[ext_resource type="Script" uid="uid://cywjqo66fw4j5" path="res://Example Game 2D/scenes/example_player_2d.gd" id="1_w5njd"]
 [ext_resource type="Texture2D" uid="uid://1hrijv756jxx" path="res://Example Game 2D/assets/paladog.png" id="2_g5m00"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_g5m00"]

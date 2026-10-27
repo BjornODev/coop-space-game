@@ -5,7 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://ddrfi5ddfjier" path="res://Framework/Player Select Screen/assets/disconnect_highlighted.png" id="3_cndwj"]
 [ext_resource type="Script" uid="uid://d385qp803064w" path="res://Framework/Player Select Screen/ui_elements/start_game.gd" id="4_he4ma"]
 [ext_resource type="Texture2D" uid="uid://366n7qfd2f4q" path="res://Framework/Player Select Screen/assets/disconnect_spritesheet.png" id="5_jyn8g"]
-[ext_resource type="Script" uid="uid://doip7h8wi4ext" path="res://Framework/Player Select Screen/ui_elements/disconnect_area_2d.gd" id="6_5q3va"]
+[ext_resource type="Script" uid="uid://doip7h8wi4ext" path="res://Framework/Player Select Screen/ui_elements/player_cursor_custom_mouse_area_collider.gd" id="6_5q3va"]
 [ext_resource type="Shader" uid="uid://x1hmepypdwfn" path="res://Framework/Player Select Screen/ui_elements/player_input_card_sprite.gdshader" id="6_cndwj"]
 [ext_resource type="Texture2D" uid="uid://c7ry2ul5ongmh" path="res://Framework/Player Select Screen/assets/disconnect_back.png" id="7_kfeik"]
 
@@ -51,15 +51,15 @@ theme_override_font_sizes/normal_font_size = 48
 bbcode_enabled = true
 text = "[center]Start"
 
-[node name="Area2D" type="Area2D" parent="." unique_id=604879008 node_paths=PackedStringArray("parent_button")]
+[node name="StartGameArea2D" type="Area2D" parent="." unique_id=604879008 node_paths=PackedStringArray("parent_button")]
 position = Vector2(20, 12)
 collision_layer = 32768
 collision_mask = 16384
 script = ExtResource("6_5q3va")
 parent_button = NodePath("..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1404629565]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StartGameArea2D" unique_id=1404629565]
 shape = SubResource("RectangleShape2D_bk7jt")
 
-[connection signal="area_entered" from="Area2D" to="." method="_on_area_2d_area_entered"]
-[connection signal="area_exited" from="Area2D" to="." method="_on_area_2d_area_exited"]
+[connection signal="area_entered" from="StartGameArea2D" to="." method="_on_area_2d_area_entered"]
+[connection signal="area_exited" from="StartGameArea2D" to="." method="_on_area_2d_area_exited"]

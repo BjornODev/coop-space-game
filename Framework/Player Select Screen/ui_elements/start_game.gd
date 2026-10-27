@@ -1,8 +1,8 @@
-extends TextureButton
+class_name StartGameButton extends TextureButton
 
-@export var parent: Node
+@export var parent: PlayerSelectScreen
 
-@onready var sprite = $"FakeSprite"
+@onready var sprite : Sprite2D = $"FakeSprite" as Sprite2D
 
 ## When greater than 0, stays highlighted.
 var bodies_inside: int = 0

@@ -164,17 +164,21 @@ layout_mode = 2
 alignment = 1
 
 [node name="Player Input Card" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1057364299 instance=ExtResource("2_ibhy5")]
+unique_name_in_owner = true
 layout_mode = 2
 
 [node name="Player Input Card2" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1240820211 instance=ExtResource("2_ibhy5")]
+unique_name_in_owner = true
 layout_mode = 2
 player_num = 2
 
 [node name="Player Input Card3" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1004195052 instance=ExtResource("2_ibhy5")]
+unique_name_in_owner = true
 layout_mode = 2
 player_num = 3
 
 [node name="Player Input Card4" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1203042942 instance=ExtResource("2_ibhy5")]
+unique_name_in_owner = true
 layout_mode = 2
 player_num = 4
 
@@ -186,6 +190,7 @@ anchor_right = 0.5
 grow_horizontal = 2
 
 [node name="Start Game" parent="CanvasLayer/Control/Control 2" unique_id=1640539613 node_paths=PackedStringArray("parent") instance=ExtResource("5_e50m0")]
+unique_name_in_owner = true
 layout_mode = 0
 anchors_preset = 0
 anchor_left = 0.0

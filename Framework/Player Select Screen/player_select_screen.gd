@@ -1,6 +1,31 @@
-extends Node2D
+class_name PlayerSelectScreen extends Node2D
 
-@onready var anim = $"AnimationPlayer"
+@onready var anim : AnimationPlayer = $"AnimationPlayer" as AnimationPlayer
+@onready var start_game_button: StartGameButton = %"Start Game" as StartGameButton
+
+@onready var player_input_card_1: PlayerInputCard = %"Player Input Card" as PlayerInputCard
+@onready var player_input_card_2: PlayerInputCard = %"Player Input Card2" as PlayerInputCard
+@onready var player_input_card_3: PlayerInputCard = %"Player Input Card3" as PlayerInputCard
+@onready var player_input_card_4: PlayerInputCard = %"Player Input Card4" as PlayerInputCard
+
+@onready var player_input_cards: Array[PlayerInputCard] = [
+	player_input_card_1,
+	player_input_card_2,
+	player_input_card_3,
+	player_input_card_4
+]
+
+@onready var player_cursor_1: PlayerCursor = $"CanvasLayer/Player Cursor 1" as PlayerCursor
+@onready var player_cursor_2: PlayerCursor = $"CanvasLayer/Player Cursor 2" as PlayerCursor
+@onready var player_cursor_3: PlayerCursor = $"CanvasLayer/Player Cursor 3" as PlayerCursor
+@onready var player_cursor_4: PlayerCursor = $"CanvasLayer/Player Cursor 4" as PlayerCursor
+
+@onready var player_cursors: Array[CharacterBody2D] = [
+	player_cursor_1,
+	player_cursor_2,
+	player_cursor_3,
+	player_cursor_4
+]
 
 ## When true, prevents a player from joining on the given frame. Prevents disconnect button from instantly causing player to rejoin.
 var just_removed_player: bool = false
@@ -15,7 +40,7 @@ var allowed_control_types: Array[String] = []
 var currently_used_controls: Array[String] = ["", "", "", ""]
 
 ## Used to determine which player to add new inputs to.
-var player_count = 0
+var player_count : int = 0
 
 ## Determines the minimum number of players your game can have. Ranges from 1 to 4.
 var minimum_players: int = 1
@@ -38,33 +63,7 @@ var allow_controller: bool = true
 
 ## I am resisting the urge to get_parent().get_parent().get_parent().get_parent().
 ## Referenced when starting up the actual game.
-var framework_control: Node
-
-@onready var player_input_card_1: Control = $"CanvasLayer/Control/MarginContainer/HBoxContainer/Player Input Card"
-@onready var player_input_card_2: Control = $"CanvasLayer/Control/MarginContainer/HBoxContainer/Player Input Card2"
-@onready var player_input_card_3: Control = $"CanvasLayer/Control/MarginContainer/HBoxContainer/Player Input Card3"
-@onready var player_input_card_4: Control = $"CanvasLayer/Control/MarginContainer/HBoxContainer/Player Input Card4"
-
-@onready var player_input_cards: Array[Control] = [
-	player_input_card_1,
-	player_input_card_2,
-	player_input_card_3,
-	player_input_card_4
-]
-
-@onready var player_cursor_1: CharacterBody2D = $"CanvasLayer/Player Cursor 1"
-@onready var player_cursor_2: CharacterBody2D = $"CanvasLayer/Player Cursor 2"
-@onready var player_cursor_3: CharacterBody2D = $"CanvasLayer/Player Cursor 3"
-@onready var player_cursor_4: CharacterBody2D = $"CanvasLayer/Player Cursor 4"
-
-@onready var player_cursors: Array[CharacterBody2D] = [
-	player_cursor_1,
-	player_cursor_2,
-	player_cursor_3,
-	player_cursor_4
-]
-
-@onready var start_game_button = $"CanvasLayer/Control/Control 2/Start Game"
+var framework_control: FrameworkControl
 
 ## Little animation variable.
 var instructions_visible = true
@@ -125,7 +124,7 @@ func _process(_delta: float) -> void:
 		just_removed_player = false
 
 ## Assigns the node that will be called to start the game once the game starts.
-func assign_framework_control(parent_parent_parent_parent: Node) -> void:
+func assign_framework_control(parent_parent_parent_parent: FrameworkControl) -> void:
 	framework_control = parent_parent_parent_parent
 
 ## TRIES to add a new player with the given control scheme. Can fail.
@@ -144,7 +143,7 @@ func add_new_player(control_name: String) -> void:
 	CoopInput.get_player(player_num)._assign_inputs(control_name)
 	
 	# activates corresponding cursor
-	player_cursors[player_num - 1].activate(player_input_cards[player_num - 1].global_position)
+	(player_cursors[player_num - 1] as PlayerCursor).activate(player_input_cards[player_num - 1].global_position)
 	
 	# cosmetic anim
 	if instructions_visible:
@@ -167,7 +166,7 @@ func remove_player(player_num: int) -> void:
 	#currently_used_controls.pop_at(player_num - 1)
 	player_count -= 1
 	# activates corresponding cursor
-	player_cursors[player_num - 1].deactivate()
+	(player_cursors[player_num - 1] as PlayerCursor).deactivate()
 	just_removed_player = true
 	
 	# enable/disable start game button
@@ -185,4 +184,4 @@ func start_game() -> void:
 		# an array of booleans that equals [true, false, true, true], etc. that contains the existence of P1, P2, P3, and P4
 		joined_players.assign([(currently_used_controls[0] != ""), (currently_used_controls[1] != ""), (currently_used_controls[2] != ""), (currently_used_controls[3] != "")])
 		# then actually start the thing
-		framework_control.start_game(player_count, joined_players)
+		framework_control.start_game(player_count, joined_players, framework_control.zoom_matching)

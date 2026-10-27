@@ -6,6 +6,7 @@
 
 [node name="Space Game" type="Node2D" unique_id=1468521417]
 script = ExtResource("1_game")
+PLAYER_SCENE = "uid://btbloowmcl88g"
 
 [node name="ProcessingUnit" parent="." unique_id=1601074500 instance=ExtResource("2_xy06q")]
 position = Vector2(0, -1)
