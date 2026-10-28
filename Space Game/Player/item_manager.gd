@@ -13,12 +13,12 @@ func add_item(item : Dictionary) -> bool:
 	else:
 		return false # player is already holding item
 
-func remove_held_item(status: String) -> Dictionary:
+func remove_held_item() -> Dictionary:
 	var item : Dictionary = item_being_held
-	if item and item["Status"] == status:
+	if item:
 		item_being_held = {}
 		return item
-	return {} # no item held or wrong item, returns empty set
+	return {} # no item held returns empty set
 
 func drop_held_item(global_pos : Vector2) -> void:
 	if not item_being_held:

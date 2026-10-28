@@ -3,8 +3,8 @@ extends Interactable
 signal item_grabbed
 @export var item : Dictionary = {
 	"Texture":"", 
-	"Status":"unrefined",
-	"Purity" : 50
+	"Amount":100,
+	"Purity" : 0.5
 }
 
 # timeout time changeable, just make sure not too small (0.01>)

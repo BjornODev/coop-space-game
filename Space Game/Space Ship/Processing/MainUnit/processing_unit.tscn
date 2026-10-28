@@ -15,7 +15,7 @@ size = Vector2(73.5, 72.75)
 size = Vector2(71.5, 72)
 
 [sub_resource type="Gradient" id="Gradient_kqprp"]
-offsets = PackedFloat32Array(0, 0.5777202, 0.5984456, 0.9352332, 1)
+offsets = PackedFloat32Array(0, 0.34455958, 0.44300517, 0.9352332, 1)
 colors = PackedColorArray(1, 1, 0.72156864, 1, 1, 0.73333335, 0, 1, 0, 0.5803922, 0, 1, 0.50322586, 0.28832382, 0, 1, 1, 0, 0, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_k2tvh"]
@@ -56,7 +56,7 @@ position = Vector2(-20.565704, 241.01541)
 script = ExtResource("3_kqprp")
 
 [node name="Valve" type="Area2D" parent="MainUnit" unique_id=2117903995]
-position = Vector2(160.08698, 16.588104)
+position = Vector2(101.71991, -62.8414)
 script = ExtResource("3_ym24x")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MainUnit/Valve" unique_id=1037846382]
@@ -76,11 +76,12 @@ offset_left = 8.2499695
 offset_top = 6.4118958
 offset_right = 98.24997
 offset_bottom = 81.411896
-text = "Refining 
-Out"
+text = "On/Off
+Relief 
+Valve "
 
 [node name="RefiningTerminal" type="Area2D" parent="MainUnit" unique_id=932807065]
-position = Vector2(-157.41306, 14.088104)
+position = Vector2(-102.91611, -30.387787)
 script = ExtResource("2_rpqro")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MainUnit/RefiningTerminal" unique_id=1342741042]
@@ -109,7 +110,7 @@ offset_top = -123.0
 offset_right = 33.0
 offset_bottom = -59.0
 max_value = 1.0
-step = 0.01
+step = 0.001
 fill_mode = 4
 texture_progress = SubResource("GradientTexture2D_k2tvh")
 
@@ -122,45 +123,28 @@ offset_right = 88.0
 offset_bottom = 100.0
 color = Color(0.69467354, 0.69467354, 0.6946735, 1)
 
-[node name="FuelInputUnit" type="Node2D" parent="." unique_id=1105895068]
+[node name="OnOffRect" type="ColorRect" parent="MainUnit" unique_id=1236976132]
+offset_left = -59.0
+offset_top = -159.0
+offset_right = -47.0
+offset_bottom = -140.0
+color = Color(1, 0, 0, 1)
+
+[node name="FuelInputUnit" type="Node2D" parent="MainUnit" unique_id=1105895068]
 position = Vector2(210, 1)
 script = ExtResource("5_ym24x")
 
-[node name="FuelTerminal" type="Area2D" parent="FuelInputUnit" unique_id=1969798446]
-position = Vector2(210, -48)
-script = ExtResource("2_rpqro")
-quality_status = "refined"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FuelInputUnit/FuelTerminal" unique_id=1854843609]
-position = Vector2(-1.6607056, 3.9165955)
-shape = SubResource("RectangleShape2D_k2tvh")
-
-[node name="Standin" type="ColorRect" parent="FuelInputUnit/FuelTerminal" unique_id=636218962]
-offset_left = -43.0
-offset_top = -37.0
-offset_right = 36.0
-offset_bottom = 45.0
-color = Color(0.972549, 0.15686275, 0.29411766, 1)
-
-[node name="Label" type="Label" parent="FuelInputUnit/FuelTerminal/Standin" unique_id=1484491119]
-layout_mode = 0
-offset_left = 16.336945
-offset_top = -2.1618958
-offset_right = 106.336945
-offset_bottom = 72.838104
-text = "Fuel
-In"
-
-[node name="FuelBar" type="TextureProgressBar" parent="FuelInputUnit" unique_id=451001456]
-offset_left = 279.0
-offset_top = -104.0
-offset_right = 337.0
-offset_bottom = 19.0
+[node name="FuelBar" type="TextureProgressBar" parent="MainUnit/FuelInputUnit" unique_id=451001456]
+offset_left = -36.0
+offset_top = -136.0
+offset_right = 28.0
+offset_bottom = -13.0
+max_value = 1000.0
 fill_mode = 3
 texture_progress = SubResource("GradientTexture2D_0qman")
 script = ExtResource("6_0qman")
 
-[node name="ColorRect" type="ColorRect" parent="FuelInputUnit/FuelBar" unique_id=37405915]
+[node name="ColorRect" type="ColorRect" parent="MainUnit/FuelInputUnit/FuelBar" unique_id=37405915]
 show_behind_parent = true
 layout_mode = 0
 offset_left = -31.0
@@ -169,29 +153,30 @@ offset_right = 91.0
 offset_bottom = 124.0
 color = Color(0.69467354, 0.69467354, 0.6946735, 1)
 
-[node name="ImpurityBar" type="TextureProgressBar" parent="FuelInputUnit/FuelBar" unique_id=20051491]
+[node name="ImpurityBar" type="TextureProgressBar" parent="MainUnit/FuelInputUnit/FuelBar" unique_id=20051491]
 layout_mode = 0
 offset_right = 64.0
 offset_bottom = 121.0
+max_value = 1000.0
 fill_mode = 3
 texture_progress = SubResource("GradientTexture2D_1lglt")
 
-[node name="ImpurityDrain" type="Area2D" parent="FuelInputUnit" unique_id=680313023]
-position = Vector2(316.74158, 57.833008)
+[node name="ImpurityDrain" type="Area2D" parent="MainUnit/FuelInputUnit" unique_id=680313023]
+position = Vector2(1.7415771, 25.833008)
 script = ExtResource("7_i4eb1")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="FuelInputUnit/ImpurityDrain" unique_id=868876569]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainUnit/FuelInputUnit/ImpurityDrain" unique_id=868876569]
 position = Vector2(-1.6607056, 3.9165955)
 shape = SubResource("RectangleShape2D_k2tvh")
 
-[node name="Standin" type="ColorRect" parent="FuelInputUnit/ImpurityDrain" unique_id=646721359]
+[node name="Standin" type="ColorRect" parent="MainUnit/FuelInputUnit/ImpurityDrain" unique_id=646721359]
 offset_left = -43.0
 offset_top = -37.0
 offset_right = 36.0
 offset_bottom = 45.0
 color = Color(0.74674416, 0.34729627, 0.80891544, 1)
 
-[node name="Label" type="Label" parent="FuelInputUnit/ImpurityDrain/Standin" unique_id=288471004]
+[node name="Label" type="Label" parent="MainUnit/FuelInputUnit/ImpurityDrain/Standin" unique_id=288471004]
 layout_mode = 0
 offset_left = 8.258423
 offset_top = 13.166992
@@ -200,4 +185,4 @@ offset_bottom = 88.16699
 text = "Impurity
 Drain"
 
-[node name="DrainTimer" type="Timer" parent="FuelInputUnit/ImpurityDrain" unique_id=119707000]
+[node name="DrainTimer" type="Timer" parent="MainUnit/FuelInputUnit/ImpurityDrain" unique_id=119707000]
