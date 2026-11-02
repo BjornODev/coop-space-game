@@ -9,8 +9,10 @@ signal scanned
 
 ## Position in simulation space.
 var position: Vector2 = Vector2.ZERO
-## Drift per second. Zero for stationary asteroids.
+## Drift per second. Zero for stationary asteroids. Kept while suction pulls the asteroid, so its drift resumes afterwards.
 var velocity: Vector2 = Vector2.ZERO
+## Movement per second from suction, which overrides the drift. Zero while not being pulled.
+var pull_velocity: Vector2 = Vector2.ZERO
 ## Collision and display radius in simulation units.
 var radius: float = 0.0
 ## The most fuel an asteroid of this size could hold.
@@ -25,6 +27,14 @@ var scan_time: float = 1.0
 var scan_progress: float = 0.0
 ## True once fully scanned. Scanned asteroids can't be scanned again.
 var is_scanned: bool = false
+
+## True while suction is pulling this asteroid.
+func is_being_pulled() -> bool:
+	return pull_velocity != Vector2.ZERO
+
+## How this asteroid is moving right now: its suction pull if it has one, otherwise its drift.
+func get_current_velocity() -> Vector2:
+	return pull_velocity if is_being_pulled() else velocity
 
 ## How far along the scan is, from 0 to 1.
 func get_scan_ratio() -> float:

@@ -6,7 +6,7 @@ class_name RouteView extends Control
 ## Scene instanced once per asteroid cluster. It is resized to cover the cluster.
 @export var cloud_scene: PackedScene
 ## Simulation units of empty space kept around the two planets when framing the map.
-@export var frame_padding: float = 3000.0
+@export var frame_padding: float = 9000.0
 ## Ship marker size as a fraction of the map's width.
 @export var ship_marker_fraction: float = 0.05
 ## Clouds never get smaller than this many pixels in radius.
@@ -45,6 +45,8 @@ func _process(_delta: float) -> void:
 
 	var clusters: Array[BridgeAsteroidCluster] = _simulation.get_clusters()
 	for i: int in mini(clusters.size(), _clouds.size()):
+		# a cluster with every asteroid captured has no position left to show
+		_clouds[i].visible = not clusters[i].asteroids.is_empty()
 		var radius: float = maxf(clusters[i].get_extent() * get_pixels_per_unit(), min_cloud_radius)
 		_clouds[i].position = world_to_map(clusters[i].get_center()) - Vector2.ONE * radius
 		_clouds[i].size = Vector2.ONE * radius * 2.0

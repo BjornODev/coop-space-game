@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Space Game/Space Ship/Bridge/Radar/radar_display.gd" id="1_script"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Radar/radar_blip.tscn" id="2_blip"]
 [ext_resource type="Resource" path="res://Space Game/Space Ship/Bridge/Radar/asteroid_palette.tres" id="3_palette"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Radar/suction_arm_view.tscn" id="4_arm"]
 
 [node name="RadarDisplay" type="Control"]
 clip_contents = true
@@ -38,6 +39,8 @@ mouse_filter = 2
 [node name="VelocityLine" type="Line2D" parent="."]
 width = 1.0
 default_color = Color(1, 1, 1, 0.5)
+
+[node name="SuctionArmView" parent="." instance=ExtResource("4_arm")]
 
 [node name="ShipMarker" type="Polygon2D" parent="."]
 polygon = PackedVector2Array(0, -0.5, 0.4, 0.5, -0.4, 0.5)

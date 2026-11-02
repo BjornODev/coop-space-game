@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Simulation/space_simulation.tscn" id="1_simulation"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/navigation_screen.tscn" id="2_navigation"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/scanner_screen.tscn" id="3_scanner"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/harvesting_screen.tscn" id="4_harvesting"]
 
 [node name="Bridge" type="Node2D" unique_id=1939659918]
 
@@ -16,4 +17,8 @@ simulation = NodePath("../SpaceSimulation")
 
 [node name="ScannerScreen" parent="." unique_id=1783616904 node_paths=PackedStringArray("simulation") instance=ExtResource("3_scanner")]
 position = Vector2(150, 0)
+simulation = NodePath("../SpaceSimulation")
+
+[node name="HarvestingScreen" parent="." unique_id=684201377 node_paths=PackedStringArray("simulation") instance=ExtResource("4_harvesting")]
+position = Vector2(450, 0)
 simulation = NodePath("../SpaceSimulation")
