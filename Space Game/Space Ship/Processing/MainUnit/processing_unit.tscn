@@ -190,5 +190,6 @@ Drain"
 [node name="DrainTimer" type="Timer" parent="MainUnit/FuelInputUnit/ImpurityDrain" unique_id=119707000]
 
 [node name="Pumps" type="Node2D" parent="." unique_id=1675664085]
+position = Vector2(490.04932, -56.63092)
 
 [node name="Pump" parent="Pumps" unique_id=274365798 instance=ExtResource("8_8csny")]

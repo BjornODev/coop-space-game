@@ -2,7 +2,7 @@ extends Interactable
 
 signal item_grabbed
 @export var item : Dictionary = {
-	"Texture":"", 
+	"Texture":preload("res://Framework/Assets/icon.svg"), 
 	"Amount":100,
 	"Purity" : 0.5
 }
