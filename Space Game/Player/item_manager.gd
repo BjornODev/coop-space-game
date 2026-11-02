@@ -17,19 +17,21 @@ func add_item(item : Dictionary) -> bool:
 	else:
 		return false # player is already holding item
 
-func remove_held_item() -> Dictionary:
+func remove_held_item(type : String) -> Dictionary:
 	var item : Dictionary = item_being_held
-	if item:
+	if not item:
+		return {} # no item held returns empty set
+	elif item["Type"] == type:
 		reset_item_held()
 		return item
-	return {} # no item held returns empty set
+	return {} 
 
 func drop_held_item(global_pos : Vector2) -> void:
 	if not item_being_held:
 		return
 	
 	var new_item = PHYSICS_ITEM.instantiate()
-	new_item.item_type = item_being_held
+	new_item.item = item_being_held
 	reset_item_held()
 	add_child(new_item)
 	new_item.set_global_position(global_pos)

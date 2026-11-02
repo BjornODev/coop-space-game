@@ -1,6 +1,6 @@
 extends Interactable
 
-signal valve_interacted(player : Player)
+signal valve_interacted
 
 # timeout time changeable, just make sure not too small (0.01>)
 func _on_interaction_started(player: Player) -> void:

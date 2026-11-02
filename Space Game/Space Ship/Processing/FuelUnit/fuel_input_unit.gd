@@ -2,6 +2,7 @@ extends Node2D
 
 @onready var fuel_bar: TextureProgressBar = $FuelBar
 @onready var impurity_drain: Interactable = $ImpurityDrain
+@onready var sealing_unit: Node2D = $SealingUnit
 
 @export var pumps : Array[Pump]
 
@@ -21,4 +22,6 @@ func set_drain_timer(drain_timer : Timer) -> void:
 	fuel_bar.move_to_impurity = 0
 
 func send_pure_fuel() -> void:
-	pass
+	if fuel_bar.move_to_fuel >= 10:
+		fuel_bar.move_to_fuel -= 10
+		sealing_unit.add_pressurized_fuel(10)

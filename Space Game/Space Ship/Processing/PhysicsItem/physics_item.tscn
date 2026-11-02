@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://btfc0yh41dd2e" path="res://Space Game/Space Ship/Processing/PhysicsItem/grab_area.gd" id="1_bx25t"]
 [ext_resource type="Script" uid="uid://cnn7nern0hot4" path="res://Space Game/Space Ship/Processing/PhysicsItem/physics_item.gd" id="1_h87dn"]
-[ext_resource type="Texture2D" uid="uid://bixo5j0bckefl" path="res://icon.svg" id="3_sv3s2"]
+[ext_resource type="Texture2D" uid="uid://bixo5j0bckefl" path="res://Framework/Assets/icon.svg" id="3_sv3s2"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k2tvh"]
 radius = 24.0

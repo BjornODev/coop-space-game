@@ -2,12 +2,15 @@
 
 [ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/Processing/PhysicsItem/physics_item.tscn" id="1_jd8dc"]
 [ext_resource type="Script" uid="uid://cdgfx3gba43j6" path="res://Space Game/Space Ship/Processing/input_terminal.gd" id="2_rpqro"]
+[ext_resource type="Texture2D" uid="uid://dh0ramf8bubv3" path="res://Framework/Assets/icon.png" id="2_trnoi"]
 [ext_resource type="Script" uid="uid://cl4pc4neljt4c" path="res://Space Game/Space Ship/Processing/MainUnit/main_unit.gd" id="3_kqprp"]
 [ext_resource type="Script" uid="uid://072xl5gw5y0o" path="res://Space Game/Space Ship/Processing/MainUnit/valve.gd" id="3_ym24x"]
 [ext_resource type="Script" uid="uid://e7aci72v8qh" path="res://Space Game/Space Ship/Processing/FuelUnit/fuel_input_unit.gd" id="5_ym24x"]
 [ext_resource type="Script" uid="uid://bcsylrlyj1b0h" path="res://Space Game/Space Ship/Processing/FuelUnit/fuel_bar.gd" id="6_0qman"]
 [ext_resource type="Script" uid="uid://rsxq3pvr15nb" path="res://Space Game/Space Ship/Processing/FuelUnit/impurity_drain.gd" id="7_i4eb1"]
 [ext_resource type="PackedScene" uid="uid://dtw5utxdsu2dd" path="res://Space Game/Space Ship/Processing/Pump/pump.tscn" id="8_8csny"]
+[ext_resource type="Script" uid="uid://x53l58xsfndj" path="res://Space Game/Space Ship/Processing/SealingUnit/sealing_unit.gd" id="9_maua5"]
+[ext_resource type="Script" uid="uid://fg6vjbovyeco" path="res://Space Game/Space Ship/Processing/SealingUnit/output_terminal.gd" id="9_pjbpa"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tvh"]
 size = Vector2(73.5, 72.75)
@@ -42,6 +45,9 @@ colors = PackedColorArray(0.60784316, 1, 0, 1, 0.2627451, 0.21568628, 0.04313725
 gradient = SubResource("Gradient_0qman")
 height = 120
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1lglt"]
+size = Vector2(131, 126)
+
 [node name="ProcessingUnit" type="Node2D" unique_id=1845550927]
 
 [node name="PhysicsItem" parent="." unique_id=519446977 instance=ExtResource("1_jd8dc")]
@@ -52,6 +58,16 @@ position = Vector2(-57.83368, 177.12741)
 
 [node name="PhysicsItem3" parent="." unique_id=38308933 instance=ExtResource("1_jd8dc")]
 position = Vector2(-20.565704, 241.01541)
+
+[node name="PhysicsItem4" parent="." unique_id=1327897538 instance=ExtResource("1_jd8dc")]
+position = Vector2(623.56555, 185.86133)
+item = {
+"Amount": 100,
+"Purity": 0.5,
+"Status": 0,
+"Texture": ExtResource("2_trnoi"),
+"Type": "Capsule"
+}
 
 [node name="MainUnit" type="Node2D" parent="." unique_id=639789528]
 script = ExtResource("3_kqprp")
@@ -188,6 +204,41 @@ text = "Impurity
 Drain"
 
 [node name="DrainTimer" type="Timer" parent="MainUnit/FuelInputUnit/ImpurityDrain" unique_id=119707000]
+
+[node name="SealingUnit" type="Node2D" parent="MainUnit/FuelInputUnit" unique_id=613891703]
+position = Vector2(563.00305, -34.99463)
+script = ExtResource("9_maua5")
+
+[node name="OutputTerminal" type="Area2D" parent="MainUnit/FuelInputUnit/SealingUnit" unique_id=1796881646]
+script = ExtResource("9_pjbpa")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MainUnit/FuelInputUnit/SealingUnit/OutputTerminal" unique_id=2113040501]
+position = Vector2(-0.50305176, -0.0053710938)
+shape = SubResource("RectangleShape2D_1lglt")
+
+[node name="ColorRect" type="ColorRect" parent="MainUnit/FuelInputUnit/SealingUnit/OutputTerminal/CollisionShape2D" unique_id=1312664866]
+offset_left = -65.5
+offset_top = -63.0
+offset_right = 65.5
+offset_bottom = 63.0
+color = Color(0.30588236, 0.7647059, 0.16862746, 1)
+
+[node name="Label" type="Label" parent="MainUnit/FuelInputUnit/SealingUnit/OutputTerminal/CollisionShape2D/ColorRect" unique_id=1211820533]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 72.0
+offset_right = 120.0
+offset_bottom = 121.0
+text = "Sealing Unit
+Output"
+
+[node name="PressurizedFuelLabel" type="Label" parent="MainUnit/FuelInputUnit/SealingUnit" unique_id=1929436152]
+offset_left = -66.00305
+offset_top = -60.00537
+offset_right = 65.99695
+offset_bottom = -11.005371
+text = "Pressurized Fuel: 0"
+autowrap_mode = 2
 
 [node name="Pumps" type="Node2D" parent="." unique_id=1675664085]
 position = Vector2(490.04932, -56.63092)
