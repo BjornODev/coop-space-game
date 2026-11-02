@@ -59,16 +59,6 @@ position = Vector2(-57.83368, 177.12741)
 [node name="PhysicsItem3" parent="." unique_id=38308933 instance=ExtResource("1_jd8dc")]
 position = Vector2(-20.565704, 241.01541)
 
-[node name="PhysicsItem4" parent="." unique_id=1327897538 instance=ExtResource("1_jd8dc")]
-position = Vector2(623.56555, 185.86133)
-item = {
-"Amount": 100,
-"Purity": 0.5,
-"Status": 0,
-"Texture": ExtResource("2_trnoi"),
-"Type": "Capsule"
-}
-
 [node name="MainUnit" type="Node2D" parent="." unique_id=639789528]
 script = ExtResource("3_kqprp")
 
@@ -237,10 +227,42 @@ offset_left = -66.00305
 offset_top = -60.00537
 offset_right = 65.99695
 offset_bottom = -11.005371
-text = "Pressurized Fuel: 0"
-autowrap_mode = 2
+text = "Pressurized
+Fuel: 0"
 
 [node name="Pumps" type="Node2D" parent="." unique_id=1675664085]
 position = Vector2(490.04932, -56.63092)
 
 [node name="Pump" parent="Pumps" unique_id=274365798 instance=ExtResource("8_8csny")]
+
+[node name="StartingCanisters" type="Node2D" parent="." unique_id=1104000079]
+
+[node name="PhysicsItem4" parent="StartingCanisters" unique_id=1327897538 instance=ExtResource("1_jd8dc")]
+position = Vector2(796.7781, 149.99829)
+item = {
+"Amount": 100,
+"Purity": 0.5,
+"Status": 0,
+"Texture": ExtResource("2_trnoi"),
+"Type": "Capsule"
+}
+
+[node name="PhysicsItem5" parent="StartingCanisters" unique_id=8447383 instance=ExtResource("1_jd8dc")]
+position = Vector2(863.8605, 144.67429)
+item = {
+"Amount": 100,
+"Purity": 0.5,
+"Status": 0,
+"Texture": ExtResource("2_trnoi"),
+"Type": "Capsule"
+}
+
+[node name="PhysicsItem6" parent="StartingCanisters" unique_id=1391753140 instance=ExtResource("1_jd8dc")]
+position = Vector2(724, 148)
+item = {
+"Amount": 100,
+"Purity": 0.5,
+"Status": 0,
+"Texture": ExtResource("2_trnoi"),
+"Type": "Capsule"
+}

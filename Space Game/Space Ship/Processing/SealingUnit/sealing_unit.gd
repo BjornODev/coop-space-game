@@ -18,4 +18,4 @@ func fill_empty_capsule(player: Player) -> void:
 
 func add_pressurized_fuel(amount : int) -> void:
 	pressurized_fuel += amount
-	pressurized_fuel_label.text = "Pressurized Fuel: " +str(pressurized_fuel)
+	pressurized_fuel_label.text = "Pressurized\nFuel: " +str(pressurized_fuel)
