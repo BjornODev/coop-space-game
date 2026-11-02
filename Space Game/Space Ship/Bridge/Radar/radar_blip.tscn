@@ -1,0 +1,41 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Space Game/Space Ship/Bridge/Radar/radar_blip.gd" id="1_script"]
+
+[node name="RadarBlip" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+script = ExtResource("1_script")
+
+[node name="Body" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -5.0
+offset_top = -5.0
+offset_right = 5.0
+offset_bottom = 5.0
+mouse_filter = 2
+color = Color(0.255, 0.412, 0.882, 1)
+
+[node name="FuelLabel" type="Label" parent="."]
+visible = false
+layout_mode = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 4
+theme_override_font_sizes/font_size = 14
+text = "0"
+
+[node name="ScanBar" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 30.0
+offset_bottom = 4.0
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Fill" type="ColorRect" parent="ScanBar"]
+layout_mode = 0
+offset_bottom = 4.0
+mouse_filter = 2
+color = Color(0, 1, 0, 1)
