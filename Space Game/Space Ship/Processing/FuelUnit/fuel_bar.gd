@@ -14,6 +14,8 @@ func set_texture_progress_bars(fuel : int, impurities : int) -> void:
 	move_to_impurity += impurities
 
 func _process(delta: float) -> void:
+	value = clampf(value,0,100 -impurity_bar.value)
+	
 	if value != move_to_fuel + move_to_impurity:
 		fuel_counter = move_toward(
 		fuel_counter,move_to_fuel + move_to_impurity,delta * animation_fill_speed * 2)

@@ -6,5 +6,9 @@ signal drain_activated(drain_timer : Timer)
 func _ready() -> void:
 	drain_timer.timeout.connect(end_interaction)
 
-func _on_interaction_started(_player: Player) -> void:
-	drain_activated.emit(drain_timer)
+func _on_interaction_started(player: Player) -> void:
+	if not player.item_manager.item_being_held:
+		drain_activated.emit(drain_timer)
+	else:
+		get_tree().create_timer(0.1).timeout.connect(end_interaction)
+	

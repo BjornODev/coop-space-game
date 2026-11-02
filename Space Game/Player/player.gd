@@ -25,6 +25,11 @@ var _camera_returning: bool = false
 ## Physics frame the last interaction ended on, so the button that ended it doesn't start a new one.
 var _interaction_ended_frame: int = -1
 
+@onready var item_sprite: Sprite2D = $ItemSprite
+
+func _ready() -> void:
+	item_manager.connect("set_item_texture",item_sprite.set_texture)
+
 func _physics_process(delta: float) -> void:
 	# while interacting, the interactable is in charge: no movement, camera focuses on it
 	if current_interaction != null:

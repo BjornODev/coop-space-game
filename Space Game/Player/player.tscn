@@ -24,3 +24,9 @@ vframes = 2
 
 [node name="ItemManager" type="Node" parent="." unique_id=1135044459]
 script = ExtResource("3_12pfq")
+
+[node name="ItemSprite" type="Sprite2D" parent="." unique_id=1562769700]
+position = Vector2(64, 8)
+scale = Vector2(0.5, 0.5)
+region_enabled = true
+region_rect = Rect2(21.600037, 19.999992, 84, 89.6)

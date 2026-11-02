@@ -1,19 +1,27 @@
 extends Node2D
 
-@onready var fuel_terminal: Interactable = $FuelTerminal
 @onready var fuel_bar: TextureProgressBar = $FuelBar
 @onready var impurity_drain: Interactable = $ImpurityDrain
+@onready var sealing_unit: Node2D = $SealingUnit
 
-@export var drain_modifier : float = 1.5
+@export var pumps : Array[Pump]
 
 func _ready() -> void:
-	fuel_terminal.connect("item_added", add_refined_material)
 	impurity_drain.connect("drain_activated", set_drain_timer)
+	if not pumps:
+		return
+	
+	for pump in pumps:
+		pump.connect("pump_activated",send_pure_fuel)
 
-func add_refined_material(item : Dictionary) -> void:
-	fuel_bar.set_texture_progress_bars(item["Purity"],100 - item["Purity"])
+func add_refined_material(fuel : float,impurities : float) -> void:
+	fuel_bar.set_texture_progress_bars(fuel,impurities)
 
 func set_drain_timer(drain_timer : Timer) -> void:
-	drain_timer.start(fuel_bar.move_to_impurity/(
-		fuel_bar.animation_fill_speed * drain_modifier))
+	drain_timer.start(2)
 	fuel_bar.move_to_impurity = 0
+
+func send_pure_fuel() -> void:
+	if fuel_bar.move_to_fuel >= 10:
+		fuel_bar.move_to_fuel -= 10
+		sealing_unit.add_pressurized_fuel(10)
