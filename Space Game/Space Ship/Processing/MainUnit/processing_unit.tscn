@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://e7aci72v8qh" path="res://Space Game/Space Ship/Processing/FuelUnit/fuel_input_unit.gd" id="5_ym24x"]
 [ext_resource type="Script" uid="uid://bcsylrlyj1b0h" path="res://Space Game/Space Ship/Processing/FuelUnit/fuel_bar.gd" id="6_0qman"]
 [ext_resource type="Script" uid="uid://rsxq3pvr15nb" path="res://Space Game/Space Ship/Processing/FuelUnit/impurity_drain.gd" id="7_i4eb1"]
+[ext_resource type="PackedScene" uid="uid://dtw5utxdsu2dd" path="res://Space Game/Space Ship/Processing/Pump/pump.tscn" id="8_8csny"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tvh"]
 size = Vector2(73.5, 72.75)
@@ -130,9 +131,10 @@ offset_right = -47.0
 offset_bottom = -140.0
 color = Color(1, 0, 0, 1)
 
-[node name="FuelInputUnit" type="Node2D" parent="MainUnit" unique_id=1105895068]
+[node name="FuelInputUnit" type="Node2D" parent="MainUnit" unique_id=1105895068 node_paths=PackedStringArray("pumps")]
 position = Vector2(210, 1)
 script = ExtResource("5_ym24x")
+pumps = [NodePath("../../Pumps/Pump")]
 
 [node name="FuelBar" type="TextureProgressBar" parent="MainUnit/FuelInputUnit" unique_id=451001456]
 offset_left = -36.0
@@ -186,3 +188,7 @@ text = "Impurity
 Drain"
 
 [node name="DrainTimer" type="Timer" parent="MainUnit/FuelInputUnit/ImpurityDrain" unique_id=119707000]
+
+[node name="Pumps" type="Node2D" parent="." unique_id=1675664085]
+
+[node name="Pump" parent="Pumps" unique_id=274365798 instance=ExtResource("8_8csny")]
