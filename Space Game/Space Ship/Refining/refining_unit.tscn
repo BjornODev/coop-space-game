@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://c7je44j4urk05"]
+
+[ext_resource type="Script" uid="uid://k05qm8xigm0u" path="res://Space Game/Space Ship/Refining/refining_unit.gd" id="1_0yy76"]
+[ext_resource type="PackedScene" uid="uid://cscfggtdkulwh" path="res://Space Game/Space Ship/Refining/terminal_port.tscn" id="2_6sd0t"]
+[ext_resource type="Script" uid="uid://cdgfx3gba43j6" path="res://Space Game/Space Ship/Refining/input_terminal.gd" id="2_i2xyw"]
+[ext_resource type="Script" uid="uid://fg6vjbovyeco" path="res://Space Game/Space Ship/Refining/output_terminal.gd" id="3_i2xyw"]
+
+[node name="RefiningUnit" type="Node2D" unique_id=2077531568]
+script = ExtResource("1_0yy76")
+
+[node name="InputTerminal" parent="." unique_id=405293353 instance=ExtResource("2_6sd0t")]
+position = Vector2(-102, -41)
+script = ExtResource("2_i2xyw")
+text = "Refining Input"
+
+[node name="OutputTerminal" parent="." unique_id=195629935 instance=ExtResource("2_6sd0t")]
+position = Vector2(174, -41)
+script = ExtResource("3_i2xyw")
+text = "Capsule Filling Output"

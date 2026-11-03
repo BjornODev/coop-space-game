@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://dtw5utxdsu2dd"]
 
-[ext_resource type="Script" uid="uid://bedt14d2hm5ij" path="res://Space Game/Space Ship/Processing/Pump/pump.gd" id="1_0n8j4"]
+[ext_resource type="Script" uid="uid://bedt14d2hm5ij" path="res://Space Game/Space Ship/OldProcessing/Pump/pump.gd" id="1_0n8j4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tvh"]
 size = Vector2(121, 104)

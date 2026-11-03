@@ -1,7 +1,7 @@
 extends Node
 
 var item_being_held : Dictionary = {}
-const PHYSICS_ITEM = preload("res://Space Game/Space Ship/Processing/PhysicsItem/physics_item.tscn")
+const PHYSICS_ITEM = preload("res://Space Game/Space Ship/PhysicsItem/physics_item.tscn")
 
 signal set_item_texture(texture : Texture2D)
 

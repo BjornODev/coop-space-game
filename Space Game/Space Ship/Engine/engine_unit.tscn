@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b2soy3635of15"]
 
 [ext_resource type="Script" uid="uid://c8vks27d02oyd" path="res://Space Game/Space Ship/Engine/engine_unit.gd" id="1_g4nrb"]
-[ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/Processing/PhysicsItem/physics_item.tscn" id="3_aytaa"]
+[ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/PhysicsItem/physics_item.tscn" id="3_aytaa"]
 [ext_resource type="Texture2D" uid="uid://dh0ramf8bubv3" path="res://Framework/Assets/icon.png" id="4_avobk"]
 
 [node name="EngineUnit" type="Node2D" unique_id=1883932248]

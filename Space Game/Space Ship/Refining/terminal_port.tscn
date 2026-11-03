@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://cscfggtdkulwh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6sd0t"]
+size = Vector2(71.5, 72)
+
+[node name="TerminalPort" type="Area2D" unique_id=405293353]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1506682143]
+position = Vector2(-1.3369446, 0.16189575)
+shape = SubResource("RectangleShape2D_6sd0t")
+
+[node name="Standin" type="ColorRect" parent="." unique_id=1994593901]
+offset_left = -41.336945
+offset_top = -34.838104
+offset_right = 37.663055
+offset_bottom = 40.0
+color = Color(0, 0.73333335, 0, 1)
+
+[node name="Label" type="Label" parent="Standin" unique_id=1432097298]
+layout_mode = 0
+offset_left = 2.3369446
+offset_top = 0.83810425
+offset_right = 77.336945
+offset_bottom = 74.838104
+autowrap_mode = 2

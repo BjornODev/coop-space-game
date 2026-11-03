@@ -1,12 +1,20 @@
 [gd_scene format=3 uid="uid://djectitf4ccs8"]
 
 [ext_resource type="Script" uid="uid://dl6adtmtiuejo" path="res://Space Game/space_game.gd" id="1_game"]
+[ext_resource type="PackedScene" uid="uid://c7je44j4urk05" path="res://Space Game/Space Ship/Refining/refining_unit.tscn" id="2_2nisv"]
+[ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/PhysicsItem/physics_item.tscn" id="2_qic3w"]
 [ext_resource type="PackedScene" uid="uid://brsdv3etea1wb" path="res://Space Game/Space Ship/Bridge/bridge.tscn" id="4_2nisv"]
 [ext_resource type="PackedScene" uid="uid://b2soy3635of15" path="res://Space Game/Space Ship/Engine/engine_unit.tscn" id="4_qic3w"]
 
 [node name="Space Game" type="Node2D" unique_id=1468521417]
 script = ExtResource("1_game")
 PLAYER_SCENE = "uid://btbloowmcl88g"
+
+[node name="PhysicsItem" parent="." unique_id=519446977 instance=ExtResource("2_qic3w")]
+position = Vector2(-145.6693, -166.6838)
+
+[node name="RefiningUnit" parent="." unique_id=2077531568 instance=ExtResource("2_2nisv")]
+position = Vector2(133, -198)
 
 [node name="EngineUnit" parent="." unique_id=1883932248 instance=ExtResource("4_qic3w")]
 
