@@ -27,19 +27,19 @@ func _process(_delta: float) -> void:
 		indicator.color = Color("green")
 
 func give_player_capsule(player : Player) -> void:
-	capsule["Item"]["Status"] = capsule["fuel_left"]
+	capsule["Item"]["Purity"] = capsule["fuel_left"]
 	capsule["Activated"] = false
 	player.item_manager.add_item(capsule["Item"])
 	
-	if capsule["Item"]["Status"]: # if there is fuel left
-		update_fuel_available.emit(-capsule["Item"]["Status"])
+	if capsule["Item"]["Purity"]: # if there is fuel left
+		update_fuel_available.emit(-capsule["Item"]["Purity"])
 
 func add_new_capsule(item : Dictionary) -> void:
 	capsule["Activated"] = true
-	capsule["fuel_left"] = item["Status"]
+	capsule["fuel_left"] = item["Purity"]
 	capsule["Item"] = item
 	
-	update_fuel_available.emit(item["Status"])
+	update_fuel_available.emit(capsule["fuel_left"])
 
 func drain_fuel_left(amount : int) -> bool:
 	if capsule["fuel_left"] >= amount:

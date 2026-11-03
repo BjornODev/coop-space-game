@@ -4,15 +4,9 @@ extends RigidBody2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 @export var item : Dictionary = {
-	"Type":"Rock",
-	"Texture":preload("res://Framework/Assets/icon.svg"),
-	
-	# rock exclusive
-	"Amount":100,
-	"Purity" : 0.5,
-	
-	# capsule exclusive
-	"Status":0,
+	"Texture": preload("res://Framework/Assets/icon.svg"),
+	"Status": "unrefined",
+	"Purity": 50,
 }
 
 # Called when the node enters the scene tree for the first time.

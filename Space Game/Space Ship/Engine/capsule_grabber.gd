@@ -3,7 +3,7 @@ extends Interactable
 signal capsule_added(item : Dictionary)
 signal capsule_grabbed(player : Player)
 var activated : bool = false
-@export var type : String = "Capsule"
+@export var status : String = "capsule"
 @export var buffer_time : float = 1.0
 
 # timeout time changeable, just make sure not too small (0.01>)
@@ -14,7 +14,7 @@ func _on_interaction_started(player: Player) -> void:
 		if not player.item_manager.item_being_held:
 			return # no item, no canister to fill
 		
-		var item : Dictionary = player.item_manager.remove_held_item(type)
+		var item : Dictionary = player.item_manager.remove_held_item(status)
 		if item:
 			capsule_added.emit(item)
 			activated = true

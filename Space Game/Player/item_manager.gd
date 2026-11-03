@@ -17,11 +17,11 @@ func add_item(item : Dictionary) -> bool:
 	else:
 		return false # player is already holding item
 
-func remove_held_item(type : String) -> Dictionary:
+func remove_held_item(status : String) -> Dictionary:
 	var item : Dictionary = item_being_held
 	if not item:
 		return {} # no item held returns empty set
-	elif item["Type"] == type:
+	elif item["Status"] == status:
 		reset_item_held()
 		return item
 	return {} 

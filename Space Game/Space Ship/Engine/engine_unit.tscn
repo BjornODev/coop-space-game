@@ -15,34 +15,11 @@ offset_bottom = 45.0
 
 [node name="StartingCanisters" type="Node2D" parent="." unique_id=489716554]
 
-[node name="PhysicsItem4" parent="StartingCanisters" unique_id=519446977 instance=ExtResource("3_aytaa")]
-position = Vector2(-214.22192, 1.3240051)
+[node name="PhysicsItem" parent="StartingCanisters" unique_id=519446977 instance=ExtResource("3_aytaa")]
 item = {
-"Amount": 100,
-"Purity": 0.5,
-"Status": 100,
-"Texture": ExtResource("4_avobk"),
-"Type": "Capsule"
-}
-
-[node name="PhysicsItem5" parent="StartingCanisters" unique_id=305722140 instance=ExtResource("3_aytaa")]
-position = Vector2(-147.13953, -4)
-item = {
-"Amount": 100,
-"Purity": 0.5,
-"Status": 27,
-"Texture": ExtResource("4_avobk"),
-"Type": "Capsule"
-}
-
-[node name="PhysicsItem6" parent="StartingCanisters" unique_id=1155369325 instance=ExtResource("3_aytaa")]
-position = Vector2(-287, -0.6742859)
-item = {
-"Amount": 100,
-"Purity": 0.5,
-"Status": 1,
-"Texture": ExtResource("4_avobk"),
-"Type": "Capsule"
+"Purity": 50,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
 }
 
 [node name="EngineRect" type="ColorRect" parent="." unique_id=1998065662]
