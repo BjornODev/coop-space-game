@@ -1,7 +1,6 @@
 [gd_scene format=3 uid="uid://djectitf4ccs8"]
 
 [ext_resource type="Script" uid="uid://dl6adtmtiuejo" path="res://Space Game/space_game.gd" id="1_game"]
-[ext_resource type="PackedScene" uid="uid://b2ws0k15hkd16" path="res://Space Game/Space Ship/Processing/MainUnit/processing_unit.tscn" id="2_xy06q"]
 [ext_resource type="PackedScene" uid="uid://brsdv3etea1wb" path="res://Space Game/Space Ship/Bridge/bridge.tscn" id="4_2nisv"]
 [ext_resource type="PackedScene" uid="uid://b2soy3635of15" path="res://Space Game/Space Ship/Engine/engine_unit.tscn" id="4_qic3w"]
 
@@ -9,11 +8,7 @@
 script = ExtResource("1_game")
 PLAYER_SCENE = "uid://btbloowmcl88g"
 
-[node name="ProcessingUnit" parent="." unique_id=1601074500 instance=ExtResource("2_xy06q")]
-position = Vector2(0, -1)
+[node name="EngineUnit" parent="." unique_id=1883932248 instance=ExtResource("4_qic3w")]
 
 [node name="Bridge" parent="." unique_id=2145632699 instance=ExtResource("4_2nisv")]
 position = Vector2(-146, -1040)
-
-[node name="EngineUnit" parent="." unique_id=1883932248 instance=ExtResource("4_qic3w")]
-position = Vector2(494.66956, 316.46927)

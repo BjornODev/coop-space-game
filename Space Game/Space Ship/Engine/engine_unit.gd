@@ -1,26 +1,33 @@
 extends Node2D
 
-@onready var engine: Interactable = $Engine
 @onready var capsule_container: HBoxContainer = $CapsuleContainer
 const CAPSULE_PLACEHOLDER = preload("res://Space Game/Space Ship/Engine/capsule_placeholder.tscn")
+@onready var fuel_label: Label = $EngineRect/FuelLabel
 
-var capsule_slots : Array = []
+var capsules : Array = []
+var fuel_available : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	engine.connect("item_added",_add_capsule)
-	
-	for i in range(5):
-		var placeholder :Control= CAPSULE_PLACEHOLDER.instantiate()
+	for i in range(4):
+		var placeholder : Control = CAPSULE_PLACEHOLDER.instantiate()
 		capsule_container.add_child(placeholder)
-		capsule_slots.append(placeholder)
+		capsules.append(placeholder)
+		placeholder.connect("update_fuel_available",update_fuel_available)
 
-func _add_capsule(item : Dictionary) -> void:
-	for slot in capsule_slots:
-		if not slot.capsule["Activated"]:
-			slot.capsule["fuel_left"] = item["Status"]
-			slot.capsule["Activated"] = true
-			return
+func update_fuel_available(amount : int) -> void:
+	fuel_available += amount
+	var text = "Fuel\nAvailable\n-> "
+	fuel_label.text = text + str(fuel_available)
+
+## Call this function to get how much fuel is available.
+## Specify amount to take out that amount of available fuel.
+func drain_fuel(amount : int = 0) -> int:
+	for capsule in capsules:
+		if not capsule.capsule["Activated"]:
+			continue
+		if capsule.drain_fuel_left(amount):
+			update_fuel_available(-amount)
+			break
 	
-	printerr("no available slots!")
-	
+	return fuel_available

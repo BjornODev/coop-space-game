@@ -1,15 +1,19 @@
 extends Control
 
 @onready var indicator: ColorRect = $Indicator
+@onready var capsule_grabber: Interactable = $CapsuleGrabber
+
+signal update_fuel_available(amount : int)
 
 var capsule : Dictionary = {
 	"Activated": false,
-	"fuel_left" : 0}
+	"fuel_left" : 0,
+	"Item":{}}
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
-
+	capsule_grabber.connect("capsule_added",add_new_capsule)
+	capsule_grabber.connect("capsule_grabbed",give_player_capsule)
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
@@ -21,3 +25,25 @@ func _process(_delta: float) -> void:
 		indicator.color = Color("red")
 	else:
 		indicator.color = Color("green")
+
+func give_player_capsule(player : Player) -> void:
+	capsule["Item"]["Status"] = capsule["fuel_left"]
+	capsule["Activated"] = false
+	player.item_manager.add_item(capsule["Item"])
+	
+	if capsule["Item"]["Status"]: # if there is fuel left
+		update_fuel_available.emit(-capsule["Item"]["Status"])
+
+func add_new_capsule(item : Dictionary) -> void:
+	capsule["Activated"] = true
+	capsule["fuel_left"] = item["Status"]
+	capsule["Item"] = item
+	
+	update_fuel_available.emit(item["Status"])
+
+func drain_fuel_left(amount : int) -> bool:
+	if capsule["fuel_left"] >= amount:
+		capsule["fuel_left"] -= amount
+		return true
+	else:
+		return false

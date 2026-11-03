@@ -1,15 +1,63 @@
 [gd_scene format=3 uid="uid://b2soy3635of15"]
 
 [ext_resource type="Script" uid="uid://c8vks27d02oyd" path="res://Space Game/Space Ship/Engine/engine_unit.gd" id="1_g4nrb"]
-[ext_resource type="PackedScene" uid="uid://dkogsvqr0di54" path="res://Space Game/Space Ship/Engine/engine.tscn" id="2_qbpbd"]
+[ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/Processing/PhysicsItem/physics_item.tscn" id="3_aytaa"]
+[ext_resource type="Texture2D" uid="uid://dh0ramf8bubv3" path="res://Framework/Assets/icon.png" id="4_avobk"]
 
 [node name="EngineUnit" type="Node2D" unique_id=1883932248]
 script = ExtResource("1_g4nrb")
-
-[node name="Engine" parent="." unique_id=1477589082 instance=ExtResource("2_qbpbd")]
 
 [node name="CapsuleContainer" type="HBoxContainer" parent="." unique_id=1701674393]
 offset_left = 56.0
 offset_top = -55.0
 offset_right = 306.0
 offset_bottom = 45.0
+
+[node name="StartingCanisters" type="Node2D" parent="." unique_id=489716554]
+
+[node name="PhysicsItem4" parent="StartingCanisters" unique_id=519446977 instance=ExtResource("3_aytaa")]
+position = Vector2(-214.22192, 1.3240051)
+item = {
+"Amount": 100,
+"Purity": 0.5,
+"Status": 100,
+"Texture": ExtResource("4_avobk"),
+"Type": "Capsule"
+}
+
+[node name="PhysicsItem5" parent="StartingCanisters" unique_id=305722140 instance=ExtResource("3_aytaa")]
+position = Vector2(-147.13953, -4)
+item = {
+"Amount": 100,
+"Purity": 0.5,
+"Status": 27,
+"Texture": ExtResource("4_avobk"),
+"Type": "Capsule"
+}
+
+[node name="PhysicsItem6" parent="StartingCanisters" unique_id=1155369325 instance=ExtResource("3_aytaa")]
+position = Vector2(-287, -0.6742859)
+item = {
+"Amount": 100,
+"Purity": 0.5,
+"Status": 1,
+"Texture": ExtResource("4_avobk"),
+"Type": "Capsule"
+}
+
+[node name="EngineRect" type="ColorRect" parent="." unique_id=1998065662]
+offset_left = -100.0
+offset_top = -50.0
+offset_right = -26.0
+offset_bottom = 36.0
+color = Color(0.5449743, 0.54497427, 0.54497427, 1)
+
+[node name="FuelLabel" type="Label" parent="EngineRect" unique_id=405187404]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 43.0
+offset_bottom = 25.0
+text = "Fuel
+Available
+-> 0"
