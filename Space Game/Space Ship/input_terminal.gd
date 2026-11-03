@@ -1,6 +1,6 @@
 extends Interactable
 
-signal item_added
+signal item_added(item: Dictionary)
 @export var type : String = "Rock"
 
 # timeout time changeable, just make sure not too small (0.01>)
