@@ -10,6 +10,8 @@ var unrefined_ore_queue : Array = []
 signal ore_refined(amount : int)
 var refinement_percentage : float = 0
 
+@export var zero_purity_cleanse_time : float = 1.0 # in seconds
+@export_category("Pump Modifiers")
 ## 50% purity -> 20 seconds, 100% purity -> 5 seconds (at 10 boost, 150 modifier)
 ## 50% purity -> 10 seconds, 100% purity -> 2.5 second (at 20 boost, 150 modifier)
 @export var overclock_boost : float = 10.0
@@ -70,7 +72,13 @@ func start_pump_timer() -> void:
 	
 	processing_rect.color = Color("green")
 	var purity : float = unrefined_ore_queue.front()["Purity"]
-	var cook_time = (boost_modifier - purity)/purity
+	var cook_time : float = zero_purity_cleanse_time
+	if purity:
+		cook_time = (boost_modifier - purity)/purity
+		processing_rect.color = Color("green")
+	else:
+		processing_rect.color = Color("orange")
+	
 	if cook_time > 0.1:
 		pump_timer.start(cook_time)
 	elif cook_time > 0:

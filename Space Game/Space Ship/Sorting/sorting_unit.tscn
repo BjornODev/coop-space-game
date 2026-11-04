@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://ld1x62hgtv8k"]
+
+[ext_resource type="Script" uid="uid://b1qy5y50vms6g" path="res://Space Game/Space Ship/Sorting/control_terminal.gd" id="1_fivan"]
+[ext_resource type="PackedScene" uid="uid://cscfggtdkulwh" path="res://Space Game/Space Ship/Refining/terminal_port.tscn" id="1_l7uvv"]
+
+[node name="SortingUnit" type="Node2D" unique_id=1887064452]
+
+[node name="ControlTerminal" parent="." unique_id=405293353 instance=ExtResource("1_l7uvv")]
+script = ExtResource("1_fivan")
+text = "Control Panel"
