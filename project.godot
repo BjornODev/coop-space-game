@@ -50,6 +50,7 @@ folder_colors={
 "res://Space Game/Space Ship/OldProcessing/SealingUnit/": "yellow",
 "res://Space Game/Space Ship/PhysicsItem/": "blue",
 "res://Space Game/Space Ship/Refining/": "green",
+"res://Space Game/Space Ship/Refining/ProcessBox/": "red",
 "res://YOUR GAME/": "green"
 }
 
