@@ -1,0 +1,63 @@
+[gd_scene format=3 uid="uid://dtw5utxdsu2dd"]
+
+[ext_resource type="Script" uid="uid://bedt14d2hm5ij" path="res://Space Game/Space Ship/OldProcessing/Pump/pump.gd" id="1_0n8j4"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tvh"]
+size = Vector2(121, 104)
+
+[sub_resource type="Gradient" id="Gradient_0n8j4"]
+offsets = PackedFloat32Array(0.14248705, 0.7331606, 1)
+colors = PackedColorArray(0, 1, 0, 1, 1, 0.59607846, 0, 1, 1, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k2tvh"]
+gradient = SubResource("Gradient_0n8j4")
+fill = 3
+fill_from = Vector2(0.47802198, 0.55494505)
+fill_to = Vector2(0.485348, 0)
+
+[node name="Pump" type="Area2D" unique_id=274365798]
+script = ExtResource("1_0n8j4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1360391486]
+position = Vector2(-0.5, 3)
+shape = SubResource("RectangleShape2D_k2tvh")
+
+[node name="ColorRect" type="ColorRect" parent="CollisionShape2D" unique_id=803367156]
+offset_left = -58.5
+offset_top = -51.0
+offset_right = 61.5
+offset_bottom = 51.0
+color = Color(1, 0.40784314, 0.49019608, 1)
+
+[node name="Label" type="Label" parent="CollisionShape2D/ColorRect" unique_id=1155739897]
+layout_mode = 0
+offset_left = 6.0
+offset_top = 20.0
+offset_right = 143.0
+offset_bottom = 69.0
+text = "Pump
+On/Overclock"
+
+[node name="PumpTimer" type="Timer" parent="." unique_id=18375028]
+wait_time = 3.0
+autostart = true
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="." unique_id=564513938]
+offset_left = -26.0
+offset_top = -85.0
+offset_right = 38.0
+offset_bottom = -21.0
+step = 0.1
+fill_mode = 4
+texture_progress = SubResource("GradientTexture2D_k2tvh")
+
+[node name="ColorRect" type="ColorRect" parent="TextureProgressBar" unique_id=1417986510]
+show_behind_parent = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[connection signal="timeout" from="PumpTimer" to="." method="_on_pump_timer_timeout"]

@@ -1,0 +1,61 @@
+[gd_scene format=3 uid="uid://c7je44j4urk05"]
+
+[ext_resource type="Script" uid="uid://k05qm8xigm0u" path="res://Space Game/Space Ship/Refining/refining_unit.gd" id="1_0yy76"]
+[ext_resource type="PackedScene" uid="uid://cscfggtdkulwh" path="res://Space Game/Space Ship/Refining/terminal_port.tscn" id="2_6sd0t"]
+[ext_resource type="Script" uid="uid://cdgfx3gba43j6" path="res://Space Game/Space Ship/Refining/input_terminal.gd" id="2_i2xyw"]
+[ext_resource type="Script" uid="uid://fg6vjbovyeco" path="res://Space Game/Space Ship/Refining/output_terminal.gd" id="3_i2xyw"]
+[ext_resource type="Script" uid="uid://cpa77tdcwion6" path="res://Space Game/Space Ship/Refining/ProcessBox/process_box.gd" id="5_y8noc"]
+[ext_resource type="Script" uid="uid://bmusi4ygg3iii" path="res://Space Game/Space Ship/Refining/pump_terminal.gd" id="6_craf7"]
+
+[node name="RefiningUnit" type="Node2D" unique_id=2077531568]
+script = ExtResource("1_0yy76")
+
+[node name="InputTerminal" parent="." unique_id=405293353 instance=ExtResource("2_6sd0t")]
+position = Vector2(-102, -41)
+script = ExtResource("2_i2xyw")
+text = "Refining Input"
+
+[node name="OutputTerminal" parent="." unique_id=195629935 instance=ExtResource("2_6sd0t")]
+position = Vector2(174, -41)
+script = ExtResource("3_i2xyw")
+text = "Capsule Filling Output"
+
+[node name="ProcessBox" type="Node2D" parent="." unique_id=1562274119]
+script = ExtResource("5_y8noc")
+
+[node name="PumpTerminals" type="Node2D" parent="ProcessBox" unique_id=2118834581]
+
+[node name="PumpTerminal" parent="ProcessBox/PumpTerminals" unique_id=1000006399 instance=ExtResource("2_6sd0t")]
+position = Vector2(-15, -167)
+script = ExtResource("6_craf7")
+text = "Pump Terminal"
+
+[node name="Indicator" type="ColorRect" parent="ProcessBox/PumpTerminals/PumpTerminal" unique_id=1219893646]
+offset_left = 22.0
+offset_top = -44.0
+offset_right = 33.0
+offset_bottom = -25.0
+color = Color(0, 1, 0, 1)
+
+[node name="PumpTerminal2" parent="ProcessBox/PumpTerminals" unique_id=1542701618 instance=ExtResource("2_6sd0t")]
+position = Vector2(85, -166)
+script = ExtResource("6_craf7")
+text = "Pump Terminal"
+
+[node name="Indicator" type="ColorRect" parent="ProcessBox/PumpTerminals/PumpTerminal2" unique_id=824966632]
+offset_left = 22.0
+offset_top = -44.0
+offset_right = 33.0
+offset_bottom = -25.0
+color = Color(0, 1, 0, 1)
+
+[node name="PumpTimer" type="Timer" parent="ProcessBox" unique_id=582050768]
+
+[node name="OreLabel" type="Label" parent="." unique_id=378640836]
+offset_left = 120.0
+offset_top = -99.0
+offset_right = 230.0
+offset_bottom = -76.0
+text = "Ore Refined: 0"
+
+[connection signal="timeout" from="ProcessBox/PumpTimer" to="ProcessBox" method="_on_pump_timer_timeout"]

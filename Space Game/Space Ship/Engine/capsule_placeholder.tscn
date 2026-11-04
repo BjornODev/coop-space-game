@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://0escrjeg12ip"]
+
+[ext_resource type="Script" uid="uid://cx0ibiitkg6dh" path="res://Space Game/Space Ship/Engine/capsule_placeholder.gd" id="1_ahaoe"]
+[ext_resource type="Script" uid="uid://ctfruyrm11ir" path="res://Space Game/Space Ship/Engine/capsule_grabber.gd" id="2_s8la6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tvh"]
+size = Vector2(50, 100)
+
+[node name="CapsulePlaceholder" type="Control" unique_id=1254277334]
+custom_minimum_size = Vector2(75, 0)
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ahaoe")
+
+[node name="CapsuleGrabber" type="Area2D" parent="." unique_id=889912641]
+script = ExtResource("2_s8la6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CapsuleGrabber" unique_id=1660875317]
+position = Vector2(25, 48)
+shape = SubResource("RectangleShape2D_k2tvh")
+
+[node name="Backdrop" type="ColorRect" parent="." unique_id=2110921189]
+layout_mode = 0
+offset_right = 51.0
+offset_bottom = 98.0
+
+[node name="Indicator" type="ColorRect" parent="." unique_id=732726762]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 13.0
+offset_right = 38.0
+offset_bottom = 83.0
+color = Color(0.74509805, 0.74509805, 0.74509805, 1)

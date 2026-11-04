@@ -1,18 +1,34 @@
 [gd_scene format=3 uid="uid://djectitf4ccs8"]
 
 [ext_resource type="Script" uid="uid://dl6adtmtiuejo" path="res://Space Game/space_game.gd" id="1_game"]
-[ext_resource type="PackedScene" uid="uid://bhwcc1uyk7lhw" path="res://Space Game/Space Ship/Spaceship_Scene.tscn" id="2_ship"]
-[ext_resource type="PackedScene" uid="uid://b2ws0k15hkd16" path="res://Space Game/Space Ship/Processing/MainUnit/processing_unit.tscn" id="2_xy06q"]
+[ext_resource type="PackedScene" uid="uid://c7je44j4urk05" path="res://Space Game/Space Ship/Refining/refining_unit.tscn" id="2_2nisv"]
+[ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/PhysicsItem/physics_item.tscn" id="2_qic3w"]
 [ext_resource type="PackedScene" uid="uid://brsdv3etea1wb" path="res://Space Game/Space Ship/Bridge/bridge.tscn" id="4_2nisv"]
+[ext_resource type="PackedScene" uid="uid://b2soy3635of15" path="res://Space Game/Space Ship/Engine/engine_unit.tscn" id="4_qic3w"]
 
 [node name="Space Game" type="Node2D" unique_id=1468521417]
 script = ExtResource("1_game")
 PLAYER_SCENE = "uid://btbloowmcl88g"
 
-[node name="ProcessingUnit" parent="." unique_id=1601074500 instance=ExtResource("2_xy06q")]
-position = Vector2(0, -1)
+[node name="PhysicsItem" parent="." unique_id=519446977 instance=ExtResource("2_qic3w")]
+position = Vector2(-177, -338)
 
-[node name="SpaceshipScene" parent="." unique_id=1135810625 instance=ExtResource("2_ship")]
+[node name="PhysicsItem2" parent="." unique_id=1980085960 instance=ExtResource("2_qic3w")]
+position = Vector2(-238, -332)
+
+[node name="PhysicsItem3" parent="." unique_id=1063336118 instance=ExtResource("2_qic3w")]
+position = Vector2(-225, -266)
+
+[node name="PhysicsItem4" parent="." unique_id=99943744 instance=ExtResource("2_qic3w")]
+position = Vector2(-143, -276)
+
+[node name="PhysicsItem5" parent="." unique_id=709373066 instance=ExtResource("2_qic3w")]
+position = Vector2(-312, -295)
+
+[node name="RefiningUnit" parent="." unique_id=2077531568 instance=ExtResource("2_2nisv")]
+position = Vector2(133, -198)
+
+[node name="EngineUnit" parent="." unique_id=1883932248 instance=ExtResource("4_qic3w")]
 
 [node name="Bridge" parent="." unique_id=2145632699 instance=ExtResource("4_2nisv")]
-position = Vector2(-146, -1040)
+position = Vector2(-138, -720)

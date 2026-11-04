@@ -1,0 +1,81 @@
+[gd_scene format=3 uid="uid://b2soy3635of15"]
+
+[ext_resource type="Script" uid="uid://c8vks27d02oyd" path="res://Space Game/Space Ship/Engine/engine_unit.gd" id="1_g4nrb"]
+[ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/PhysicsItem/physics_item.tscn" id="3_aytaa"]
+[ext_resource type="Texture2D" uid="uid://dh0ramf8bubv3" path="res://Framework/Assets/icon.png" id="4_avobk"]
+
+[node name="EngineUnit" type="Node2D" unique_id=1883932248]
+script = ExtResource("1_g4nrb")
+
+[node name="CapsuleContainer" type="HBoxContainer" parent="." unique_id=1701674393]
+offset_left = 56.0
+offset_top = -55.0
+offset_right = 306.0
+offset_bottom = 45.0
+
+[node name="StartingCanisters" type="Node2D" parent="." unique_id=489716554]
+
+[node name="PhysicsItem" parent="StartingCanisters" unique_id=519446977 instance=ExtResource("3_aytaa")]
+position = Vector2(-258, -54)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem2" parent="StartingCanisters" unique_id=43709957 instance=ExtResource("3_aytaa")]
+position = Vector2(-258, 14)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem3" parent="StartingCanisters" unique_id=308333115 instance=ExtResource("3_aytaa")]
+position = Vector2(-317, -54)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem4" parent="StartingCanisters" unique_id=463419276 instance=ExtResource("3_aytaa")]
+position = Vector2(-317, 15)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem5" parent="StartingCanisters" unique_id=1184043669 instance=ExtResource("3_aytaa")]
+position = Vector2(-373, -55)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem6" parent="StartingCanisters" unique_id=372239012 instance=ExtResource("3_aytaa")]
+position = Vector2(-374, 14)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="EngineRect" type="ColorRect" parent="." unique_id=1998065662]
+offset_left = -100.0
+offset_top = -50.0
+offset_right = -26.0
+offset_bottom = 36.0
+color = Color(0.5449743, 0.54497427, 0.54497427, 1)
+
+[node name="FuelLabel" type="Label" parent="EngineRect" unique_id=405187404]
+layout_mode = 0
+offset_left = 3.0
+offset_top = 2.0
+offset_right = 43.0
+offset_bottom = 25.0
+text = "Fuel
+Available
+-> 0"
