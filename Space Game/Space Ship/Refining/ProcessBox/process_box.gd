@@ -5,11 +5,12 @@ var unrefined_ore_queue : Array = []
 @onready var pump_terminals: Node2D = $PumpTerminals
 
 signal ore_refined(amount : int)
+var refinement_percentage : float = 0
 
-## 50% purity -> 20 seconds, 95% purity -> 5 seconds (at 5 boost, 150 modifier)
-## 50% purity -> 10 seconds, 95% purity -> 2.5 seconds (at 10 boost, 150 modifier)
-@export var overclock_boost : float = 5.0
-@export_range(1.0,10.0,1.0) var pump_boost : float = 5.0
+## 50% purity -> 20 seconds, 100% purity -> 5 seconds (at 10 boost, 150 modifier)
+## 50% purity -> 10 seconds, 100% purity -> 2.5 second (at 20 boost, 150 modifier)
+@export var overclock_boost : float = 10.0
+@export_range(1.0,20.0,1.0) var pump_boost : float = 10.0
 @export_range(101.0,200.0,1.0) var boost_modifier : float = 150.0
 @export_range(1.0,5.0,0.1) var broken_slowdown : float = 2.0
 
@@ -26,6 +27,8 @@ func pump_overclock_toggled(pump_overclocked : bool) -> void:
 		overclock_boost += pump_boost
 	else:
 		overclock_boost -= pump_boost
+	
+	print(overclock_boost)
 
 # too many broken pumps could theoretically stop pumping
 func pump_broken_toggled(pump_broken : bool) -> void:
@@ -46,14 +49,21 @@ func remove_ore_from_queue() -> void:
 	ore_refined.emit(refined_ore["Purity"])
 	
 func _on_pump_timer_timeout() -> void:
-	remove_ore_from_queue()
+	if overclock_boost > 0:
+		refinement_percentage += overclock_boost
+	
 	start_pump_timer()
 
 func start_pump_timer() -> void:
-	if not unrefined_ore_queue or not overclock_boost:
+	if refinement_percentage >= 100:
+		refinement_percentage = 0
+		remove_ore_from_queue()
+	
+	if not unrefined_ore_queue:
 		return
 	
-	var cook_time = (boost_modifier - unrefined_ore_queue.front()["Purity"])/overclock_boost
+	var purity : float = unrefined_ore_queue.front()["Purity"]
+	var cook_time = (boost_modifier - purity)/purity
 	if cook_time > 0.1:
 		pump_timer.start(cook_time)
 	elif cook_time > 0:
