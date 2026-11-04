@@ -4,6 +4,9 @@ var unrefined_ore_queue : Array = []
 @onready var pump_timer: Timer = $PumpTimer
 @onready var pump_terminals: Node2D = $PumpTerminals
 
+@onready var processing_rect: ColorRect = $ProcessingRect
+@onready var tick_label: Label = $TickLabel
+
 signal ore_refined(amount : int)
 var refinement_percentage : float = 0
 
@@ -27,8 +30,6 @@ func pump_overclock_toggled(pump_overclocked : bool) -> void:
 		overclock_boost += pump_boost
 	else:
 		overclock_boost -= pump_boost
-	
-	print(overclock_boost)
 
 # too many broken pumps could theoretically stop pumping
 func pump_broken_toggled(pump_broken : bool) -> void:
@@ -48,20 +49,26 @@ func remove_ore_from_queue() -> void:
 	var refined_ore = unrefined_ore_queue.pop_front()
 	ore_refined.emit(refined_ore["Purity"])
 	
+
 func _on_pump_timer_timeout() -> void:
-	if overclock_boost > 0:
+	if overclock_boost > 0 and unrefined_ore_queue:
 		refinement_percentage += overclock_boost
+		tick_label.text = "Refinement: " + str(refinement_percentage) + "%"
+	
 	
 	start_pump_timer()
 
 func start_pump_timer() -> void:
 	if refinement_percentage >= 100:
 		refinement_percentage = 0
+		tick_label.text = "Refinement: " + str(refinement_percentage) + "%"
+		processing_rect.color = Color("red")
 		remove_ore_from_queue()
 	
 	if not unrefined_ore_queue:
 		return
 	
+	processing_rect.color = Color("green")
 	var purity : float = unrefined_ore_queue.front()["Purity"]
 	var cook_time = (boost_modifier - purity)/purity
 	if cook_time > 0.1:
