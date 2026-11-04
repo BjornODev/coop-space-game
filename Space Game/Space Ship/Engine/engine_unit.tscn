@@ -16,8 +16,49 @@ offset_bottom = 45.0
 [node name="StartingCanisters" type="Node2D" parent="." unique_id=489716554]
 
 [node name="PhysicsItem" parent="StartingCanisters" unique_id=519446977 instance=ExtResource("3_aytaa")]
+position = Vector2(-258, -54)
 item = {
-"Purity": 50,
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem2" parent="StartingCanisters" unique_id=43709957 instance=ExtResource("3_aytaa")]
+position = Vector2(-258, 14)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem3" parent="StartingCanisters" unique_id=308333115 instance=ExtResource("3_aytaa")]
+position = Vector2(-317, -54)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem4" parent="StartingCanisters" unique_id=463419276 instance=ExtResource("3_aytaa")]
+position = Vector2(-317, 15)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem5" parent="StartingCanisters" unique_id=1184043669 instance=ExtResource("3_aytaa")]
+position = Vector2(-373, -55)
+item = {
+"Purity": 0,
+"Status": "capsule",
+"Texture": ExtResource("4_avobk")
+}
+
+[node name="PhysicsItem6" parent="StartingCanisters" unique_id=372239012 instance=ExtResource("3_aytaa")]
+position = Vector2(-374, 14)
+item = {
+"Purity": 0,
 "Status": "capsule",
 "Texture": ExtResource("4_avobk")
 }

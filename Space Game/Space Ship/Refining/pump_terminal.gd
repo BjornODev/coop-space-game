@@ -14,7 +14,11 @@ signal pump_overclock_toggled(status : bool)
 signal pump_broken_toggled(status : bool)
 
 # timeout time changeable, just make sure not too small (0.01>)
-func _on_interaction_started(_player: Player) -> void:
+func _on_interaction_started(player: Player) -> void:
+	if player.item_manager.item_being_held:
+		get_tree().create_timer(0.1).timeout.connect(end_interaction)
+		return
+	
 	if pump_is_broken:
 		var timer = get_tree().create_timer(fix_time)
 		timer.timeout.connect(end_interaction)

@@ -28,6 +28,8 @@ func add_filled_capsule(player : Player) -> void:
 	else:
 		player.item_manager.item_being_held["Purity"] = refined_ore + leftover
 		refined_ore = 0
+	
+	ore_label.text = "Ore Refined: " + str(refined_ore)
 
 func ore_refined(amount: int) -> void:
 	refined_ore += amount

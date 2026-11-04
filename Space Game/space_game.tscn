@@ -11,7 +11,19 @@ script = ExtResource("1_game")
 PLAYER_SCENE = "uid://btbloowmcl88g"
 
 [node name="PhysicsItem" parent="." unique_id=519446977 instance=ExtResource("2_qic3w")]
-position = Vector2(-145.6693, -166.6838)
+position = Vector2(-177, -338)
+
+[node name="PhysicsItem2" parent="." unique_id=1980085960 instance=ExtResource("2_qic3w")]
+position = Vector2(-238, -332)
+
+[node name="PhysicsItem3" parent="." unique_id=1063336118 instance=ExtResource("2_qic3w")]
+position = Vector2(-225, -266)
+
+[node name="PhysicsItem4" parent="." unique_id=99943744 instance=ExtResource("2_qic3w")]
+position = Vector2(-143, -276)
+
+[node name="PhysicsItem5" parent="." unique_id=709373066 instance=ExtResource("2_qic3w")]
+position = Vector2(-312, -295)
 
 [node name="RefiningUnit" parent="." unique_id=2077531568 instance=ExtResource("2_2nisv")]
 position = Vector2(133, -198)
@@ -19,4 +31,4 @@ position = Vector2(133, -198)
 [node name="EngineUnit" parent="." unique_id=1883932248 instance=ExtResource("4_qic3w")]
 
 [node name="Bridge" parent="." unique_id=2145632699 instance=ExtResource("4_2nisv")]
-position = Vector2(-146, -1040)
+position = Vector2(-138, -720)
