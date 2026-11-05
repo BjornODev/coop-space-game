@@ -8,7 +8,7 @@ var text_holder : String = ""
 	set(value):
 		text = value
 		text_holder = value
-		if Engine.is_editor_hint():
+		if Engine.is_editor_hint() and label:
 			label.text = value
 
 func _ready() -> void:

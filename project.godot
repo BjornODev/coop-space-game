@@ -51,6 +51,9 @@ folder_colors={
 "res://Space Game/Space Ship/PhysicsItem/": "blue",
 "res://Space Game/Space Ship/Refining/": "green",
 "res://Space Game/Space Ship/Refining/ProcessBox/": "red",
+"res://Space Game/Space Ship/Sorting/": "purple",
+"res://Space Game/Space Ship/Sorting/Grabber/": "pink",
+"res://Space Game/Space Ship/TerminalPorts/": "blue",
 "res://YOUR GAME/": "green"
 }
 

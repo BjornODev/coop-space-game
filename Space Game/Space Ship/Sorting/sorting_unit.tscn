@@ -1,0 +1,37 @@
+[gd_scene format=3 uid="uid://ld1x62hgtv8k"]
+
+[ext_resource type="Script" uid="uid://dpu820oxy777v" path="res://Space Game/Space Ship/Sorting/sorting_unit.gd" id="1_2r6g1"]
+[ext_resource type="Script" uid="uid://b1qy5y50vms6g" path="res://Space Game/Space Ship/Sorting/control_terminal.gd" id="1_fivan"]
+[ext_resource type="PackedScene" uid="uid://cscfggtdkulwh" path="res://Space Game/Space Ship/TerminalPorts/terminal_port.tscn" id="1_l7uvv"]
+[ext_resource type="PackedScene" uid="uid://dgag7i6i8viib" path="res://Space Game/Space Ship/Sorting/sorting_minigame.tscn" id="3_tsvf1"]
+
+[node name="SortingUnit" type="Node2D" unique_id=1887064452]
+script = ExtResource("1_2r6g1")
+
+[node name="ControlTerminal" parent="." unique_id=405293353 instance=ExtResource("1_l7uvv")]
+script = ExtResource("1_fivan")
+text = "Control Panel"
+zoom_multiplier = 10.0
+focus_offset = Vector2(0, -75)
+
+[node name="Interface" type="ColorRect" parent="." unique_id=2084375282]
+offset_left = -40.0
+offset_top = -114.0
+offset_right = 35.0
+offset_bottom = -39.0
+metadata/_edit_lock_ = true
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="." unique_id=31416904]
+offset_left = -34.0
+offset_top = -108.0
+offset_right = 30.0
+offset_bottom = -44.0
+scale = Vector2(0.1, 0.1)
+metadata/_edit_lock_ = true
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer" unique_id=1016706472]
+handle_input_locally = false
+size = Vector2i(648, 648)
+render_target_update_mode = 4
+
+[node name="SortingMinigame" parent="SubViewportContainer/SubViewport" unique_id=1323429968 instance=ExtResource("3_tsvf1")]
