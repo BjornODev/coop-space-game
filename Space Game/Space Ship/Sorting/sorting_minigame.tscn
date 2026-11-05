@@ -39,6 +39,7 @@ collision_layer = 2
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_wg7io")
+num_grabber_claws = 4
 
 [node name="Camera2D" type="Camera2D" parent="Grabber" unique_id=2146144476]
 metadata/_edit_lock_ = true
