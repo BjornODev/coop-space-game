@@ -1,7 +1,7 @@
 extends Node2D
 
 const PHYSICS_ITEM = preload("res://Space Game/Space Ship/PhysicsItem/physics_item.tscn")
-@export var sorted_ore_speed : float = 50
+@export var sorted_ore_speed : float = 150
 
 func spawn_ore(item : Dictionary) -> void:
 	var sorted_ore : PhysicsItem = PHYSICS_ITEM.instantiate()

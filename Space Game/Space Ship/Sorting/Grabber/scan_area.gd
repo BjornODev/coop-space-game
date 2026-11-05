@@ -1,6 +1,6 @@
 extends Area2D
 
-const PURITY_LABEL = preload("res://Space Game/Space Ship/Sorting/purity_label.tscn")
+const PURITY_LABEL = preload("res://Space Game/Space Ship/Sorting/Grabber/purity_label.tscn")
 
 func _on_body_entered(body: Node2D) -> void:
 	if body is PhysicsItem:

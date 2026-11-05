@@ -3,6 +3,7 @@ extends Game2D
 var player = preload("res://Space Game/Player/player.tscn")
 @onready var sorting_unit: Node2D = $SortingUnit
 @onready var refining_unit: Node2D = $RefiningUnit
+@onready var bridge: Node2D = $Bridge
 
 ## Distance between players when they spawn.
 const SPAWN_SPACING = 120
@@ -10,6 +11,7 @@ const SPAWN_SPACING = 120
 func _ready() -> void:
 	var suction_to_refining : TerminalPort = sorting_unit.sorting_minigame.suction_to_refining
 	suction_to_refining.connect("suction_tube_entered",refining_unit.item_spawn_area.spawn_ore,CONNECT_DEFERRED)
+	bridge.space_simulation.connect("asteroid_harvested",sorting_unit.send_item_to_spawn_area,CONNECT_DEFERRED)
 
 ## Called by the framework once player select is done.
 func start(player_count: int, joined_players: Array[bool], _zoom_matching) -> void:

@@ -1,16 +1,16 @@
 extends CharacterBody2D
 
-@export var speed : int = 100
-@export var stop_speed : float = 100
+@export var speed : int = 250
+@export var stop_speed : float = 450
 var player_number : int = 0
 
 var grabbing_mode : bool = true
 @export_category("Claw Changables")
 @export_range(0,1,0.1) var claw_grab_weight : float = 0.5
 @export var spin_speed : float = 5
-var claw_radius : float = 48 # start radius is 48, min 24, max 56
-@export_range(3,4,1) var num_grabber_claws : int = 3 
-const GRABBER_CLAW = preload("res://Space Game/Space Ship/Sorting/grabber_claw.tscn")
+var claw_radius : float = 56 # claw radius, min 22, max 56
+@export_range(1,7,1) var num_grabber_claws : int = 3
+const GRABBER_CLAW = preload("res://Space Game/Space Ship/Sorting/Grabber/grabber_claw.tscn")
 var grabber_claws : Dictionary = {}
 
 @onready var instructions: Label = $Instructions
@@ -58,7 +58,7 @@ func call_grabber_controls(delta : float) -> void:
 	
 	var player_action = CoopInput.get_player(player_number)
 	if Input.is_action_pressed(player_action.A):
-		claw_radius = lerpf(claw_radius,24, claw_grab_weight)
+		claw_radius = lerpf(claw_radius,22, claw_grab_weight)
 		for claw in grabber_claws.keys():
 			var angle = grabber_claws[claw]
 			claw.set_position(polar_to_cartesian(claw_radius,angle))

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://mrjn1jau0sfc"]
 
-[ext_resource type="Script" uid="uid://djtt1rt6kte50" path="res://purity_label.gd" id="1_k774l"]
+[ext_resource type="Script" uid="uid://djtt1rt6kte50" path="res://Space Game/Space Ship/Sorting/Grabber/purity_label.gd" id="1_k774l"]
 
 [sub_resource type="Gradient" id="Gradient_k774l"]
 colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
