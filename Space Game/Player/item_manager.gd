@@ -6,16 +6,15 @@ const PHYSICS_ITEM = preload("res://Space Game/Space Ship/PhysicsItem/physics_it
 signal set_item_texture(texture : Texture2D)
 
 func add_item(item : Dictionary) -> bool:
+	if item_being_held:
+		return false # player is already holding item
+
+	item_being_held = item
 	if item["Texture"]:
 		set_item_texture.emit(item["Texture"])
 	else:
 		set_item_texture.emit(null)
-	
-	if not item_being_held:
-		item_being_held = item
-		return true # item was grabbed
-	else:
-		return false # player is already holding item
+	return true # item was grabbed
 
 func remove_held_item(status : String) -> Dictionary:
 	var item : Dictionary = item_being_held
