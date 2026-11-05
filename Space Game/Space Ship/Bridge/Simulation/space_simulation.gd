@@ -359,7 +359,7 @@ func _capture_asteroid(index: int) -> void:
 ## A captured asteroid is raw material, and more fuel means a purer item.
 func _create_harvested_item(asteroid: BridgeAsteroid) -> Dictionary:
 	return {
-		"Texture": "",
+		"Texture": preload("res://Framework/Assets/icon.svg"),
 		"Status": "unrefined",
 		"Purity": roundi(asteroid.value_ratio * harvested_max_purity),
 	}
