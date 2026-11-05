@@ -1,8 +1,25 @@
 [gd_scene format=3 uid="uid://btbloowmcl88g"]
 
 [ext_resource type="Script" uid="uid://c82wxempnefjv" path="res://Space Game/Player/player.gd" id="1_player"]
-[ext_resource type="Texture2D" uid="uid://daqcwaks4ba2p" path="res://Space Game/Player/assets/player.png" id="2_sprite"]
+[ext_resource type="Texture2D" uid="uid://dxdc4vjm5w0fq" path="res://Space Game/Player/assets/Astronaut_Normal_Walk.png" id="2_walk"]
+[ext_resource type="Texture2D" uid="uid://cvdfd73gk7xhr" path="res://Space Game/Player/assets/Astronaut_Carry_Walk.png" id="3_carry"]
 [ext_resource type="Script" uid="uid://dv2ngrs8m4b3v" path="res://Space Game/Player/item_manager.gd" id="3_12pfq"]
+
+[ext_resource type="Shader" path="res://Space Game/Player/player_tint.gdshader" id="4_tint"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tint"]
+resource_local_to_scene = true
+shader = ExtResource("4_tint")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/suit_threshold = 0.75
+shader_parameter/layer = 2
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_legs"]
+resource_local_to_scene = true
+shader = ExtResource("4_tint")
+shader_parameter/tint = Color(1, 1, 1, 1)
+shader_parameter/suit_threshold = 0.75
+shader_parameter/layer = 1
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_player"]
 radius = 50.0
@@ -12,21 +29,30 @@ collision_layer = 2
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_player")
+walk_texture = ExtResource("2_walk")
+carry_walk_texture = ExtResource("3_carry")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1714177122]
 shape = SubResource("CircleShape2D_player")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=353820199]
+[node name="Visuals" type="Node2D" parent="." unique_id=873310452]
+
+[node name="Sprite2D" type="Sprite2D" parent="Visuals" unique_id=353820199]
 texture_filter = 1
-texture = ExtResource("2_sprite")
-hframes = 2
-vframes = 2
+material = SubResource("ShaderMaterial_tint")
+scale = Vector2(8, 8)
+texture = ExtResource("2_walk")
+hframes = 12
+
+[node name="LegsSprite" type="Sprite2D" parent="Visuals/Sprite2D" unique_id=418827305]
+show_behind_parent = true
+material = SubResource("ShaderMaterial_legs")
+texture = ExtResource("2_walk")
+hframes = 12
+
+[node name="ItemSprite" type="Sprite2D" parent="Visuals/Sprite2D" unique_id=1562769700]
+show_behind_parent = true
+position = Vector2(6, 0)
 
 [node name="ItemManager" type="Node" parent="." unique_id=1135044459]
 script = ExtResource("3_12pfq")
-
-[node name="ItemSprite" type="Sprite2D" parent="." unique_id=1562769700]
-position = Vector2(64, 8)
-scale = Vector2(0.5, 0.5)
-region_enabled = true
-region_rect = Rect2(21.600037, 19.999992, 84, 89.6)
