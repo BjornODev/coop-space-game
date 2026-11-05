@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dpu820oxy777v" path="res://Space Game/Space Ship/Sorting/sorting_unit.gd" id="1_2r6g1"]
 [ext_resource type="Script" uid="uid://b1qy5y50vms6g" path="res://Space Game/Space Ship/Sorting/control_terminal.gd" id="1_fivan"]
-[ext_resource type="PackedScene" uid="uid://cscfggtdkulwh" path="res://Space Game/Space Ship/Refining/terminal_port.tscn" id="1_l7uvv"]
+[ext_resource type="PackedScene" uid="uid://cscfggtdkulwh" path="res://Space Game/Space Ship/TerminalPorts/terminal_port.tscn" id="1_l7uvv"]
 [ext_resource type="PackedScene" uid="uid://dgag7i6i8viib" path="res://Space Game/Space Ship/Sorting/sorting_minigame.tscn" id="3_tsvf1"]
 
 [node name="SortingUnit" type="Node2D" unique_id=1887064452]

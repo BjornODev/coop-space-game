@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dqkxdgn3uvi5p"]
+
+[ext_resource type="Script" uid="uid://s3yijase7toq" path="res://Space Game/Space Ship/TerminalPorts/item_spawn_area.gd" id="1_6gbr8"]
+
+[node name="ItemSpawnArea" type="Node2D" unique_id=868976861]
+script = ExtResource("1_6gbr8")
+
+[node name="ColorRect" type="ColorRect" parent="." unique_id=1176142959]
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -56.886353
+offset_top = -20.0
+offset_bottom = 20.0
+grow_horizontal = 0
+grow_vertical = 2
+color = Color(0.45490196, 0.45490196, 0.6745098, 1)
+
+[node name="Label" type="Label" parent="ColorRect" unique_id=1387240842]
+layout_mode = 0
+offset_left = 4.1136475
+offset_top = 8.164703
+offset_right = 55.113647
+offset_bottom = 57.164703
+text = "ORE ->"

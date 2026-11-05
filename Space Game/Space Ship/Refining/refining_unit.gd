@@ -4,6 +4,7 @@ extends Node2D
 @onready var output_terminal: Interactable = $OutputTerminal
 @onready var process_box: Node2D = $ProcessBox
 @onready var ore_label: Label = $OreLabel
+@onready var item_spawn_area: Node2D = $ItemSpawnArea
 
 var refined_ore : int = 0
 
