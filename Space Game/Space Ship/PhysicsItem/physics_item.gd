@@ -1,4 +1,4 @@
-extends RigidBody2D
+class_name PhysicsItem extends RigidBody2D
 
 @onready var grab_area: Interactable = $GrabArea
 @onready var sprite_2d: Sprite2D = $Sprite2D

@@ -11,6 +11,7 @@ script = ExtResource("1_game")
 PLAYER_SCENE = "uid://btbloowmcl88g"
 
 [node name="SortingUnit" parent="." unique_id=1887064452 instance=ExtResource("2_qic3w")]
+position = Vector2(-457, -232)
 
 [node name="RefiningUnit" parent="." unique_id=2077531568 instance=ExtResource("2_2nisv")]
 position = Vector2(133, -198)

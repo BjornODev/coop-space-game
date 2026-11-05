@@ -1,0 +1,44 @@
+[gd_scene format=3 uid="uid://mrjn1jau0sfc"]
+
+[ext_resource type="Script" uid="uid://djtt1rt6kte50" path="res://purity_label.gd" id="1_k774l"]
+
+[sub_resource type="Gradient" id="Gradient_k774l"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_k774l"]
+gradient = SubResource("Gradient_k774l")
+width = 18
+height = 6
+
+[node name="PurityLabel" type="Label" unique_id=1431134829]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 32
+horizontal_alignment = 1
+max_lines_visible = 0
+script = ExtResource("1_k774l")
+
+[node name="ProgressBar" type="TextureProgressBar" parent="." unique_id=35314708]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -32.0
+offset_top = -32.0
+offset_right = 32.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+texture_progress = SubResource("GradientTexture2D_k774l")
+texture_progress_offset = Vector2(23.5, 27)

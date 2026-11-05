@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://dgag7i6i8viib"]
+
+[ext_resource type="Script" uid="uid://n4dsiel2fnjf" path="res://Space Game/Space Ship/Sorting/sorting_minigame.gd" id="1_mih50"]
+[ext_resource type="Script" uid="uid://3ifx200eq5yp" path="res://Space Game/Space Ship/Sorting/grabber.gd" id="1_wg7io"]
+[ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/PhysicsItem/physics_item.tscn" id="2_mh13o"]
+[ext_resource type="Script" uid="uid://hh7hg3p2a17i" path="res://Space Game/Space Ship/Sorting/scan_area.gd" id="4_j7otn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_k2tvh"]
+radius = 24.0
+
+[node name="SortingMinigame" type="Node2D" unique_id=1323429968]
+script = ExtResource("1_mih50")
+
+[node name="PhysicsItem" parent="." unique_id=519446977 instance=ExtResource("2_mh13o")]
+position = Vector2(312.50006, 133.75003)
+
+[node name="PhysicsItem2" parent="." unique_id=1166310062 instance=ExtResource("2_mh13o")]
+position = Vector2(483.16577, 185.3525)
+
+[node name="Sizing" type="ColorRect" parent="." unique_id=451583986]
+offset_right = 648.0
+offset_bottom = 648.0
+size_flags_horizontal = 4
+mouse_filter = 2
+color = Color(0, 1, 0, 0.09411765)
+metadata/_edit_lock_ = true
+
+[node name="Grabber" type="CharacterBody2D" parent="." unique_id=451359458]
+position = Vector2(301, 323)
+collision_layer = 2
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("1_wg7io")
+num_grabber_claws = 4
+
+[node name="Camera2D" type="Camera2D" parent="Grabber" unique_id=2146144476]
+metadata/_edit_lock_ = true
+
+[node name="Instructions" type="Label" parent="Grabber" unique_id=1020873644]
+offset_left = -96.0
+offset_top = 133.0
+offset_right = 343.0
+offset_bottom = 322.0
+theme_override_font_sizes/font_size = 32
+text = "A - to toggle grabbing
+X - to spin clockwise
+Y - to spin counter-clockwise
+B - to exit"
+
+[node name="ScanArea" type="Area2D" parent="Grabber" unique_id=1325507754]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("4_j7otn")
+
+[node name="ScanRadius" type="CollisionShape2D" parent="Grabber/ScanArea" unique_id=1046676252]
+shape = SubResource("CircleShape2D_k2tvh")
+
+[connection signal="body_entered" from="Grabber/ScanArea" to="Grabber/ScanArea" method="_on_body_entered"]
