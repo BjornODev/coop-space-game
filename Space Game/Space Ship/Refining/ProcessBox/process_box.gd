@@ -74,9 +74,10 @@ func start_pump_timer() -> void:
 	cook_time = 2*exp(-purity/21.7)
 
 func _process(delta: float) -> void:
-	if not cook_time:
-		count = 0
+	if processing_rect.color != Color("green"):
 		return 
+	elif not cook_time:
+		return printerr("this should never happen")
 		
 	count += delta
 	if count >= cook_time:

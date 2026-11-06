@@ -10,7 +10,7 @@ var player = preload("res://Space Game/Player/player.tscn")
 const SPAWN_SPACING = 120
 
 @onready var fuel_ticker: Timer = $FuelTicker
-@export var fuel_ticker_speed : float = 0.1
+@export var fuel_ticker_speed : float = 0.05
 
 func _ready() -> void:
 	var suction_to_refining : TerminalPort = sorting_unit.sorting_minigame.suction_to_refining

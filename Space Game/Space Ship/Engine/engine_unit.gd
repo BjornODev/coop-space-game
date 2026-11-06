@@ -16,9 +16,10 @@ func _ready() -> void:
 		placeholder.connect("update_fuel_available",update_fuel_available)
 		
 		if i <= 1:
+			placeholder.capsule_grabber.activated = true
 			placeholder.add_new_capsule({
 			"Texture": preload("res://Framework/Assets/icon.png"),
-			"Status": "unrefined",
+			"Status": "capsule",
 			"Purity": 50,
 			"is_scanned" : false
 			})
