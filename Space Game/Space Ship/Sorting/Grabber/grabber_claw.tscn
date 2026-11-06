@@ -1,9 +1,7 @@
 [gd_scene format=3 uid="uid://bmi1nafllt0r0"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_s3fpo"]
-
-[node name="GrabberClaw" type="CollisionShape2D" unique_id=2017532270]
-shape = SubResource("RectangleShape2D_s3fpo")
+[node name="GrabberClaw" type="CollisionPolygon2D" unique_id=601655231]
+polygon = PackedVector2Array(-27, -23, 0, 0, -26, 25, 27, 25, 26, -23)
 
 [node name="ColorRect" type="ColorRect" parent="." unique_id=180300456]
 anchors_preset = 8
@@ -11,10 +9,63 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -10.0
-offset_top = -10.0
-offset_right = 10.0
-offset_bottom = 10.0
+offset_top = -23.0
+offset_right = 27.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 1, 0.41960785)
+
+[node name="ColorRect2" type="ColorRect" parent="." unique_id=1669379525]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = -23.0
+offset_bottom = -10.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 1, 0.41960785)
+
+[node name="ColorRect4" type="ColorRect" parent="." unique_id=250801144]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -12.0
+offset_top = 12.0
+offset_bottom = 25.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 1, 0.41960785)
+
+[node name="ColorRect3" type="ColorRect" parent="." unique_id=76799474]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = -23.0
+offset_right = -12.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 1, 0.41960785)
+
+[node name="ColorRect5" type="ColorRect" parent="." unique_id=744017466]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -19.0
+offset_top = 18.0
+offset_right = -12.0
+offset_bottom = 25.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 1, 0.41960785)
