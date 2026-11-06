@@ -41,7 +41,6 @@ func _process(delta: float) -> void:
 	
 	if pump_is_broken:
 		indicator.color = Color("black")
-		pump_broken_toggled.emit(true)
 		return
 		
 	if not pump_being_overclocked:
@@ -59,6 +58,16 @@ func _process(delta: float) -> void:
 			pump_toggled = true
 		
 		if indicator.color == Color("red"):
-			pump_is_broken = true
+			break_pump()
+
+## Breaks the pump once: drops its overclock bonus and applies the broken slowdown.
+func break_pump() -> void:
+	pump_is_broken = true
+	pump_being_overclocked = false
+	# a broken pump shouldn't keep its overclock bonus while it waits to be fixed
+	if pump_toggled:
+		pump_overclock_toggled.emit(false)
+		pump_toggled = false
+	pump_broken_toggled.emit(true)
 		
 	

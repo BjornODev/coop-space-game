@@ -62,4 +62,5 @@ func _process(_delta: float) -> void:
 		bridge.fuel_label.text = "Fuel Available: " + str(fuel_amt)
 
 func disable_boosting() -> void:
+	fuel_ticker.stop()
 	bridge.navigation_screen._boost_armed = false
