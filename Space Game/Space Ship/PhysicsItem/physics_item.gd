@@ -7,6 +7,7 @@ class_name PhysicsItem extends RigidBody2D
 	"Texture": preload("res://Framework/Assets/icon.svg"),
 	"Status": "unrefined",
 	"Purity": 50,
+	"is_scanned" : false
 }
 
 # Called when the node enters the scene tree for the first time.

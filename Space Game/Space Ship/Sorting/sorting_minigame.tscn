@@ -64,5 +64,6 @@ shape = SubResource("CircleShape2D_k2tvh")
 
 [node name="ItemSpawnArea" parent="." unique_id=868976861 instance=ExtResource("6_s3fpo")]
 position = Vector2(57, 335)
+show_scanned_enabled = true
 
 [connection signal="body_entered" from="Grabber/ScanArea" to="Grabber/ScanArea" method="_on_body_entered"]

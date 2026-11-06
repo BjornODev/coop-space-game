@@ -362,6 +362,7 @@ func _create_harvested_item(asteroid: BridgeAsteroid) -> Dictionary:
 		"Texture": preload("res://Framework/Assets/icon.svg"),
 		"Status": "unrefined",
 		"Purity": roundi(asteroid.value_ratio * harvested_max_purity),
+		"is_scanned" : asteroid.is_scanned
 	}
 
 func _check_arrival() -> void:
