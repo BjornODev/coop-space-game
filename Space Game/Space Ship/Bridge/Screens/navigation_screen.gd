@@ -7,6 +7,8 @@ class_name NavigationScreen extends Interactable
 
 ## Emitted when the screen switches between the route map and the radar.
 signal view_changed(view: View)
+## emitted when the player presses to use the fuel for the first time
+signal requesting_boost(status : bool)
 
 enum View { ROUTE, RADAR }
 
@@ -30,6 +32,7 @@ enum View { ROUTE, RADAR }
 @onready var _view_label: Label = $Display/Details/ViewLabel
 @onready var _speed_label: Label = $Display/Details/Side/SpeedLabel
 @onready var _distance_label: Label = $Display/Details/Side/DistanceLabel
+@onready var fuel_label: Label = $Display/Details/Side/FuelLabel
 @onready var _boost_label: Label = $Display/Details/Side/BoostLabel
 @onready var _reverse_label: Label = $Display/Details/Side/ReverseLabel
 @onready var _steer_prompt: ButtonPrompt = $Display/Details/Side/SteerPrompt
@@ -90,6 +93,12 @@ func _interaction_process(_player: Player, _delta: float) -> void:
 	var boost_held: bool = Input.is_action_pressed(input.A)
 	if not boost_held:
 		_boost_armed = true
+	
+	if Input.is_action_just_pressed(input.A) and boost_held:
+		emit_signal("requesting_boost",true)
+	elif Input.is_action_just_released(input.A):
+		emit_signal("requesting_boost",false)
+	
 	var turn: float = Input.get_axis(input.LEFT, input.RIGHT)
 	simulation.set_pilot_input(turn, boost_held and _boost_armed, Input.is_action_pressed(input.X))
 	_steer_prompt.set_active(not is_zero_approx(turn))

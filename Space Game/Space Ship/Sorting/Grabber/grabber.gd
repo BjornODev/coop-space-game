@@ -5,10 +5,13 @@ extends CharacterBody2D
 var player_number : int = 0
 
 var spinning_mode : bool = false
+var grabbing : bool = false
+var claw_radius : float = 56 # claw radius, min 22
+
 @export_category("Claw Changables")
-@export_range(0,1,0.1) var claw_grab_weight : float = 0.5
+@export_range(0,1,0.1) var claw_grab_weight : float = 0.3
 @export var spin_speed : float = 20
-var claw_radius : float = 56 # claw radius, min 22, max 56
+@export var claw_max_radius : float = 56 # goes up to 112
 @export_range(1,7,1) var num_grabber_claws : int = 3
 const GRABBER_CLAW = preload("res://Space Game/Space Ship/Sorting/Grabber/grabber_claw.tscn")
 var grabber_claws : Dictionary = {}
@@ -57,16 +60,27 @@ func call_grabber_controls(delta : float) -> void:
 		return
 	
 	var player_action = CoopInput.get_player(player_number)
-	if Input.is_action_pressed(player_action.A):
+	
+	if Input.is_action_just_pressed(player_action.A):
+		grabbing = not grabbing
+	
+	if grabbing:
+		grabbing = true
 		claw_radius = lerpf(claw_radius,22, claw_grab_weight)
 		for claw in grabber_claws.keys():
 			var angle = grabber_claws[claw]
 			claw.set_position(polar_to_cartesian(claw_radius,angle))
-	elif Input.is_action_just_released(player_action.A):
-			claw_radius = lerpf(claw_radius,56, 1)
-			for claw in grabber_claws.keys():
-				var angle = grabber_claws[claw]
-				claw.set_position(polar_to_cartesian(claw_radius,angle))
+	else:
+		claw_radius = lerpf(claw_radius,claw_max_radius, claw_grab_weight)
+		for claw in grabber_claws.keys():
+			var angle = grabber_claws[claw]
+			claw.set_position(polar_to_cartesian(claw_radius,angle))
+	
+	if Input.is_action_just_pressed(player_action.Y):
+		if claw_max_radius == 56:
+			claw_max_radius *= 2
+		else:
+			claw_max_radius = 56
 		
 	if Input.is_action_just_pressed(player_action.X):
 		spinning_mode = not spinning_mode

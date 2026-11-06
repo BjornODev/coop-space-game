@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://dhd5jtu3le7fo" path="res://Space Game/Space Ship/Bridge/bridge.gd" id="1_piej2"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Simulation/space_simulation.tscn" id="1_simulation"]
-[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/navigation_screen.tscn" id="2_navigation"]
+[ext_resource type="PackedScene" uid="uid://cg6wx5jw18p3l" path="res://Space Game/Space Ship/Bridge/Screens/navigation_screen.tscn" id="2_navigation"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/scanner_screen.tscn" id="3_scanner"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/harvesting_screen.tscn" id="4_harvesting"]
 

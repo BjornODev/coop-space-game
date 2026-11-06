@@ -9,13 +9,6 @@ func _ready() -> void:
 	
 	var suction_trash : TerminalPort = sorting_minigame.suction_trash
 	suction_trash.connect("suction_tube_entered",send_item_to_trash)
-
-	var item : Dictionary = {
-	"Texture": preload("res://Framework/Assets/icon.svg"),
-	"Status": "unrefined",
-	"Purity": 50,
-	}
-	call_deferred("send_item_to_spawn_area",item)
 	
 func toggle_minigame(player_num : int) -> void:
 	# if player is playing, passes player number and starts
