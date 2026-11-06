@@ -12,6 +12,8 @@ script = ExtResource("1_piej2")
 [node name="SpaceSimulation" parent="." unique_id=254530123 instance=ExtResource("1_simulation")]
 boost_acceleration = 250.0
 coast_deceleration = 25.0
+base_scan_time = 0.5
+scan_time_size_scaling = 1.5
 
 [node name="NavigationScreen" parent="." unique_id=1425250149 node_paths=PackedStringArray("simulation") instance=ExtResource("2_navigation")]
 position = Vector2(-150, 0)

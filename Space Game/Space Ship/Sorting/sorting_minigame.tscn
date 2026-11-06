@@ -54,7 +54,7 @@ script = ExtResource("4_j7otn")
 shape = SubResource("CircleShape2D_k2tvh")
 
 [node name="Instructions" type="VBoxContainer" parent="Grabber" unique_id=2020269810]
-offset_left = 175.0
+offset_left = 71.0
 offset_top = 186.0
 offset_right = 346.0
 offset_bottom = 320.0
@@ -63,26 +63,26 @@ script = ExtResource("6_v5lba")
 [node name="MovePrompt" parent="Grabber/Instructions" unique_id=2091814657 instance=ExtResource("6_wp1jq")]
 layout_mode = 2
 button_text = "STICK"
-action_text = " - to move"
+action_text = " - to move the crane"
 
 [node name="GrabPrompt" parent="Grabber/Instructions" unique_id=1939647481 instance=ExtResource("6_wp1jq")]
 layout_mode = 2
-action_text = " - to grab"
+action_text = " - to grab items"
 
 [node name="SpinPrompt" parent="Grabber/Instructions" unique_id=628411332 instance=ExtResource("6_wp1jq")]
 layout_mode = 2
 button_text = "X"
-action_text = " - to spin"
+action_text = " - to spin the crane"
 
 [node name="ExpandPrompt" parent="Grabber/Instructions" unique_id=1168130179 instance=ExtResource("6_wp1jq")]
 layout_mode = 2
 button_text = "Y"
-action_text = " - to expand"
+action_text = " - to toggle push mode"
 
 [node name="ExitPrompt" parent="Grabber/Instructions" unique_id=1681593094 instance=ExtResource("6_wp1jq")]
 layout_mode = 2
 button_text = "B"
-action_text = " - to exit"
+action_text = " - to exit the control panel"
 
 [node name="ItemSpawnArea" parent="." unique_id=868976861 instance=ExtResource("6_s3fpo")]
 position = Vector2(57, 335)

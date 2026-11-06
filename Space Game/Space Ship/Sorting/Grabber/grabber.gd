@@ -6,13 +6,13 @@ var player_number : int = 0
 
 var spinning_mode : bool = false
 var grabbing : bool = false
-var claw_radius : float = 56 # claw radius, min 22
+var claw_radius : float = 56 # claw radius, min 32
+var claw_max_radius : float = 64 * 2
 
 @export_category("Claw Changables")
 @export_range(0,1,0.1) var claw_grab_weight : float = 0.3
-@export var spin_speed : float = 20
-@export var claw_max_radius : float = 56 # goes up to 112
-@export_range(1,7,1) var num_grabber_claws : int = 3
+@export var spin_speed : float = 5
+@export_range(1,7,1) var num_grabber_claws : int = 4
 const GRABBER_CLAW = preload("res://Space Game/Space Ship/Sorting/Grabber/grabber_claw.tscn")
 var grabber_claws : Dictionary = {}
 
@@ -26,6 +26,7 @@ func _ready() -> void:
 		var pos = polar_to_cartesian(claw_radius,angle)
 		grabber_claw.set_position(pos)
 		grabber_claws[grabber_claw] = angle
+		grabber_claw.rotation = angle
 
 func _physics_process(delta: float) -> void:
 	var direction : Vector2 
@@ -62,35 +63,32 @@ func call_grabber_controls(delta : float) -> void:
 	
 	var player_action = CoopInput.get_player(player_number)
 	
+	# toggle grab
 	if Input.is_action_just_pressed(player_action.A):
 		grabbing = not grabbing
 	
 	if grabbing:
-		grabbing = true
-		claw_radius = lerpf(claw_radius,22, claw_grab_weight)
-		for claw in grabber_claws.keys():
-			var angle = grabber_claws[claw]
-			claw.set_position(polar_to_cartesian(claw_radius,angle))
+		claw_radius = lerpf(claw_radius,32, claw_grab_weight)
 	else:
 		claw_radius = lerpf(claw_radius,claw_max_radius, claw_grab_weight)
-		for claw in grabber_claws.keys():
+	
+	for claw in grabber_claws.keys():
 			var angle = grabber_claws[claw]
 			claw.set_position(polar_to_cartesian(claw_radius,angle))
 	
+	# toggle push mode
 	if Input.is_action_just_pressed(player_action.Y):
-		if claw_max_radius == 56:
+		if claw_max_radius == 64:
 			claw_max_radius *= 2
 		else:
-			claw_max_radius = 56
+			claw_max_radius = 64
 		
-	if Input.is_action_just_pressed(player_action.X):
-		spinning_mode = not spinning_mode
-	
-	if spinning_mode:
+	if Input.is_action_pressed(player_action.X):
 		for claw in grabber_claws.keys():
 			grabber_claws[claw] += spin_speed * delta
 			var angle = grabber_claws[claw]
 			claw.set_position(polar_to_cartesian(claw_radius,angle))
+			claw.rotation = angle
 	
 func polar_to_cartesian(radius : float, angle : float) -> Vector2:
 	return Vector2(radius * cos(angle),radius * sin(angle))
