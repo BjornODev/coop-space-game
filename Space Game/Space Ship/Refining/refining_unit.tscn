@@ -62,7 +62,7 @@ offset_left = -152.0
 offset_top = -20.0
 offset_right = -135.0
 offset_bottom = -8.0
-color = Color(1, 0, 0, 1)
+color = Color(1, 1, 0, 1)
 
 [node name="OreLabel" type="Label" parent="." unique_id=378640836]
 offset_left = 120.0
