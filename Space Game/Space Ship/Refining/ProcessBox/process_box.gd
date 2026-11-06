@@ -12,10 +12,12 @@ var refinement_percentage : float = 0
 var count : float = 0
 var cook_time : float = 0
 
+@export var extra_ore_slowdown : float = 1
 @export_category("Pump Modifiers")
-@export var overclock_boost : float = 10.0
 @export_range(1.0,20.0,1.0) var pump_boost : float = 10.0
 @export_range(1.0,5.0,0.1) var broken_slowdown : float = 5.0
+
+@onready var overclock_boost : float = broken_slowdown * pump_terminals.get_child_count()
 
 func _ready() -> void:
 	if pump_terminals.get_child_count() == 0:
@@ -41,6 +43,7 @@ func pump_broken_toggled(pump_broken : bool) -> void:
 func add_ore_to_queue(new_ore : Dictionary) -> void:
 	unrefined_ore_queue.append(new_ore)
 	start_pump_timer()
+	overclock_boost -= extra_ore_slowdown
 
 func remove_ore_from_queue() -> void:
 	if not unrefined_ore_queue:
@@ -48,7 +51,7 @@ func remove_ore_from_queue() -> void:
 	
 	var refined_ore = unrefined_ore_queue.pop_front()
 	ore_refined.emit(refined_ore["Purity"])
-	
+	overclock_boost += extra_ore_slowdown
 
 func _on_pump_timer_timeout() -> void:
 	if overclock_boost >= 0:
