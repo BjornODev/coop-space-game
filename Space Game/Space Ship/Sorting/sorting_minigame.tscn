@@ -52,6 +52,7 @@ offset_bottom = 322.0
 theme_override_font_sizes/font_size = 32
 text = "A - to toggle grabbing
 X - to toggle push mode
+Y - to toggle radial increase
 B - to exit"
 
 [node name="ScanArea" type="Area2D" parent="Grabber" unique_id=1325507754]

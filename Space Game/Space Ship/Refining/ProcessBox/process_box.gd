@@ -1,7 +1,6 @@
 extends Node2D
 
 var unrefined_ore_queue : Array = []
-@onready var pump_timer: Timer = $PumpTimer
 @onready var pump_terminals: Node2D = $PumpTerminals
 
 @onready var processing_rect: ColorRect = $ProcessingRect
@@ -10,13 +9,12 @@ var unrefined_ore_queue : Array = []
 signal ore_refined(amount : int)
 var refinement_percentage : float = 0
 
-@export var zero_purity_cleanse_time : float = 1.0 # in seconds
+var count : float = 0
+var cook_time : float = 0
+
 @export_category("Pump Modifiers")
-## 50% purity -> 20 seconds, 100% purity -> 5 seconds (at 10 boost, 150 modifier)
-## 50% purity -> 10 seconds, 100% purity -> 2.5 second (at 20 boost, 150 modifier)
 @export var overclock_boost : float = 10.0
 @export_range(1.0,20.0,1.0) var pump_boost : float = 10.0
-@export_range(101.0,200.0,1.0) var boost_modifier : float = 150.0
 @export_range(1.0,5.0,0.1) var broken_slowdown : float = 2.0
 
 func _ready() -> void:
@@ -59,6 +57,7 @@ func _on_pump_timer_timeout() -> void:
 	
 	
 	start_pump_timer()
+	count = 0
 
 func start_pump_timer() -> void:
 	if refinement_percentage >= 100:
@@ -72,14 +71,13 @@ func start_pump_timer() -> void:
 	
 	processing_rect.color = Color("green")
 	var purity : float = unrefined_ore_queue.front()["Purity"]
-	var cook_time : float = zero_purity_cleanse_time
-	if purity:
-		cook_time = (boost_modifier - purity)/purity
-		processing_rect.color = Color("green")
-	else:
-		processing_rect.color = Color("orange")
-	
-	if cook_time > 0.1:
-		pump_timer.start(cook_time)
-	elif cook_time > 0:
-		pump_timer.start(0.1)
+	cook_time = 2*exp(-purity/21.7)
+
+func _process(delta: float) -> void:
+	if not cook_time:
+		count = 0
+		return 
+		
+	count += delta
+	if count >= cook_time:
+		_on_pump_timer_timeout()
