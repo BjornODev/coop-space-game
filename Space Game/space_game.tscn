@@ -20,3 +20,5 @@ position = Vector2(133, -198)
 
 [node name="Bridge" parent="." unique_id=2145632699 instance=ExtResource("4_2nisv")]
 position = Vector2(-138, -720)
+
+[node name="FuelTicker" type="Timer" parent="." unique_id=459683178]

@@ -14,6 +14,14 @@ func _ready() -> void:
 		capsule_container.add_child(placeholder)
 		capsules.append(placeholder)
 		placeholder.connect("update_fuel_available",update_fuel_available)
+		
+		if i <= 1:
+			placeholder.add_new_capsule({
+			"Texture": preload("res://Framework/Assets/icon.png"),
+			"Status": "unrefined",
+			"Purity": 50,
+			"is_scanned" : false
+			})
 
 func update_fuel_available(amount : int) -> void:
 	fuel_available += amount
