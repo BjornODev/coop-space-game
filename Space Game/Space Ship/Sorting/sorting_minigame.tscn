@@ -6,6 +6,8 @@
 [ext_resource type="Script" uid="uid://n2q1mkg34xf" path="res://Space Game/Space Ship/Sorting/suction_tube.gd" id="2_mxewk"]
 [ext_resource type="Script" uid="uid://hh7hg3p2a17i" path="res://Space Game/Space Ship/Sorting/Grabber/scan_area.gd" id="4_j7otn"]
 [ext_resource type="PackedScene" uid="uid://dqkxdgn3uvi5p" path="res://Space Game/Space Ship/TerminalPorts/item_spawn_area.tscn" id="6_s3fpo"]
+[ext_resource type="Script" uid="uid://08hgfpacwsxv" path="res://Space Game/Space Ship/Sorting/instructions.gd" id="6_v5lba"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/button_prompt.tscn" id="6_wp1jq"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k2tvh"]
 radius = 24.0
@@ -39,21 +41,9 @@ collision_layer = 2
 collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_wg7io")
-num_grabber_claws = 4
 
 [node name="Camera2D" type="Camera2D" parent="Grabber" unique_id=2146144476]
 metadata/_edit_lock_ = true
-
-[node name="Instructions" type="Label" parent="Grabber" unique_id=1020873644]
-offset_left = -96.0
-offset_top = 133.0
-offset_right = 343.0
-offset_bottom = 322.0
-theme_override_font_sizes/font_size = 32
-text = "A - to toggle grabbing
-X - to toggle push mode
-Y - to toggle radial increase
-B - to exit"
 
 [node name="ScanArea" type="Area2D" parent="Grabber" unique_id=1325507754]
 collision_layer = 0
@@ -62,6 +52,37 @@ script = ExtResource("4_j7otn")
 
 [node name="ScanRadius" type="CollisionShape2D" parent="Grabber/ScanArea" unique_id=1046676252]
 shape = SubResource("CircleShape2D_k2tvh")
+
+[node name="Instructions" type="VBoxContainer" parent="Grabber" unique_id=2020269810]
+offset_left = 175.0
+offset_top = 186.0
+offset_right = 346.0
+offset_bottom = 320.0
+script = ExtResource("6_v5lba")
+
+[node name="MovePrompt" parent="Grabber/Instructions" unique_id=2091814657 instance=ExtResource("6_wp1jq")]
+layout_mode = 2
+button_text = "STICK"
+action_text = " - to move"
+
+[node name="GrabPrompt" parent="Grabber/Instructions" unique_id=1939647481 instance=ExtResource("6_wp1jq")]
+layout_mode = 2
+action_text = " - to grab"
+
+[node name="SpinPrompt" parent="Grabber/Instructions" unique_id=628411332 instance=ExtResource("6_wp1jq")]
+layout_mode = 2
+button_text = "X"
+action_text = " - to spin"
+
+[node name="ExpandPrompt" parent="Grabber/Instructions" unique_id=1168130179 instance=ExtResource("6_wp1jq")]
+layout_mode = 2
+button_text = "Y"
+action_text = " - to expand"
+
+[node name="ExitPrompt" parent="Grabber/Instructions" unique_id=1681593094 instance=ExtResource("6_wp1jq")]
+layout_mode = 2
+button_text = "B"
+action_text = " - to exit"
 
 [node name="ItemSpawnArea" parent="." unique_id=868976861 instance=ExtResource("6_s3fpo")]
 position = Vector2(57, 335)

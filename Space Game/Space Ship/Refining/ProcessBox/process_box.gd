@@ -15,7 +15,7 @@ var cook_time : float = 0
 @export_category("Pump Modifiers")
 @export var overclock_boost : float = 10.0
 @export_range(1.0,20.0,1.0) var pump_boost : float = 10.0
-@export_range(1.0,5.0,0.1) var broken_slowdown : float = 2.0
+@export_range(1.0,5.0,0.1) var broken_slowdown : float = 5.0
 
 func _ready() -> void:
 	if pump_terminals.get_child_count() == 0:
@@ -51,11 +51,16 @@ func remove_ore_from_queue() -> void:
 	
 
 func _on_pump_timer_timeout() -> void:
-	if overclock_boost > 0 and unrefined_ore_queue:
+	if overclock_boost >= 0:
 		refinement_percentage += overclock_boost
-		tick_label.text = "Refinement: " + str(refinement_percentage) + "%"
+	else:
+		var burning_ore = unrefined_ore_queue.front()
+		if burning_ore["Purity"] >= 5:
+			burning_ore["Purity"] -= 5
+		else:
+			unrefined_ore_queue.pop_front()
 	
-	
+	tick_label.text = "Refinement: " + str(refinement_percentage) + "%"
 	start_pump_timer()
 	count = 0
 
@@ -63,22 +68,30 @@ func start_pump_timer() -> void:
 	if refinement_percentage >= 100:
 		refinement_percentage = 0
 		tick_label.text = "Refinement: " + str(refinement_percentage) + "%"
-		processing_rect.color = Color("red")
 		remove_ore_from_queue()
 	
+	assign_processing_rect_color()
 	if not unrefined_ore_queue:
 		return
 	
-	processing_rect.color = Color("green")
 	var purity : float = unrefined_ore_queue.front()["Purity"]
 	cook_time = 2*exp(-purity/21.7)
 
 func _process(delta: float) -> void:
-	if processing_rect.color != Color("green"):
-		return 
-	elif not cook_time:
-		return printerr("this should never happen")
+	if not unrefined_ore_queue:
+		return
 		
 	count += delta
-	if count >= cook_time:
+	if count >= abs(cook_time):
 		_on_pump_timer_timeout()
+
+func assign_processing_rect_color() -> void:
+	if not unrefined_ore_queue:
+		processing_rect.color = Color("yellow")
+	elif overclock_boost < 0:
+		processing_rect.color = Color("red")
+	elif overclock_boost == 0:
+		processing_rect.color = Color("orange")
+	else:
+		processing_rect.color = Color("green")
+	
