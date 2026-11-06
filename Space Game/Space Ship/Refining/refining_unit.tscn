@@ -50,8 +50,6 @@ offset_right = 33.0
 offset_bottom = -25.0
 color = Color(0, 1, 0, 1)
 
-[node name="PumpTimer" type="Timer" parent="ProcessBox" unique_id=582050768]
-
 [node name="TickLabel" type="Label" parent="ProcessBox" unique_id=582462908]
 offset_left = -170.0
 offset_top = -104.0
@@ -75,5 +73,3 @@ text = "Ore Refined: 0"
 
 [node name="ItemSpawnArea" parent="." unique_id=868976861 instance=ExtResource("7_fkjaj")]
 position = Vector2(-381, -177)
-
-[connection signal="timeout" from="ProcessBox/PumpTimer" to="ProcessBox" method="_on_pump_timer_timeout"]

@@ -1,6 +1,6 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://cg6wx5jw18p3l"]
 
-[ext_resource type="Script" path="res://Space Game/Space Ship/Bridge/Screens/navigation_screen.gd" id="1_script"]
+[ext_resource type="Script" uid="uid://cv7r3onl1yntp" path="res://Space Game/Space Ship/Bridge/Screens/navigation_screen.gd" id="1_script"]
 [ext_resource type="Theme" uid="uid://w7mhbu37d037" path="res://Space Game/Space Ship/Bridge/Theme/bridge_theme.tres" id="2_theme"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Radar/route_view.tscn" id="3_route"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Radar/radar_display.tscn" id="4_radar"]
@@ -9,15 +9,15 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_range"]
 size = Vector2(180, 100)
 
-[node name="NavigationScreen" type="Area2D"]
+[node name="NavigationScreen" type="Area2D" unique_id=1232419894]
 script = ExtResource("1_script")
 zoom_multiplier = 4.8
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1582577193]
 position = Vector2(0, 70)
 shape = SubResource("RectangleShape2D_range")
 
-[node name="Display" type="ColorRect" parent="."]
+[node name="Display" type="ColorRect" parent="." unique_id=1771922079]
 offset_left = -75.0
 offset_top = -50.0
 offset_right = 525.0
@@ -27,14 +27,14 @@ mouse_filter = 2
 theme = ExtResource("2_theme")
 color = Color(0.2, 0.2, 0.2, 1)
 
-[node name="RouteView" parent="Display" instance=ExtResource("3_route")]
+[node name="RouteView" parent="Display" unique_id=1141338801 instance=ExtResource("3_route")]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 48.0
 offset_right = 356.0
 offset_bottom = 388.0
 
-[node name="RadarDisplay" parent="Display" instance=ExtResource("4_radar")]
+[node name="RadarDisplay" parent="Display" unique_id=1668719643 instance=ExtResource("4_radar")]
 visible = false
 layout_mode = 0
 offset_left = 16.0
@@ -42,7 +42,7 @@ offset_top = 48.0
 offset_right = 356.0
 offset_bottom = 388.0
 
-[node name="IdleLabel" type="Label" parent="Display"]
+[node name="IdleLabel" type="Label" parent="Display" unique_id=1850857885]
 layout_mode = 0
 offset_left = 372.0
 offset_top = 48.0
@@ -54,7 +54,7 @@ Navigate"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Details" type="Control" parent="Display"]
+[node name="Details" type="Control" parent="Display" unique_id=1430969834]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -63,7 +63,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="Title" type="Label" parent="Display/Details"]
+[node name="Title" type="Label" parent="Display/Details" unique_id=612157983]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 10.0
@@ -71,7 +71,7 @@ offset_right = 356.0
 offset_bottom = 40.0
 text = "NAVIGATION"
 
-[node name="ViewLabel" type="Label" parent="Display/Details"]
+[node name="ViewLabel" type="Label" parent="Display/Details" unique_id=1034712465]
 layout_mode = 0
 offset_left = 16.0
 offset_top = 10.0
@@ -80,7 +80,7 @@ offset_bottom = 40.0
 text = "ROUTE VIEW"
 horizontal_alignment = 2
 
-[node name="Side" type="VBoxContainer" parent="Display/Details"]
+[node name="Side" type="VBoxContainer" parent="Display/Details" unique_id=1760064378]
 layout_mode = 0
 offset_left = 372.0
 offset_top = 48.0
@@ -88,47 +88,51 @@ offset_right = 584.0
 offset_bottom = 388.0
 mouse_filter = 2
 
-[node name="SpeedLabel" type="Label" parent="Display/Details/Side"]
+[node name="SpeedLabel" type="Label" parent="Display/Details/Side" unique_id=1079386754]
 layout_mode = 2
 text = "Speed: 0"
 
-[node name="DistanceLabel" type="Label" parent="Display/Details/Side"]
+[node name="DistanceLabel" type="Label" parent="Display/Details/Side" unique_id=1782886019]
 layout_mode = 2
 text = "To B: 0"
 
-[node name="BoostLabel" type="Label" parent="Display/Details/Side"]
+[node name="FuelLabel" type="Label" parent="Display/Details/Side" unique_id=437042137]
+layout_mode = 2
+text = "Fuel Left: 0"
+
+[node name="BoostLabel" type="Label" parent="Display/Details/Side" unique_id=960368779]
 layout_mode = 2
 text = "BOOST"
 
-[node name="ReverseLabel" type="Label" parent="Display/Details/Side"]
+[node name="ReverseLabel" type="Label" parent="Display/Details/Side" unique_id=2147066089]
 layout_mode = 2
 text = "REVERSE"
 
-[node name="Spacer" type="Control" parent="Display/Details/Side"]
+[node name="Spacer" type="Control" parent="Display/Details/Side" unique_id=1131498230]
 layout_mode = 2
 size_flags_vertical = 3
 mouse_filter = 2
 
-[node name="SteerPrompt" parent="Display/Details/Side" instance=ExtResource("5_prompt")]
+[node name="SteerPrompt" parent="Display/Details/Side" unique_id=1384769566 instance=ExtResource("5_prompt")]
 layout_mode = 2
 button_text = "Stick"
 action_text = "Steer"
 
-[node name="BoostPrompt" parent="Display/Details/Side" instance=ExtResource("5_prompt")]
+[node name="BoostPrompt" parent="Display/Details/Side" unique_id=2063348196 instance=ExtResource("5_prompt")]
 layout_mode = 2
 action_text = "Boost (hold)"
 
-[node name="ReversePrompt" parent="Display/Details/Side" instance=ExtResource("5_prompt")]
+[node name="ReversePrompt" parent="Display/Details/Side" unique_id=768143634 instance=ExtResource("5_prompt")]
 layout_mode = 2
 button_text = "X"
 action_text = "Reverse (hold)"
 
-[node name="ViewPrompt" parent="Display/Details/Side" instance=ExtResource("5_prompt")]
+[node name="ViewPrompt" parent="Display/Details/Side" unique_id=501697279 instance=ExtResource("5_prompt")]
 layout_mode = 2
 button_text = "Y"
 action_text = "Toggle View"
 
-[node name="ExitPrompt" parent="Display/Details/Side" instance=ExtResource("5_prompt")]
+[node name="ExitPrompt" parent="Display/Details/Side" unique_id=824393171 instance=ExtResource("5_prompt")]
 layout_mode = 2
 button_text = "B"
 action_text = "Exit"
