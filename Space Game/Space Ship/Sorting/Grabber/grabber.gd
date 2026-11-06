@@ -16,7 +16,7 @@ var claw_radius : float = 56 # claw radius, min 22
 const GRABBER_CLAW = preload("res://Space Game/Space Ship/Sorting/Grabber/grabber_claw.tscn")
 var grabber_claws : Dictionary = {}
 
-@onready var instructions: Label = $Instructions
+@onready var instructions: VBoxContainer = $Instructions
 
 func _ready() -> void:
 	for i in range(num_grabber_claws):
@@ -31,11 +31,12 @@ func _physics_process(delta: float) -> void:
 	var direction : Vector2 
 	
 	if not player_number:
-		instructions.visible = false
+		instructions.toggle_instructions(null)
 		return
 	
-	instructions.visible = true
 	var player_action = CoopInput.get_player(player_number)
+	instructions.toggle_instructions(player_action)
+	
 	if Input.is_action_pressed(player_action.UP):
 		direction.y = -1
 	elif Input.is_action_pressed(player_action.DOWN):
@@ -93,3 +94,4 @@ func call_grabber_controls(delta : float) -> void:
 	
 func polar_to_cartesian(radius : float, angle : float) -> Vector2:
 	return Vector2(radius * cos(angle),radius * sin(angle))
+	

@@ -5,6 +5,7 @@
 var pump_is_broken : bool = false
 var pump_being_overclocked : bool = false
 var pump_toggled : bool = false
+var pump_already_broken : bool = false
 
 ## value of 0.1 ~ 10 seconds till pump breaks
 @export var overclock_speed : float = 0.1
@@ -31,6 +32,7 @@ func _on_interaction_started(player: Player) -> void:
 func pump_fixed() -> void:
 	pump_broken_toggled.emit(false)
 	pump_is_broken = false
+	pump_already_broken = false
 	indicator.color = Color("7b7b00")
 	pump_being_overclocked = false
 	
@@ -39,11 +41,15 @@ func _process(delta: float) -> void:
 	if not indicator:
 		return
 	
-	if pump_is_broken:
+	if pump_is_broken and not pump_already_broken:
 		indicator.color = Color("black")
 		pump_broken_toggled.emit(true)
+		pump_overclock_toggled.emit(false)
+		pump_already_broken = true
 		return
-		
+	elif pump_is_broken:
+		return
+	
 	if not pump_being_overclocked:
 		indicator.color.r = move_toward(indicator.color.r,0,delta * overclock_speed)
 		indicator.color.g = move_toward(indicator.color.g,1,delta * overclock_speed)
