@@ -20,6 +20,8 @@ enum HullSide { FRONT, BACK, LEFT, RIGHT }
 @export var breach_scene: PackedScene
 ## Hits are ignored while this many breaches are open.
 @export var max_open_breaches: int = 6
+## Chance that an asteroid hit opens a breach. Lower values make breaches rarer.
+@export_range(0.0, 1.0) var breach_chance: float = 0.3
 
 ## Outward direction on the tilemap for each side of the ship.
 const SIDE_DIRECTIONS: Dictionary[HullSide, Vector2i] = {
@@ -88,6 +90,8 @@ func open_breach(side: HullSide) -> HullBreach:
 	return breach
 
 func _on_asteroid_hit(asteroid: BridgeAsteroid) -> void:
+	if randf() >= breach_chance:
+		return
 	open_breach(get_hit_side(asteroid))
 
 func _on_breach_repaired(breach: HullBreach) -> void:

@@ -14,19 +14,19 @@ signal malfunction_started(type: Malfunction.Type)
 @export var comms_panel: CommsPanel
 
 ## Seconds before the first malfunction of a run.
-@export var first_malfunction_delay: float = 40.0
+@export var first_malfunction_delay: float = 120.0
 
 @export_group("Escalation")
 ## Seconds between malfunctions when leaving planet A.
-@export var interval_at_start: float = 50.0
+@export var interval_at_start: float = 150.0
 ## Seconds between malfunctions when arriving at planet B.
-@export var interval_at_end: float = 18.0
+@export var interval_at_end: float = 60.0
 ## Each interval is randomly stretched or shrunk by up to this fraction.
 @export_range(0.0, 1.0) var interval_randomness: float = 0.25
 ## Most director malfunctions active at once when leaving planet A, before the player count multiplier.
 @export var max_active_at_start: float = 1.0
 ## Most director malfunctions active at once when arriving at planet B, before the player count multiplier.
-@export var max_active_at_end: float = 3.0
+@export var max_active_at_end: float = 2.0
 ## Multiplies the active limit, indexed by player count minus 1. The result is rounded, and is never below 1.
 @export var player_count_multipliers: Array[float] = [0.75, 1.0, 1.35, 1.7]
 

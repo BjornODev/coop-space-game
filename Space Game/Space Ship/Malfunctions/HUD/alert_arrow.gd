@@ -18,3 +18,13 @@ func show_alert(angle: float, color: Color, countdown_text: String) -> void:
 	_countdown_label.modulate = color
 	# keep the countdown on the inner side of the arrow so it never goes off screen
 	_countdown_label.position = -Vector2.from_angle(angle) * label_distance - _countdown_label.size * 0.5
+
+## Where an arrow goes on the edge of arrow_rect so it points from the rect's center toward screen_position.
+static func get_edge_position(arrow_rect: Rect2, screen_position: Vector2) -> Vector2:
+	var center: Vector2 = arrow_rect.get_center()
+	var half: Vector2 = arrow_rect.size * 0.5
+	var direction: Vector2 = center.direction_to(screen_position)
+	# slide out from the center along direction until reaching the rectangle's edge
+	var reach_x: float = half.x / absf(direction.x) if not is_zero_approx(direction.x) else INF
+	var reach_y: float = half.y / absf(direction.y) if not is_zero_approx(direction.y) else INF
+	return center + direction * minf(reach_x, reach_y)

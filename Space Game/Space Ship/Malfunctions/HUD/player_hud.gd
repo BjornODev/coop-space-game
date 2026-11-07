@@ -72,7 +72,6 @@ func _update_arrows(screen_size: Vector2) -> void:
 	var visible_rect: Rect2 = screen_rect.grow(-on_screen_margin)
 	var arrow_rect: Rect2 = screen_rect.grow(-arrow_edge_margin)
 	var center: Vector2 = screen_size * 0.5
-	var half: Vector2 = arrow_rect.size * 0.5
 	var used: int = 0
 	for target: AlertTarget in _manager.get_alert_targets(_player.global_position):
 		var screen_position: Vector2 = canvas * target.position
@@ -81,12 +80,9 @@ func _update_arrows(screen_size: Vector2) -> void:
 		var direction: Vector2 = center.direction_to(screen_position)
 		if direction == Vector2.ZERO:
 			continue
-		# slide out from the center along direction until reaching the arrow rectangle's edge
-		var reach_x: float = half.x / absf(direction.x) if not is_zero_approx(direction.x) else INF
-		var reach_y: float = half.y / absf(direction.y) if not is_zero_approx(direction.y) else INF
 		var arrow: AlertArrow = _get_arrow(used)
 		used += 1
-		arrow.position = center + direction * minf(reach_x, reach_y)
+		arrow.position = AlertArrow.get_edge_position(arrow_rect, screen_position)
 		arrow.show_alert(direction.angle(), _manager.get_color(target.type), _manager.get_countdown_text(target.type))
 	_hide_arrows_from(used)
 

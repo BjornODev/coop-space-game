@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dqkxdgn3uvi5p" path="res://Space Game/Space Ship/TerminalPorts/item_spawn_area.tscn" id="6_s3fpo"]
 [ext_resource type="Script" uid="uid://08hgfpacwsxv" path="res://Space Game/Space Ship/Sorting/instructions.gd" id="6_v5lba"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/button_prompt.tscn" id="6_wp1jq"]
+[ext_resource type="Script" path="res://Space Game/Space Ship/Sorting/sorter_wall_push.gd" id="7_wallpush"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k2tvh"]
 radius = 24.0
@@ -101,5 +102,11 @@ action_text = " - to exit the control panel"
 [node name="ItemSpawnArea" parent="." unique_id=868976861 instance=ExtResource("6_s3fpo")]
 position = Vector2(57, 335)
 show_scanned_enabled = true
+
+[node name="SorterWallPush" type="Node" parent="." node_paths=PackedStringArray("tile_map", "item_parent", "exempt_nodes")]
+script = ExtResource("7_wallpush")
+tile_map = NodePath("../TileMap")
+item_parent = NodePath("../ItemSpawnArea")
+exempt_nodes = [NodePath("../SuctionToRefining"), NodePath("../SuctionTrash")]
 
 [connection signal="body_entered" from="Grabber/ScanArea" to="Grabber/ScanArea" method="_on_body_entered"]

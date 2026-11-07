@@ -24,7 +24,6 @@
 
 [node name="Space Game" type="Node2D" unique_id=1468521417]
 script = ExtResource("1_game")
-full_ship_with_malfunctions = false
 PLAYER_SCENE = "uid://btbloowmcl88g"
 
 [node name="FullLayout" type="Node2D" parent="." unique_id=1801571723]

@@ -2,6 +2,7 @@ extends Game2D
 
 var player = preload("res://Space Game/Player/player.tscn")
 const PLAYER_HUD = preload("res://Space Game/Space Ship/Malfunctions/HUD/player_hud.tscn")
+const GUIDE_HUD = preload("res://Space Game/Space Ship/Guidance/guide_hud.tscn")
 
 ## On: the full ship with every room, plus fire, oxygen, comms and hull malfunctions, the director and the HUD meters.
 ## Off: a smaller ship with just the bridge, sorting, refinery and engine, and no malfunctions.
@@ -33,6 +34,7 @@ const SPAWN_SPACING = 120
 var _joined_players: Array[bool] = []
 var _zoom_matching: bool = true
 var _huds: Array[PlayerHud] = []
+var _guide_huds: Array[GuideHud] = []
 var _restarting: bool = false
 
 func _ready() -> void:
@@ -74,6 +76,7 @@ func start(player_count: int, joined_players: Array[bool], zoom_matching) -> voi
 		else:
 			camera.zoom = Vector2.ONE
 		stored_players[i].set_camera(camera)
+		_add_guide_hud(stored_players[i], camera)
 		if malfunction_manager != null:
 			_add_hud(stored_players[i], camera)
 
@@ -143,9 +146,18 @@ func _add_hud(hud_player: Player, camera: Camera2D) -> void:
 	hud.restart_requested.connect(restart_run)
 	_huds.append(hud)
 
+## Gives player an arrow that shows where to take the ore or canister they carry.
+func _add_guide_hud(hud_player: Player, camera: Camera2D) -> void:
+	var guide: GuideHud = GUIDE_HUD.instantiate() as GuideHud
+	add_child(guide)
+	guide.setup(hud_player, camera.get_viewport(), refining_unit.input_terminal, refining_unit.output_terminal, engine_unit)
+	_guide_huds.append(guide)
+
 ## Freezes the ship and shows every player which meter filled.
 func _on_mission_failed(type: Malfunction.Type) -> void:
 	get_tree().paused = true
+	for guide: GuideHud in _guide_huds:
+		guide.visible = false
 	for hud: PlayerHud in _huds:
 		hud.show_mission_failed(type)
 
