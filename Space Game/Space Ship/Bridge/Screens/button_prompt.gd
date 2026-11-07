@@ -49,6 +49,11 @@ func _show_button(button_name: String) -> void:
 
 ## Name of the first keyboard key bound to action, or an empty string if it has none.
 func _get_key_name(action: String) -> String:
+	return get_key_name(action)
+
+## Name of the first keyboard key bound to action, or an empty string if it has none.
+## Static so other screens can label inputs the same way prompts do.
+static func get_key_name(action: String) -> String:
 	if not InputMap.has_action(action):
 		return ""
 	for event: InputEvent in InputMap.action_get_events(action):

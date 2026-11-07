@@ -53,5 +53,10 @@ hframes = 12
 show_behind_parent = true
 position = Vector2(6, 0)
 
+[node name="SprayCone" type="Polygon2D" parent="Visuals"]
+visible = false
+color = Color(0.85, 0.95, 1, 0.45)
+polygon = PackedVector2Array(0, 0, 1, -1, 1, 1)
+
 [node name="ItemManager" type="Node" parent="." unique_id=1135044459]
 script = ExtResource("3_12pfq")

@@ -1,0 +1,15 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Space Game/Space Ship/Rooms/ship_room.gd" id="1_room"]
+
+[node name="ShipRoom" type="Node2D"]
+script = ExtResource("1_room")
+
+[node name="NameLabel" type="Label" parent="."]
+z_index = -90
+modulate = Color(1, 1, 1, 0.35)
+offset_right = 600.0
+offset_bottom = 67.0
+mouse_filter = 2
+theme_override_font_sizes/font_size = 48
+text = "Room"

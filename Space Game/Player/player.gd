@@ -6,6 +6,8 @@ class_name Player extends CharacterBody2D
 @onready var legs_sprite: Sprite2D = $Visuals/Sprite2D/LegsSprite
 @onready var item_sprite: Sprite2D = $Visuals/Sprite2D/ItemSprite
 @onready var item_manager: Node = $ItemManager
+## Shown in front of the astronaut while spraying an extinguisher. Its polygon is a unit cone scaled to the spray range.
+@onready var spray_cone: Polygon2D = $Visuals/SprayCone
 
 ## Spritesheet used when walking empty-handed. Frames face right, laid out in one row.
 @export var walk_texture: Texture2D
@@ -13,6 +15,8 @@ class_name Player extends CharacterBody2D
 @export var carry_walk_texture: Texture2D
 ## Size of a held item's longest side, in sprite pixels (one astronaut frame is 16).
 @export var held_item_size: float = 7.0
+## How far in front of the astronaut's center the spray starts, in pixels.
+@export var spray_origin_offset: float = 30.0
 
 var camera: Camera2D
 
@@ -37,10 +41,13 @@ const CARRY_HAND_OFFSETS: Array[Vector2] = [
 ]
 ## Tints the white parts of the suit (not the visor or gloves) so players can tell each other apart. Indexed by player number - 1.
 const PLAYER_TINTS: Array[Color] = [
-	Color(1.0, 0.5, 0.5), Color(0.35, 0.5, 1.0), Color(0.5, 1.0, 0.5), Color(1.0, 0.95, 0.6),
+	Color(0.35, 0.5, 1.0), Color(1.0, 0.5, 0.5), Color(0.5, 1.0, 0.5), Color(1.0, 0.95, 0.6),
 ]
 
 var player_number: int = 1
+
+## The ship's fire. Set by the game. Slows players on burning tiles and takes extinguisher spray.
+var fire_system: FireSystem = null
 
 ## The object this player is currently interacting with. Movement is disabled while this is set.
 var current_interaction: Interactable = null
@@ -58,6 +65,10 @@ var _facing_angle: float = 0.0
 ## Where we are in the walk cycle, in frames. Fractional so slow walking still advances.
 var _anim_time: float = 0.0
 var _was_carrying: bool = false
+## Pull from hull breaches this physics frame, in pixels per second. Cleared after each move.
+var _pull_velocity: Vector2 = Vector2.ZERO
+## True from pressing A at a fire with an extinguisher until A is let go.
+var _spraying: bool = false
 
 func _ready() -> void:
 	item_manager.set_item_texture.connect(_set_held_item_texture)
@@ -72,6 +83,8 @@ func _physics_process(delta: float) -> void:
 	# while interacting, the interactable is in charge: no movement, camera focuses on it
 	if current_interaction != null:
 		velocity = Vector2.ZERO
+		_pull_velocity = Vector2.ZERO
+		_set_spraying(false)
 		_move_camera_toward(current_interaction.get_focus_position(), _base_zoom * current_interaction.zoom_multiplier, delta)
 		return
 
@@ -79,17 +92,33 @@ func _physics_process(delta: float) -> void:
 	var direction: Vector2 = Input.get_vector(input.LEFT, input.RIGHT, input.UP, input.DOWN)
 
 	# speeds up toward the input direction, or slows to a stop when there's no input
+	var max_speed: float = MAX_SPEED
+	if fire_system != null:
+		max_speed *= fire_system.get_speed_multiplier_at(global_position)
 	if direction != Vector2.ZERO:
-		velocity = velocity.move_toward(direction * MAX_SPEED, ACCELERATION * delta)
+		velocity = velocity.move_toward(direction * max_speed, ACCELERATION * delta)
 	else:
 		velocity = velocity.move_toward(Vector2.ZERO, FRICTION * delta)
+	# hull breaches drag the player along on top of their own movement, without becoming part of it
+	velocity += _pull_velocity
 	move_and_slide()
+	velocity -= _pull_velocity
+	_pull_velocity = Vector2.ZERO
 
 	if direction != Vector2.ZERO:
 		_facing_angle = direction.angle()
 
 	if Input.is_action_just_pressed(input.A) and Engine.get_physics_frames() != _interaction_ended_frame:
-		_try_interact()
+		# an extinguisher aimed at fire sprays instead of using stations or dropping
+		if _is_holding_extinguisher() and fire_system.has_fire_in_spray(_get_spray_origin(), _get_facing_direction()):
+			_set_spraying(true)
+		else:
+			_try_interact()
+	if _spraying:
+		if Input.is_action_pressed(input.A) and _is_holding_extinguisher():
+			_set_spraying(fire_system.spray(item_manager.item_being_held, _get_spray_origin(), _get_facing_direction(), delta))
+		else:
+			_set_spraying(false)
 
 	# cameras live in the splitscreen viewports, not on the player, so we move ours manually
 	if camera != null:
@@ -111,6 +140,10 @@ func set_camera(new_camera: Camera2D) -> void:
 	camera = new_camera
 	camera.global_position = global_position
 	_base_zoom = camera.zoom
+
+## Drags this player toward a hull breach this physics frame. pull is a speed in pixels per second.
+func apply_pull(pull: Vector2) -> void:
+	_pull_velocity += pull
 
 ## Called by an Interactable when this player enters its range.
 func enter_interaction_range(interactable: Interactable) -> void:
@@ -144,6 +177,25 @@ func _try_interact() -> void:
 	candidates.sort_custom(func(a, b): return global_position.distance_squared_to(a.global_position) < global_position.distance_squared_to(b.global_position))
 	candidates[0].interact(self)
 	
+
+func _is_holding_extinguisher() -> bool:
+	return fire_system != null and ShipItems.has_status(item_manager.item_being_held, ShipItems.STATUS_EXTINGUISHER)
+
+func _get_facing_direction() -> Vector2:
+	return Vector2.from_angle(_facing_angle)
+
+func _get_spray_origin() -> Vector2:
+	return global_position + _get_facing_direction() * spray_origin_offset
+
+## Starts or stops spraying, and shows the spray cone sized to the fire system's spray range and angle.
+func _set_spraying(spraying: bool) -> void:
+	_spraying = spraying
+	spray_cone.visible = spraying
+	if spraying and fire_system != null:
+		var half_angle: float = deg_to_rad(fire_system.spray_cone_degrees) * 0.5
+		# the cone's far edge runs from (1, -1) to (1, 1), like the suction cone on the bridge radar
+		spray_cone.position = Vector2.RIGHT * spray_origin_offset
+		spray_cone.scale = Vector2(fire_system.spray_range, fire_system.spray_range * tan(half_angle))
 
 ## Picks the walk or carry walk sheet, advances the cycle with movement speed, and keeps the held item in the hands.
 func _update_animation(delta: float) -> void:

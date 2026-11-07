@@ -1,0 +1,73 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Space Game/Space Ship/LifeSupport/filter_cleaning_station.gd" id="1_station"]
+[ext_resource type="PackedScene" uid="uid://cscfggtdkulwh" path="res://Space Game/Space Ship/TerminalPorts/terminal_port.tscn" id="2_port"]
+[ext_resource type="Script" uid="uid://cdgfx3gba43j6" path="res://Space Game/Space Ship/Refining/input_terminal.gd" id="3_input"]
+[ext_resource type="PackedScene" uid="uid://dqkxdgn3uvi5p" path="res://Space Game/Space Ship/TerminalPorts/item_spawn_area.tscn" id="4_spawn"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_background"]
+bg_color = Color(0.1, 0.1, 0.1, 0.8)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fill"]
+bg_color = Color(0.3, 0.8, 1, 1)
+
+[node name="FilterCleaningStation" type="Node2D"]
+script = ExtResource("1_station")
+process_time = 8.0
+
+[node name="Body" type="ColorRect" parent="."]
+offset_left = -130.0
+offset_top = -190.0
+offset_right = 130.0
+offset_bottom = -50.0
+mouse_filter = 2
+color = Color(0.3, 0.4, 0.45, 1)
+
+[node name="Title" type="Label" parent="Body"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 6.0
+offset_right = 252.0
+offset_bottom = 29.0
+text = "FILTER CLEANING"
+horizontal_alignment = 1
+
+[node name="Indicator" type="ColorRect" parent="."]
+offset_left = -110.0
+offset_top = -140.0
+offset_right = -90.0
+offset_bottom = -120.0
+mouse_filter = 2
+color = Color(1, 0, 0, 1)
+
+[node name="StatusLabel" type="Label" parent="."]
+offset_left = -82.0
+offset_top = -142.0
+offset_right = 124.0
+offset_bottom = -119.0
+text = "Idle"
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -110.0
+offset_top = -100.0
+offset_right = 110.0
+offset_bottom = -82.0
+mouse_filter = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_background")
+theme_override_styles/fill = SubResource("StyleBoxFlat_fill")
+max_value = 1.0
+show_percentage = false
+
+[node name="InputTerminal" parent="." instance=ExtResource("2_port")]
+position = Vector2(-80, 0)
+script = ExtResource("3_input")
+text = "Dirty Filters In"
+status = "filter"
+
+[node name="ItemSpawnArea" parent="." instance=ExtResource("4_spawn")]
+position = Vector2(140, -10)
+
+[node name="Label" parent="ItemSpawnArea/ColorRect" index="0"]
+text = "OUT ->"
+
+[editable path="ItemSpawnArea"]
