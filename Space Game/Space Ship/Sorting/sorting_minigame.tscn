@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dqkxdgn3uvi5p" path="res://Space Game/Space Ship/TerminalPorts/item_spawn_area.tscn" id="6_s3fpo"]
 [ext_resource type="Script" uid="uid://08hgfpacwsxv" path="res://Space Game/Space Ship/Sorting/instructions.gd" id="6_v5lba"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/button_prompt.tscn" id="6_wp1jq"]
-[ext_resource type="Script" path="res://Space Game/Space Ship/Sorting/sorter_wall_push.gd" id="7_wallpush"]
+[ext_resource type="Script" uid="uid://oo325n4ualri" path="res://Space Game/Space Ship/Sorting/sorter_wall_push.gd" id="7_wallpush"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k2tvh"]
 radius = 24.0
@@ -48,31 +48,12 @@ collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_wg7io")
 
-[node name="Instructions" type="Label" parent="Grabber" unique_id=1020873644]
-top_level = true
-offset_left = -96.0
-offset_top = 133.0
-offset_right = 343.0
-offset_bottom = 322.0
-theme_override_font_sizes/font_size = 32
-text = "A - to toggle grabbing
-X - to toggle push mode
-Y - to toggle radial increase
-B - to exit"
-
-[node name="ScanArea" type="Area2D" parent="Grabber" unique_id=1325507754]
-collision_layer = 0
-collision_mask = 4
-script = ExtResource("4_j7otn")
-
-[node name="ScanRadius" type="CollisionShape2D" parent="Grabber/ScanArea" unique_id=1046676252]
-shape = SubResource("CircleShape2D_k2tvh")
-
 [node name="Instructions" type="VBoxContainer" parent="Grabber" unique_id=2020269810]
-offset_left = 71.0
-offset_top = 186.0
-offset_right = 346.0
-offset_bottom = 320.0
+top_level = true
+offset_left = 4.0
+offset_top = 499.0
+offset_right = 279.0
+offset_bottom = 633.0
 script = ExtResource("6_v5lba")
 
 [node name="MovePrompt" parent="Grabber/Instructions" unique_id=2091814657 instance=ExtResource("6_wp1jq")]
@@ -99,11 +80,19 @@ layout_mode = 2
 button_text = "B"
 action_text = " - to exit the control panel"
 
+[node name="ScanArea" type="Area2D" parent="Grabber" unique_id=1325507754]
+collision_layer = 0
+collision_mask = 4
+script = ExtResource("4_j7otn")
+
+[node name="ScanRadius" type="CollisionShape2D" parent="Grabber/ScanArea" unique_id=1046676252]
+shape = SubResource("CircleShape2D_k2tvh")
+
 [node name="ItemSpawnArea" parent="." unique_id=868976861 instance=ExtResource("6_s3fpo")]
 position = Vector2(57, 335)
 show_scanned_enabled = true
 
-[node name="SorterWallPush" type="Node" parent="." node_paths=PackedStringArray("tile_map", "item_parent", "exempt_nodes")]
+[node name="SorterWallPush" type="Node" parent="." unique_id=605573385 node_paths=PackedStringArray("tile_map", "item_parent", "exempt_nodes")]
 script = ExtResource("7_wallpush")
 tile_map = NodePath("../TileMap")
 item_parent = NodePath("../ItemSpawnArea")
