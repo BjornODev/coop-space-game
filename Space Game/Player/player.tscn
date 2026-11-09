@@ -2,10 +2,12 @@
 
 [ext_resource type="Script" uid="uid://c82wxempnefjv" path="res://Space Game/Player/player.gd" id="1_player"]
 [ext_resource type="Texture2D" uid="uid://dxdc4vjm5w0fq" path="res://Space Game/Player/assets/Astronaut_Normal_Walk.png" id="2_walk"]
-[ext_resource type="Texture2D" uid="uid://cvdfd73gk7xhr" path="res://Space Game/Player/assets/Astronaut_Carry_Walk.png" id="3_carry"]
 [ext_resource type="Script" uid="uid://dv2ngrs8m4b3v" path="res://Space Game/Player/item_manager.gd" id="3_12pfq"]
+[ext_resource type="Texture2D" uid="uid://cvdfd73gk7xhr" path="res://Space Game/Player/assets/Astronaut_Carry_Walk.png" id="3_carry"]
+[ext_resource type="Shader" uid="uid://dwvboxajcak63" path="res://Space Game/Player/player_tint.gdshader" id="4_tint"]
 
-[ext_resource type="Shader" path="res://Space Game/Player/player_tint.gdshader" id="4_tint"]
+[sub_resource type="CircleShape2D" id="CircleShape2D_player"]
+radius = 50.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tint"]
 resource_local_to_scene = true
@@ -20,9 +22,6 @@ shader = ExtResource("4_tint")
 shader_parameter/tint = Color(1, 1, 1, 1)
 shader_parameter/suit_threshold = 0.75
 shader_parameter/layer = 1
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_player"]
-radius = 50.0
 
 [node name="Player" type="CharacterBody2D" unique_id=1254061961]
 collision_layer = 2
@@ -53,6 +52,11 @@ hframes = 12
 [node name="ItemSprite" type="Sprite2D" parent="Visuals/Sprite2D" unique_id=1562769700]
 show_behind_parent = true
 position = Vector2(6, 0)
+
+[node name="SprayCone" type="Polygon2D" parent="Visuals"]
+visible = false
+color = Color(0.85, 0.95, 1, 0.45)
+polygon = PackedVector2Array(0, 0, 1, -1, 1, 1)
 
 [node name="ItemManager" type="Node" parent="." unique_id=1135044459]
 script = ExtResource("3_12pfq")
