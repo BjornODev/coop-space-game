@@ -72,7 +72,7 @@ var _spraying: bool = false
 
 func _ready() -> void:
 	item_manager.set_item_texture.connect(_set_held_item_texture)
-	_set_held_item_texture(null)
+	_set_held_item_texture(null,1,0)
 	_update_animation(0.0)
 
 func _process(delta: float) -> void:
@@ -223,12 +223,18 @@ func _update_animation(delta: float) -> void:
 		item_sprite.position = CARRY_HAND_OFFSETS[sprite.frame]
 
 ## Shows a held item's texture, scaled so any texture size fits between the hands.
-func _set_held_item_texture(texture: Texture2D) -> void:
+func _set_held_item_texture(texture: Texture2D, h_frame : int, frame : int) -> void:
 	item_sprite.texture = texture
 	if texture == null:
 		return
-	var longest_side: float = maxf(texture.get_width(), texture.get_height())
-	item_sprite.scale = Vector2.ONE * held_item_size / longest_side
+	item_sprite.hframes = h_frame
+	item_sprite.frame = frame
+	if h_frame > 1:
+		var shortest_side: float = minf(texture.get_width(), texture.get_height())
+		item_sprite.scale = Vector2.ONE * held_item_size / shortest_side
+	else:
+		var longest_side: float = maxf(texture.get_width(), texture.get_height())
+		item_sprite.scale = Vector2.ONE * held_item_size / longest_side
 
 ## Eases the camera toward a position and zoom. Returns true once it has arrived.
 func _move_camera_toward(target_position: Vector2, target_zoom: Vector2, delta: float) -> bool:

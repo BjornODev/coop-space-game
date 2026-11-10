@@ -3,7 +3,7 @@ extends Node
 var item_being_held : Dictionary = {}
 const PHYSICS_ITEM = preload("res://Space Game/Space Ship/PhysicsItem/physics_item.tscn")
 
-signal set_item_texture(texture : Texture2D)
+signal set_item_texture(texture : Texture2D, h_frame : int, frame : int)
 
 func add_item(item : Dictionary) -> bool:
 	if item_being_held:
@@ -11,9 +11,12 @@ func add_item(item : Dictionary) -> bool:
 
 	item_being_held = item
 	if item["Texture"]:
-		set_item_texture.emit(item["Texture"])
+		if item.has("h_frames"):
+			set_item_texture.emit(item["Texture"],item["h_frames"], item["frame"])
+		else:
+			set_item_texture.emit(item["Texture"],1,0)
 	else:
-		set_item_texture.emit(null)
+		set_item_texture.emit(null,1,0)
 	return true # item was grabbed
 
 func remove_held_item(status : String) -> Dictionary:
@@ -37,4 +40,4 @@ func drop_held_item(global_pos : Vector2) -> void:
 
 func reset_item_held() -> void:
 	item_being_held = {}
-	set_item_texture.emit(null)
+	set_item_texture.emit(null,1,0)
