@@ -5,6 +5,7 @@ const PHYSICS_ITEM = preload("res://Space Game/Space Ship/PhysicsItem/physics_it
 
 signal set_item_texture(texture : Texture2D, h_frame : int, frame : int)
 
+
 func add_item(item : Dictionary) -> bool:
 	if item_being_held:
 		return false # player is already holding item

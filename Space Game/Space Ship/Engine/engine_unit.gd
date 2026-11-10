@@ -18,10 +18,12 @@ func _ready() -> void:
 		if i <= 1:
 			placeholder.capsule_grabber.activated = true
 			placeholder.add_new_capsule({
-			"Texture": preload("res://Framework/Assets/icon.png"),
+			"Texture": preload("res://Space Game/Assets/Fuel_Canister.png"),
 			"Status": "capsule",
 			"Purity": 50,
-			"is_scanned" : false
+			"is_scanned" : false,
+			"h_frames" : 15,
+			"frame" : 0
 			})
 
 func update_fuel_available(amount : int) -> void:

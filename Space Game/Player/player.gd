@@ -222,6 +222,9 @@ func _update_animation(delta: float) -> void:
 	if carrying:
 		item_sprite.position = CARRY_HAND_OFFSETS[sprite.frame]
 
+func update_current_frame(new_frame : int) -> void:
+	item_sprite.frame = new_frame
+
 ## Shows a held item's texture, scaled so any texture size fits between the hands.
 func _set_held_item_texture(texture: Texture2D, h_frame : int, frame : int) -> void:
 	item_sprite.texture = texture
