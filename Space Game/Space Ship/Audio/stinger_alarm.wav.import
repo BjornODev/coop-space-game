@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dloyn7wt8hlsy"
+path="res://.godot/imported/stinger_alarm.wav-49b5b1a7b18f7d5d4800341b81aaf09f.sample"
+
+[deps]
+
+source_file="res://Space Game/Space Ship/Audio/stinger_alarm.wav"
+dest_files=["res://.godot/imported/stinger_alarm.wav-49b5b1a7b18f7d5d4800341b81aaf09f.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2
