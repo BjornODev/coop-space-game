@@ -23,6 +23,8 @@ const GUIDE_HUD = preload("res://Space Game/Space Ship/Guidance/guide_hud.tscn")
 @onready var fire_system: FireSystem = $Malfunctions/FireSystem
 @onready var malfunction_manager: MalfunctionManager = $Malfunctions/MalfunctionManager
 @onready var malfunction_director: MalfunctionDirector = $Malfunctions/MalfunctionDirector
+## Counts down to the destination. Its time limit is set in start().
+@onready var level_timer: LevelTimer = $LevelTimer
 
 ## Distance between players when they spawn.
 const SPAWN_SPACING = 120
@@ -48,6 +50,7 @@ func _ready() -> void:
 	fuel_ticker.connect("timeout",toggle_boosting)
 	if malfunction_manager != null:
 		malfunction_manager.mission_failed.connect(_on_mission_failed)
+		level_timer.level_lost.connect(_on_time_ran_out)
 
 ## Called by the framework once player select is done.
 func start(player_count: int, joined_players: Array[bool], zoom_matching) -> void:
@@ -83,6 +86,8 @@ func start(player_count: int, joined_players: Array[bool], zoom_matching) -> voi
 	number_of_players = player_count
 	if malfunction_director != null:
 		malfunction_director.player_count = player_count
+	level_timer.start_level(player_count)
+	MusicManager.start_level_music()
 
 func toggle_boosting(attempting_boost : bool = true) -> void:
 	if not attempting_boost:
@@ -155,11 +160,21 @@ func _add_guide_hud(hud_player: Player, camera: Camera2D) -> void:
 
 ## Freezes the ship and shows every player which meter filled.
 func _on_mission_failed(type: Malfunction.Type) -> void:
+	level_timer.stop()
+	MusicManager.end_level_music()
 	get_tree().paused = true
 	for guide: GuideHud in _guide_huds:
 		guide.visible = false
 	for hud: PlayerHud in _huds:
 		hud.show_mission_failed(type)
+
+## Freezes the ship and tells every player that time ran out, the same way a filled meter does.
+func _on_time_ran_out() -> void:
+	get_tree().paused = true
+	for guide: GuideHud in _guide_huds:
+		guide.visible = false
+	for hud: PlayerHud in _huds:
+		hud.show_time_ran_out()
 
 func _find_framework_control() -> FrameworkControl:
 	var node: Node = get_parent()

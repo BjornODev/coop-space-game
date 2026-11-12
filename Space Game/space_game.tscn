@@ -21,6 +21,10 @@
 [ext_resource type="Texture2D" path="res://Space Game/Space Ship/Items/extinguisher_texture.tres" id="22_extinguisher"]
 [ext_resource type="Texture2D" path="res://Space Game/Space Ship/Items/filter_clean_texture.tres" id="23_filter"]
 [ext_resource type="Texture2D" path="res://Space Game/Space Ship/Items/hull_plate_texture.tres" id="24_plate"]
+[ext_resource type="Script" uid="uid://dg3fo4lxfwxpf" path="res://Space Game/Space Ship/LevelTimer/level_timer.gd" id="25_level_timer"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/LevelTimer/level_timer_hud.tscn" id="26_timer_hud"]
+[ext_resource type="Script" uid="uid://kfgwkc5qiftd" path="res://Space Game/Space Ship/Audio/music_level_hooks.gd" id="27_music_hooks"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Minimap/ship_minimap.tscn" id="28_minimap"]
 
 [node name="Space Game" type="Node2D" unique_id=1468521417]
 script = ExtResource("1_game")
@@ -311,5 +315,26 @@ fire_system = NodePath("../FireSystem")
 comms_panel = NodePath("../../FullLayout/CommsPanel")
 
 [node name="FuelTicker" type="Timer" parent="." unique_id=459683178]
+
+[node name="LevelTimer" type="Node" parent="." unique_id=2016570650 node_paths=PackedStringArray("simulation")]
+script = ExtResource("25_level_timer")
+simulation = NodePath("../Bridge/SpaceSimulation")
+
+[node name="LevelTimerHud" parent="." unique_id=423297407 node_paths=PackedStringArray("level_timer") instance=ExtResource("26_timer_hud")]
+level_timer = NodePath("../LevelTimer")
+
+[node name="ShipMinimap" parent="." unique_id=2116469122 node_paths=PackedStringArray("tile_maps", "rooms_root") instance=ExtResource("28_minimap")]
+tile_maps = [NodePath("../FullLayout/TileMap"), NodePath("../SimpleLayout/TileMap")]
+rooms_root = NodePath("../FullLayout/Rooms")
+
+[node name="MusicLevelHooks" type="Node" parent="." unique_id=1323036402 node_paths=PackedStringArray("level_timer", "simulation", "engine_unit", "comms_panel", "fire_system", "hull_breaches", "life_support")]
+script = ExtResource("27_music_hooks")
+level_timer = NodePath("../LevelTimer")
+simulation = NodePath("../Bridge/SpaceSimulation")
+engine_unit = NodePath("../EngineUnit")
+comms_panel = NodePath("../FullLayout/CommsPanel")
+fire_system = NodePath("../Malfunctions/FireSystem")
+hull_breaches = NodePath("../Malfunctions/HullBreachSystem")
+life_support = NodePath("../FullLayout/LifeSupportUnit")
 
 [editable path="RefiningUnit"]

@@ -65,6 +65,11 @@ func show_mission_failed(type: Malfunction.Type) -> void:
 	var input: PlayerInput = CoopInput.get_player(_player.player_number) if is_instance_valid(_player) else null
 	_failed_screen.show_failure(_manager.get_display_name(type), _manager.get_color(type), input)
 
+## Covers this player's screen with the mission failed screen for running out of time.
+func show_time_ran_out() -> void:
+	var input: PlayerInput = CoopInput.get_player(_player.player_number) if is_instance_valid(_player) else null
+	_failed_screen.show_reason("Time ran out before reaching the destination.", Color(1.0, 0.25, 0.2), input)
+
 ## Places one arrow on the screen edge for every malfunction that is off this player's screen.
 func _update_arrows(screen_size: Vector2) -> void:
 	var canvas: Transform2D = _player_viewport.get_canvas_transform()
