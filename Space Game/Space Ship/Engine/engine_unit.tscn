@@ -2,7 +2,9 @@
 
 [ext_resource type="Script" uid="uid://c8vks27d02oyd" path="res://Space Game/Space Ship/Engine/engine_unit.gd" id="1_g4nrb"]
 [ext_resource type="PackedScene" uid="uid://dxkxaxces7ohy" path="res://Space Game/Space Ship/PhysicsItem/physics_item.tscn" id="3_aytaa"]
-[ext_resource type="Texture2D" uid="uid://dh0ramf8bubv3" path="res://Framework/Assets/icon.png" id="4_avobk"]
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_g4nrb"]
+load_path = "res://.godot/imported/Fuel_Canister.png-4b080a4f48d80841b6326acf0659dbab.ctex"
 
 [node name="EngineUnit" type="Node2D" unique_id=1883932248]
 script = ExtResource("1_g4nrb")
@@ -20,47 +22,59 @@ position = Vector2(-258, -54)
 item = {
 "Purity": 0,
 "Status": "capsule",
-"Texture": ExtResource("4_avobk")
+"Texture": SubResource("CompressedTexture2D_g4nrb"),
+"frame": 0,
+"h_frames": 15
 }
 
-[node name="PhysicsItem2" parent="StartingCanisters" unique_id=43709957 instance=ExtResource("3_aytaa")]
-position = Vector2(-258, 14)
+[node name="PhysicsItem2" parent="StartingCanisters" unique_id=641818067 instance=ExtResource("3_aytaa")]
+position = Vector2(-258, 37)
 item = {
 "Purity": 0,
 "Status": "capsule",
-"Texture": ExtResource("4_avobk")
+"Texture": SubResource("CompressedTexture2D_g4nrb"),
+"frame": 0,
+"h_frames": 15
 }
 
-[node name="PhysicsItem3" parent="StartingCanisters" unique_id=308333115 instance=ExtResource("3_aytaa")]
-position = Vector2(-317, -54)
+[node name="PhysicsItem3" parent="StartingCanisters" unique_id=1473656337 instance=ExtResource("3_aytaa")]
+position = Vector2(-344, -53)
 item = {
 "Purity": 0,
 "Status": "capsule",
-"Texture": ExtResource("4_avobk")
+"Texture": SubResource("CompressedTexture2D_g4nrb"),
+"frame": 0,
+"h_frames": 15
 }
 
-[node name="PhysicsItem4" parent="StartingCanisters" unique_id=463419276 instance=ExtResource("3_aytaa")]
-position = Vector2(-317, 15)
+[node name="PhysicsItem4" parent="StartingCanisters" unique_id=686092995 instance=ExtResource("3_aytaa")]
+position = Vector2(-344, 38)
 item = {
 "Purity": 0,
 "Status": "capsule",
-"Texture": ExtResource("4_avobk")
+"Texture": SubResource("CompressedTexture2D_g4nrb"),
+"frame": 0,
+"h_frames": 15
 }
 
-[node name="PhysicsItem5" parent="StartingCanisters" unique_id=1184043669 instance=ExtResource("3_aytaa")]
-position = Vector2(-373, -55)
+[node name="PhysicsItem5" parent="StartingCanisters" unique_id=374407412 instance=ExtResource("3_aytaa")]
+position = Vector2(-430, -53)
 item = {
 "Purity": 0,
 "Status": "capsule",
-"Texture": ExtResource("4_avobk")
+"Texture": SubResource("CompressedTexture2D_g4nrb"),
+"frame": 0,
+"h_frames": 15
 }
 
-[node name="PhysicsItem6" parent="StartingCanisters" unique_id=372239012 instance=ExtResource("3_aytaa")]
-position = Vector2(-374, 14)
+[node name="PhysicsItem6" parent="StartingCanisters" unique_id=254627570 instance=ExtResource("3_aytaa")]
+position = Vector2(-430, 38)
 item = {
 "Purity": 0,
 "Status": "capsule",
-"Texture": ExtResource("4_avobk")
+"Texture": SubResource("CompressedTexture2D_g4nrb"),
+"frame": 0,
+"h_frames": 15
 }
 
 [node name="EngineRect" type="ColorRect" parent="." unique_id=1998065662]

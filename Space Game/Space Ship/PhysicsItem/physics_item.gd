@@ -7,8 +7,9 @@ class_name PhysicsItem extends RigidBody2D
 ## The default icon textures keep the sprite's own region and scale.
 @export var atlas_item_size: float = 44.0
 
+## for texture, [preload, h_frames, current frame]
 @export var item : Dictionary = {
-	"Texture": preload("res://Framework/Assets/icon.svg"),
+	"Texture": preload("res://Framework/Assets/icon.png"),
 	"Status": "unrefined",
 	"Purity": 50,
 	"is_scanned" : false
@@ -35,11 +36,24 @@ func _on_interaction_started(player: Player) -> void:
 func remove_item() -> void:
 	queue_free()
 
-## Shows the item's texture. Sprite sheet textures are fitted to atlas_item_size instead of using the icon's region.
+## Shows the item's texture. Textures no longer use the icon's region.
 func _update_sprite() -> void:
 	var texture: Texture2D = item.get("Texture")
+	
 	sprite_2d.texture = texture
-	if texture is AtlasTexture:
-		sprite_2d.region_enabled = false
+	sprite_2d.region_enabled = false
+	if not item.has("frame"):
 		var longest_side: float = maxf(texture.get_width(), texture.get_height())
 		sprite_2d.scale = Vector2.ONE * atlas_item_size / longest_side
+	else:
+		var shortest_side: float = minf(texture.get_width(), texture.get_height())
+		sprite_2d.scale = Vector2.ONE * atlas_item_size / shortest_side
+	
+	if item.has("frame") and item.has("h_frames"):
+		var frame : int = item.get("frame")
+		var h_frames : int = item.get("h_frames")
+		sprite_2d.hframes = h_frames
+		sprite_2d.frame = frame
+	else:
+		sprite_2d.hframes = 1
+		sprite_2d.frame = 0

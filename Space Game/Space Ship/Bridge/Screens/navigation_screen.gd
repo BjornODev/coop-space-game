@@ -98,6 +98,10 @@ func _interaction_process(_player: Player, _delta: float) -> void:
 		emit_signal("requesting_boost",true)
 	elif Input.is_action_just_released(input.A):
 		emit_signal("requesting_boost",false)
+	elif Input.is_action_just_pressed(input.X):
+		emit_signal("requesting_boost",true)
+	elif Input.is_action_just_released(input.X):
+		emit_signal("requesting_boost",false)
 	
 	var turn: float = Input.get_axis(input.LEFT, input.RIGHT)
 	simulation.set_pilot_input(turn, boost_held and _boost_armed, Input.is_action_pressed(input.X))

@@ -10,5 +10,6 @@ func _on_interaction_started(player: Player) -> void:
 	if not player.item_manager.item_being_held:
 		return
 	
-	if player.item_manager.item_being_held["Status"] == status:
+	var capsule : Dictionary = player.item_manager.item_being_held
+	if capsule["Status"] == status:
 		add_capsule.emit(player)

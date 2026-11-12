@@ -30,7 +30,12 @@ func add_filled_capsule(player : Player) -> void:
 		player.item_manager.item_being_held["Purity"] = refined_ore + leftover
 		refined_ore = 0
 	
+	var purity : float = player.item_manager.item_being_held["Purity"]
+	var frame = ceili(purity/100.0*14.0)
+	player.item_manager.item_being_held["frame"] = frame
+	player.update_current_frame(frame)
 	ore_label.text = "Ore Refined: " + str(refined_ore)
+
 
 func ore_refined(amount: int) -> void:
 	refined_ore += amount

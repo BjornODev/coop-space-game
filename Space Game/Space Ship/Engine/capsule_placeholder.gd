@@ -28,6 +28,7 @@ func _process(_delta: float) -> void:
 
 func give_player_capsule(player : Player) -> void:
 	capsule["Item"]["Purity"] = capsule["fuel_left"]
+	capsule["Item"]["frame"] = ceili(capsule["Item"]["Purity"]/100.0*14.0)
 	capsule["Activated"] = false
 	player.item_manager.add_item(capsule["Item"])
 	
