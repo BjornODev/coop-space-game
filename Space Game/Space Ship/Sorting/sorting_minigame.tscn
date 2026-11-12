@@ -47,17 +47,13 @@ collision_mask = 3
 motion_mode = 1
 script = ExtResource("1_wg7io")
 
-[node name="Instructions" type="Label" parent="Grabber" unique_id=1020873644]
+[node name="Instructions" type="VBoxContainer" parent="Grabber" unique_id=2020269810]
 top_level = true
-offset_left = -96.0
-offset_top = 133.0
-offset_right = 343.0
-offset_bottom = 322.0
-theme_override_font_sizes/font_size = 32
-text = "A - to toggle grabbing
-X - to toggle push mode
-Y - to toggle radial increase
-B - to exit"
+offset_left = 4.0
+offset_top = 499.0
+offset_right = 279.0
+offset_bottom = 633.0
+script = ExtResource("6_v5lba")
 
 [node name="MovePrompt" parent="Grabber/Instructions" unique_id=2091814657 instance=ExtResource("6_wp1jq")]
 layout_mode = 0
@@ -95,7 +91,7 @@ shape = SubResource("CircleShape2D_k2tvh")
 position = Vector2(57, 335)
 show_scanned_enabled = true
 
-[node name="SorterWallPush" type="Node" parent="." unique_id=1074736189 node_paths=PackedStringArray("tile_map", "item_parent", "exempt_nodes")]
+[node name="SorterWallPush" type="Node" parent="." unique_id=605573385 node_paths=PackedStringArray("tile_map", "item_parent", "exempt_nodes")]
 script = ExtResource("7_wallpush")
 tile_map = NodePath("../TileMap")
 item_parent = NodePath("../ItemSpawnArea")
