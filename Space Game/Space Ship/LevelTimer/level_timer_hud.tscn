@@ -1,0 +1,22 @@
+[gd_scene format=3]
+
+[ext_resource type="Script" path="res://Space Game/Space Ship/LevelTimer/level_timer_hud.gd" id="1_hud"]
+[ext_resource type="Theme" uid="uid://w7mhbu37d037" path="res://Space Game/Space Ship/Bridge/Theme/bridge_theme.tres" id="2_theme"]
+
+[node name="LevelTimerHud" type="CanvasLayer"]
+process_mode = 3
+layer = 10
+script = ExtResource("1_hud")
+
+[node name="Panel" type="PanelContainer" parent="."]
+offset_top = 8.0
+offset_right = 120.0
+offset_bottom = 56.0
+mouse_filter = 2
+theme = ExtResource("2_theme")
+
+[node name="TimeLabel" type="Label" parent="Panel"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "12:00"
+horizontal_alignment = 1

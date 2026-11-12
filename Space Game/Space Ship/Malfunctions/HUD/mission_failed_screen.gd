@@ -14,7 +14,11 @@ func _ready() -> void:
 
 ## Shows the screen for the meter that filled. input labels the restart prompt with that player's keys.
 func show_failure(meter_name: String, color: Color, input: PlayerInput) -> void:
-	_reason_label.text = "The %s meter filled up." % meter_name
+	show_reason("The %s meter filled up." % meter_name, color, input)
+
+## Shows the screen with reason as the explanation. input labels the restart prompt with that player's keys.
+func show_reason(reason: String, color: Color, input: PlayerInput) -> void:
+	_reason_label.text = reason
 	_reason_label.modulate = color
 	if input != null:
 		_restart_prompt.show_for_actions([input.A])

@@ -7,9 +7,8 @@
 [ext_resource type="PackedScene" uid="uid://durqu13e1ise5" path="res://Space Game/Space Ship/Tilemap/tile_map.tscn" id="2_wp1jq"]
 [ext_resource type="Script" uid="uid://hh7hg3p2a17i" path="res://Space Game/Space Ship/Sorting/Grabber/scan_area.gd" id="4_j7otn"]
 [ext_resource type="PackedScene" uid="uid://dqkxdgn3uvi5p" path="res://Space Game/Space Ship/TerminalPorts/item_spawn_area.tscn" id="6_s3fpo"]
-[ext_resource type="Script" uid="uid://08hgfpacwsxv" path="res://Space Game/Space Ship/Sorting/instructions.gd" id="6_v5lba"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/button_prompt.tscn" id="6_wp1jq"]
-[ext_resource type="Script" path="res://Space Game/Space Ship/Sorting/sorter_wall_push.gd" id="7_wallpush"]
+[ext_resource type="Script" uid="uid://oo325n4ualri" path="res://Space Game/Space Ship/Sorting/sorter_wall_push.gd" id="7_wallpush"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_k2tvh"]
 radius = 24.0
@@ -60,6 +59,30 @@ X - to toggle push mode
 Y - to toggle radial increase
 B - to exit"
 
+[node name="MovePrompt" parent="Grabber/Instructions" unique_id=2091814657 instance=ExtResource("6_wp1jq")]
+layout_mode = 0
+button_text = "STICK"
+action_text = " - to move the crane"
+
+[node name="GrabPrompt" parent="Grabber/Instructions" unique_id=1939647481 instance=ExtResource("6_wp1jq")]
+layout_mode = 0
+action_text = " - to grab items"
+
+[node name="SpinPrompt" parent="Grabber/Instructions" unique_id=628411332 instance=ExtResource("6_wp1jq")]
+layout_mode = 0
+button_text = "X"
+action_text = " - to spin the crane"
+
+[node name="ExpandPrompt" parent="Grabber/Instructions" unique_id=1168130179 instance=ExtResource("6_wp1jq")]
+layout_mode = 0
+button_text = "Y"
+action_text = " - to toggle push mode"
+
+[node name="ExitPrompt" parent="Grabber/Instructions" unique_id=1681593094 instance=ExtResource("6_wp1jq")]
+layout_mode = 0
+button_text = "B"
+action_text = " - to exit the control panel"
+
 [node name="ScanArea" type="Area2D" parent="Grabber" unique_id=1325507754]
 collision_layer = 0
 collision_mask = 4
@@ -68,42 +91,11 @@ script = ExtResource("4_j7otn")
 [node name="ScanRadius" type="CollisionShape2D" parent="Grabber/ScanArea" unique_id=1046676252]
 shape = SubResource("CircleShape2D_k2tvh")
 
-[node name="Instructions" type="VBoxContainer" parent="Grabber" unique_id=2020269810]
-offset_left = 71.0
-offset_top = 186.0
-offset_right = 346.0
-offset_bottom = 320.0
-script = ExtResource("6_v5lba")
-
-[node name="MovePrompt" parent="Grabber/Instructions" unique_id=2091814657 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
-button_text = "STICK"
-action_text = " - to move the crane"
-
-[node name="GrabPrompt" parent="Grabber/Instructions" unique_id=1939647481 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
-action_text = " - to grab items"
-
-[node name="SpinPrompt" parent="Grabber/Instructions" unique_id=628411332 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
-button_text = "X"
-action_text = " - to spin the crane"
-
-[node name="ExpandPrompt" parent="Grabber/Instructions" unique_id=1168130179 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
-button_text = "Y"
-action_text = " - to toggle push mode"
-
-[node name="ExitPrompt" parent="Grabber/Instructions" unique_id=1681593094 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
-button_text = "B"
-action_text = " - to exit the control panel"
-
 [node name="ItemSpawnArea" parent="." unique_id=868976861 instance=ExtResource("6_s3fpo")]
 position = Vector2(57, 335)
 show_scanned_enabled = true
 
-[node name="SorterWallPush" type="Node" parent="." node_paths=PackedStringArray("tile_map", "item_parent", "exempt_nodes")]
+[node name="SorterWallPush" type="Node" parent="." unique_id=1074736189 node_paths=PackedStringArray("tile_map", "item_parent", "exempt_nodes")]
 script = ExtResource("7_wallpush")
 tile_map = NodePath("../TileMap")
 item_parent = NodePath("../ItemSpawnArea")
