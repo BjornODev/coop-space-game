@@ -24,6 +24,7 @@
 [ext_resource type="Script" path="res://Space Game/Space Ship/LevelTimer/level_timer.gd" id="25_level_timer"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/LevelTimer/level_timer_hud.tscn" id="26_timer_hud"]
 [ext_resource type="Script" path="res://Space Game/Space Ship/Audio/music_level_hooks.gd" id="27_music_hooks"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Minimap/ship_minimap.tscn" id="28_minimap"]
 
 [node name="Space Game" type="Node2D" unique_id=1468521417]
 script = ExtResource("1_game")
@@ -321,6 +322,10 @@ simulation = NodePath("../Bridge/SpaceSimulation")
 
 [node name="LevelTimerHud" parent="." node_paths=PackedStringArray("level_timer") instance=ExtResource("26_timer_hud")]
 level_timer = NodePath("../LevelTimer")
+
+[node name="ShipMinimap" parent="." node_paths=PackedStringArray("tile_maps", "rooms_root") instance=ExtResource("28_minimap")]
+tile_maps = [NodePath("../FullLayout/TileMap"), NodePath("../SimpleLayout/TileMap")]
+rooms_root = NodePath("../FullLayout/Rooms")
 
 [node name="MusicLevelHooks" type="Node" parent="." node_paths=PackedStringArray("level_timer", "simulation", "engine_unit", "comms_panel", "fire_system", "hull_breaches", "life_support")]
 script = ExtResource("27_music_hooks")
