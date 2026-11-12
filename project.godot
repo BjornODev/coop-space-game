@@ -20,6 +20,7 @@ config/icon="uid://dh0ramf8bubv3"
 
 CoopInput="*uid://da1s3btexev0d"
 Cameras="*uid://cg2wie38365tq"
+MusicManager="*res://Space Game/Space Ship/Audio/music_manager.gd"
 
 [display]
 
@@ -38,6 +39,7 @@ folder_colors={
 "res://Framework/Splitscreen/": "orange",
 "res://Space Game/": "purple",
 "res://Space Game/Space Ship/": "gray",
+"res://Space Game/Space Ship/Audio/": "red",
 "res://Space Game/Space Ship/Engine/": "pink",
 "res://Space Game/Space Ship/OldProcessing/": "red",
 "res://Space Game/Space Ship/OldProcessing/FuelUnit/": "red",

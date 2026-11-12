@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dhk5ooubhmx02"
+path="res://.godot/imported/music_transition.ogg-1b292a784cbcca2e32be910e35f72d9f.oggvorbisstr"
+
+[deps]
+
+source_file="res://Space Game/Space Ship/Audio/music_transition.ogg"
+dest_files=["res://.godot/imported/music_transition.ogg-1b292a784cbcca2e32be910e35f72d9f.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0.0
+bpm=140.0
+beat_count=4
+bar_beats=4

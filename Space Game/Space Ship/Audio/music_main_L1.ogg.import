@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://pwr5vadgabit"
+path="res://.godot/imported/music_main_L1.ogg-90b9eca7536a0fe50b1cf5cc462ea5ae.oggvorbisstr"
+
+[deps]
+
+source_file="res://Space Game/Space Ship/Audio/music_main_L1.ogg"
+dest_files=["res://.godot/imported/music_main_L1.ogg-90b9eca7536a0fe50b1cf5cc462ea5ae.oggvorbisstr"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=140.0
+beat_count=64
+bar_beats=4

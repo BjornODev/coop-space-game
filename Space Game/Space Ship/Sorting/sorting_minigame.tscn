@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://durqu13e1ise5" path="res://Space Game/Space Ship/Tilemap/tile_map.tscn" id="2_wp1jq"]
 [ext_resource type="Script" uid="uid://hh7hg3p2a17i" path="res://Space Game/Space Ship/Sorting/Grabber/scan_area.gd" id="4_j7otn"]
 [ext_resource type="PackedScene" uid="uid://dqkxdgn3uvi5p" path="res://Space Game/Space Ship/TerminalPorts/item_spawn_area.tscn" id="6_s3fpo"]
-[ext_resource type="Script" uid="uid://08hgfpacwsxv" path="res://Space Game/Space Ship/Sorting/instructions.gd" id="6_v5lba"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/button_prompt.tscn" id="6_wp1jq"]
 [ext_resource type="Script" uid="uid://oo325n4ualri" path="res://Space Game/Space Ship/Sorting/sorter_wall_push.gd" id="7_wallpush"]
 
@@ -57,26 +56,26 @@ offset_bottom = 633.0
 script = ExtResource("6_v5lba")
 
 [node name="MovePrompt" parent="Grabber/Instructions" unique_id=2091814657 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
+layout_mode = 0
 button_text = "STICK"
 action_text = " - to move the crane"
 
 [node name="GrabPrompt" parent="Grabber/Instructions" unique_id=1939647481 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
+layout_mode = 0
 action_text = " - to grab items"
 
 [node name="SpinPrompt" parent="Grabber/Instructions" unique_id=628411332 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
+layout_mode = 0
 button_text = "X"
 action_text = " - to spin the crane"
 
 [node name="ExpandPrompt" parent="Grabber/Instructions" unique_id=1168130179 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
+layout_mode = 0
 button_text = "Y"
 action_text = " - to toggle push mode"
 
 [node name="ExitPrompt" parent="Grabber/Instructions" unique_id=1681593094 instance=ExtResource("6_wp1jq")]
-layout_mode = 2
+layout_mode = 0
 button_text = "B"
 action_text = " - to exit the control panel"
 
