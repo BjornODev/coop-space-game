@@ -319,7 +319,6 @@ comms_panel = NodePath("../../FullLayout/CommsPanel")
 [node name="LevelTimer" type="Node" parent="." unique_id=2016570650 node_paths=PackedStringArray("simulation")]
 script = ExtResource("25_level_timer")
 simulation = NodePath("../Bridge/SpaceSimulation")
-base_minutes = 1.5
 
 [node name="LevelTimerHud" parent="." unique_id=423297407 node_paths=PackedStringArray("level_timer") instance=ExtResource("26_timer_hud")]
 level_timer = NodePath("../LevelTimer")
