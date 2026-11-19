@@ -110,7 +110,7 @@ func _physics_process(delta: float) -> void:
 
 	if Input.is_action_just_pressed(input.A) and Engine.get_physics_frames() != _interaction_ended_frame:
 		# an extinguisher aimed at fire sprays instead of using stations or dropping
-		if _is_holding_extinguisher() and fire_system.has_fire_in_spray(_get_spray_origin(), _get_facing_direction()):
+		if can_spray():
 			_set_spraying(true)
 		else:
 			_try_interact()
@@ -168,14 +168,33 @@ func stop_interaction(interactable: Interactable) -> void:
 	_camera_returning = true
 	_interaction_ended_frame = Engine.get_physics_frames()
 
-## Interacts with the closest interactable in range that will accept this player.
+## The interactable pressing A would use right now: the closest one in range that accepts this player,
+## or null if there is none, the player is already busy, or A would spray an extinguisher instead.
+func get_interact_target() -> Interactable:
+	if current_interaction != null or can_spray():
+		return null
+	var best: Interactable = null
+	var best_distance: float = INF
+	for interactable: Interactable in _nearby_interactables:
+		if not is_instance_valid(interactable) or not interactable.can_interact(self):
+			continue
+		var distance: float = global_position.distance_squared_to(interactable.global_position)
+		if distance < best_distance:
+			best_distance = distance
+			best = interactable
+	return best
+
+## True if pressing A would spray the held extinguisher at a fire.
+func can_spray() -> bool:
+	return _is_holding_extinguisher() and fire_system.has_fire_in_spray(_get_spray_origin(), _get_facing_direction())
+
+## Interacts with the closest interactable in range that will accept this player, or drops the held item.
 func _try_interact() -> void:
-	var candidates: Array = _nearby_interactables.filter(func(i): return is_instance_valid(i) and i.can_interact(self))
-	if candidates.is_empty():
+	var target: Interactable = get_interact_target()
+	if target == null:
 		item_manager.drop_held_item(get_global_position())
 		return
-	candidates.sort_custom(func(a, b): return global_position.distance_squared_to(a.global_position) < global_position.distance_squared_to(b.global_position))
-	candidates[0].interact(self)
+	target.interact(self)
 	
 
 func _is_holding_extinguisher() -> bool:

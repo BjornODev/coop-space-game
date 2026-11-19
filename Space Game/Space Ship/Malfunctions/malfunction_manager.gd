@@ -29,6 +29,11 @@ signal mission_failed(type: Malfunction.Type)
 ## Hull meter fill per second for each open breach.
 @export var hull_fill_per_instance: float = 0.008
 
+@export_group("Fire Prediction")
+## Seconds between fresh predictions of when the fire meter fills. The countdown counts down smoothly in between,
+## and is predicted again right away whenever the number of burning tiles changes.
+@export var fire_prediction_interval: float = 0.25
+
 @export_group("Drain")
 ## Fire meter drain per second while nothing is burning.
 @export var fire_drain_rate: float = 0.02
@@ -53,6 +58,11 @@ signal mission_failed(type: Malfunction.Type)
 
 var _meters: Dictionary[Malfunction.Type, float] = {}
 var _failed: bool = false
+## Predicted seconds until the fire meter fills, counting spread. Kept between predictions so it isn't redone
+## for every HUD that asks each frame.
+var _fire_time_until_full: float = INF
+var _fire_prediction_age: float = INF
+var _fire_predicted_count: int = -1
 
 func _ready() -> void:
 	for type: Malfunction.Type in Malfunction.ALL_TYPES:
@@ -70,6 +80,7 @@ func _process(delta: float) -> void:
 			value = move_toward(value, 0.0, get_drain_rate(type) * delta)
 		_meters[type] = clampf(value, 0.0, 1.0)
 		meter_changed.emit(type, _meters[type])
+	_update_fire_prediction(delta)
 	_push_countdowns()
 	for type: Malfunction.Type in Malfunction.ALL_TYPES:
 		if _meters[type] >= 1.0:
@@ -102,8 +113,11 @@ func get_active_count(type: Malfunction.Type) -> int:
 func is_active(type: Malfunction.Type) -> bool:
 	return get_active_count(type) > 0
 
-## Seconds until the meter is full at its current rate, or INF while it isn't filling.
+## Seconds until the meter is full if nobody fixes anything, or INF while it isn't filling.
+## Fire counts on the fire spreading. The others fill at a steady rate, since they don't grow by themselves.
 func get_time_until_full(type: Malfunction.Type) -> float:
+	if type == Malfunction.Type.FIRE and fire_system != null:
+		return _fire_time_until_full if get_active_count(type) > 0 else INF
 	var rate: float = get_fill_per_instance(type) * get_active_count(type)
 	if rate <= 0.0:
 		return INF
@@ -162,6 +176,24 @@ func get_alert_targets(viewer_position: Vector2) -> Array[AlertTarget]:
 	if comms_panel != null and comms_panel.get_pending_count() > 0:
 		targets.append(AlertTarget.new(Malfunction.Type.COMMS, comms_panel.get_alert_position()))
 	return targets
+
+## Predicts the fire countdown again every fire_prediction_interval or when the fire grows or shrinks,
+## and counts the last prediction down in between.
+func _update_fire_prediction(delta: float) -> void:
+	if fire_system == null:
+		return
+	var count: int = fire_system.get_burning_tile_count()
+	_fire_prediction_age += delta
+	if count == 0:
+		_fire_time_until_full = INF
+		_fire_predicted_count = 0
+		return
+	if count != _fire_predicted_count or _fire_prediction_age >= fire_prediction_interval:
+		_fire_time_until_full = fire_system.predict_seconds_until_full(get_meter(Malfunction.Type.FIRE), fire_fill_per_instance)
+		_fire_prediction_age = 0.0
+		_fire_predicted_count = count
+	else:
+		_fire_time_until_full = maxf(_fire_time_until_full - delta, 0.0)
 
 ## Shows each meter's countdown on its malfunctions in the world.
 func _push_countdowns() -> void:

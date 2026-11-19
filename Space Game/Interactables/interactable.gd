@@ -13,6 +13,8 @@ signal interaction_ended(player: Player)
 @export var zoom_multiplier: float = 2.0
 ## Where the camera centers while interacting, relative to this object's position.
 @export var focus_offset: Vector2 = Vector2.ZERO
+## What the hint over this object says pressing A does, like "Pilot". Empty uses the script's default.
+@export var prompt_text: String = ""
 
 ## The player currently using this object, or null if nobody is.
 var current_player: Player = null
@@ -45,6 +47,11 @@ func _notification(what: int) -> void:
 ## Override to decide who can use this object. By default, only one player at a time.
 func can_interact(_player: Player) -> bool:
 	return current_player == null
+
+## Override to change what the interact hint says when prompt_text is empty. Return "" to show no hint,
+## for objects that already show their own.
+func _get_default_prompt_text() -> String:
+	return "Use"
 
 ## Override to set things up when a player starts interacting (start a timer, show minigame UI, etc).
 func _on_interaction_started(_player: Player) -> void:
@@ -83,6 +90,10 @@ func end_interaction() -> void:
 	player.stop_interaction(self)
 	_on_interaction_ended(player)
 	interaction_ended.emit(player)
+
+## What the interact hint over this object says. Empty means no hint.
+func get_prompt_text() -> String:
+	return prompt_text if not prompt_text.is_empty() else _get_default_prompt_text()
 
 func is_interacting() -> bool:
 	return current_player != null

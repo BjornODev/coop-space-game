@@ -93,3 +93,7 @@ func _interaction_process(player: Player, delta: float) -> void:
 		queue_free()
 
 #endregion
+
+## No interact hint: the breach shows its own repair prompt.
+func _get_default_prompt_text() -> String:
+	return ""

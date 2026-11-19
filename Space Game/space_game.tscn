@@ -278,8 +278,18 @@ position = Vector2(-1344, 2150)
 [node name="RefiningUnit" parent="." unique_id=2077531568 instance=ExtResource("2_2nisv")]
 position = Vector2(-400, 2250)
 
+[node name="InputTerminal" parent="RefiningUnit" index="0" unique_id=405293353]
+prompt_text = null
+
 [node name="OutputTerminal" parent="RefiningUnit" index="1" unique_id=195629935]
 position = Vector2(-300, 800)
+prompt_text = null
+
+[node name="PumpTerminal" parent="RefiningUnit/ProcessBox/PumpTerminals" parent_id_path=PackedInt32Array(2077531568, 2118834581) index="0" unique_id=1000006399]
+prompt_text = null
+
+[node name="PumpTerminal2" parent="RefiningUnit/ProcessBox/PumpTerminals" parent_id_path=PackedInt32Array(2077531568, 2118834581) index="1" unique_id=1542701618]
+prompt_text = null
 
 [node name="EngineUnit" parent="." unique_id=1883932248 instance=ExtResource("4_qic3w")]
 position = Vector2(60, 3870)
@@ -294,6 +304,7 @@ script = ExtResource("16_fire")
 tile_map = NodePath("../../FullLayout/TileMap")
 rooms_root = NodePath("../../FullLayout/Rooms")
 fire_tile_scene = ExtResource("17_fire_tile")
+spread_interval = 10.0
 
 [node name="HullBreachSystem" type="Node2D" parent="Malfunctions" unique_id=1843524998 node_paths=PackedStringArray("simulation", "tile_map")]
 script = ExtResource("18_hull")

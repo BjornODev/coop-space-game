@@ -239,3 +239,7 @@ func _show_details_for(input: PlayerInput) -> void:
 	_exit_prompt.show_for_actions([input.B])
 	# the code is shown in this player's own keys
 	_rebuild_code_steps()
+
+## Hint shown over this object when a player can use it.
+func _get_default_prompt_text() -> String:
+	return "Answer comms"

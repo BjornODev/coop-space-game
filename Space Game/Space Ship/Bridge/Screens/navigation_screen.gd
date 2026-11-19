@@ -134,3 +134,7 @@ func _show_details_for(input: PlayerInput) -> void:
 	_reverse_prompt.show_for_actions([input.X])
 	_view_prompt.show_for_actions([input.Y])
 	_exit_prompt.show_for_actions([input.B])
+
+## Hint shown over this object when a player can use it.
+func _get_default_prompt_text() -> String:
+	return "Pilot"

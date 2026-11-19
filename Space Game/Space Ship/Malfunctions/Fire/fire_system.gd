@@ -126,6 +126,56 @@ func get_speed_multiplier_at(global_point: Vector2) -> float:
 func get_burning_tile_count() -> int:
 	return _burning.size()
 
+## Seconds until a meter at meter (0 to 1), filling by fill_per_tile per second for each burning tile, would be full
+## if nobody fights the fire. Plays the spreading forward from each tile's real spread timer, using the average
+## spread_interval after that, so the answer shrinks as the fire is expected to grow. INF if nothing is burning.
+## Gives up and assumes the fire stops growing once max_seconds ahead.
+func predict_seconds_until_full(meter: float, fill_per_tile: float, max_seconds: float = 900.0) -> float:
+	if _burning.is_empty() or fill_per_tile <= 0.0:
+		return INF
+	var burning: Dictionary[Vector2i, bool] = {}
+	# spread events as [time, cell]. The tiles burning now have their own timers, so they are sorted once.
+	# Every later event is "now + interval", so those come in time order and a plain queue stays sorted.
+	var current: Array = []
+	for cell: Vector2i in _burning:
+		burning[cell] = true
+		current.append([maxf(_burning[cell].spread_time_left, 0.0), cell])
+	current.sort_custom(func(a: Array, b: Array) -> bool: return a[0] < b[0])
+	var later: Array = []
+	var current_index: int = 0
+	var later_index: int = 0
+	var interval: float = maxf(spread_interval, 0.1)
+	var time: float = 0.0
+	var value: float = meter
+	while true:
+		var rate: float = fill_per_tile * burning.size()
+		var time_to_full: float = maxf(1.0 - value, 0.0) / rate
+		var event: Array = []
+		if current_index < current.size():
+			event = current[current_index]
+		if later_index < later.size() and (event.is_empty() or later[later_index][0] < event[0]):
+			event = later[later_index]
+			later_index += 1
+		elif not event.is_empty():
+			current_index += 1
+		# no more spreading, the next spread comes after the meter fills, or we've looked far enough ahead
+		if event.is_empty() or time + time_to_full <= event[0] or event[0] > max_seconds:
+			return time + time_to_full
+		value += rate * (event[0] - time)
+		time = event[0]
+		var source: Vector2i = event[1]
+		# always takes the first free neighbor, so the prediction doesn't jump around between frames.
+		# The count matters for the meter, not which tile catches.
+		for offset: Vector2i in NEIGHBORS:
+			var neighbor: Vector2i = source + offset
+			if _floor_cells.has(neighbor) and not burning.has(neighbor):
+				burning[neighbor] = true
+				later.append([time + interval, neighbor])
+				later.append([time + interval, source])
+				break
+		# a tile with no free neighbor is dropped, since the prediction never puts any tile out
+	return INF
+
 ## Number of rooms with at least one burning tile. The director counts each as one malfunction.
 func get_burning_room_count() -> int:
 	var rooms: Dictionary[ShipRoom, bool] = {}

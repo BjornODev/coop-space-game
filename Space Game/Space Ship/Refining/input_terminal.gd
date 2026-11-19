@@ -9,3 +9,7 @@ func _on_interaction_started(player: Player) -> void:
 	if item:
 		item_added.emit(item)
 	get_tree().create_timer(0.5).timeout.connect(end_interaction)
+
+## Hint shown over this object when a player can use it.
+func _get_default_prompt_text() -> String:
+	return "Deposit"

@@ -3,6 +3,7 @@ extends Game2D
 var player = preload("res://Space Game/Player/player.tscn")
 const PLAYER_HUD = preload("res://Space Game/Space Ship/Malfunctions/HUD/player_hud.tscn")
 const GUIDE_HUD = preload("res://Space Game/Space Ship/Guidance/guide_hud.tscn")
+const PAUSE_MENU = preload("res://Space Game/Pause/pause_menu.tscn")
 
 ## On: the full ship with every room, plus fire, oxygen, comms and hull malfunctions, the director and the HUD meters.
 ## Off: a smaller ship with just the bridge, sorting, refinery and engine, and no malfunctions.
@@ -38,6 +39,7 @@ var _zoom_matching: bool = true
 var _huds: Array[PlayerHud] = []
 var _guide_huds: Array[GuideHud] = []
 var _restarting: bool = false
+var _pause_menu: PauseMenu = null
 
 func _ready() -> void:
 	_apply_layout()
@@ -83,6 +85,7 @@ func start(player_count: int, joined_players: Array[bool], zoom_matching) -> voi
 		if malfunction_manager != null:
 			_add_hud(stored_players[i], camera)
 
+	_add_pause_menu(joined_players)
 	number_of_players = player_count
 	if malfunction_director != null:
 		malfunction_director.player_count = player_count
@@ -119,6 +122,19 @@ func restart_run() -> void:
 		return
 	framework.start_game(number_of_players, _joined_players, _zoom_matching)
 
+## Leaves the run and goes back to player select, so players can join, leave, or change controls.
+func quit_to_player_select() -> void:
+	if _restarting:
+		return
+	_restarting = true
+	get_tree().paused = false
+	MusicManager.end_level_music()
+	var framework: FrameworkControl = _find_framework_control()
+	if framework == null:
+		get_tree().reload_current_scene()
+		return
+	framework.start_player_select()
+
 ## Keeps the layout picked by full_ship_with_malfunctions and removes the other one.
 ## For the small ship, also removes the malfunction systems and moves the shared stations onto its markers.
 func _apply_layout() -> void:
@@ -143,6 +159,18 @@ func _remove_node(node: Node) -> void:
 	node.get_parent().remove_child(node)
 	node.queue_free()
 
+## Lets any joined player pause with Start. joined_players is indexed by player number - 1.
+func _add_pause_menu(joined_players: Array[bool]) -> void:
+	var player_numbers: Array[int] = []
+	for i: int in joined_players.size():
+		if joined_players[i]:
+			player_numbers.append(i + 1)
+	_pause_menu = PAUSE_MENU.instantiate() as PauseMenu
+	add_child(_pause_menu)
+	_pause_menu.setup(player_numbers)
+	_pause_menu.restart_requested.connect(restart_run)
+	_pause_menu.quit_requested.connect(quit_to_player_select)
+
 ## Gives player a HUD drawn into the splitscreen viewport their camera renders.
 func _add_hud(hud_player: Player, camera: Camera2D) -> void:
 	var hud: PlayerHud = PLAYER_HUD.instantiate() as PlayerHud
@@ -160,6 +188,7 @@ func _add_guide_hud(hud_player: Player, camera: Camera2D) -> void:
 
 ## Freezes the ship and shows every player which meter filled.
 func _on_mission_failed(type: Malfunction.Type) -> void:
+	_disable_pause_menu()
 	level_timer.stop()
 	MusicManager.end_level_music()
 	get_tree().paused = true
@@ -170,11 +199,17 @@ func _on_mission_failed(type: Malfunction.Type) -> void:
 
 ## Freezes the ship and tells every player that time ran out, the same way a filled meter does.
 func _on_time_ran_out() -> void:
+	_disable_pause_menu()
 	get_tree().paused = true
 	for guide: GuideHud in _guide_huds:
 		guide.visible = false
 	for hud: PlayerHud in _huds:
 		hud.show_time_ran_out()
+
+## The run is over, so Start no longer opens the pause menu over the end screen.
+func _disable_pause_menu() -> void:
+	if _pause_menu != null:
+		_pause_menu.set_enabled(false)
 
 func _find_framework_control() -> FrameworkControl:
 	var node: Node = get_parent()

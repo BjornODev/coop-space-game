@@ -24,3 +24,7 @@ func _on_interaction_started(player: Player) -> void:
 		
 		capsule_grabbed.emit(player)
 		activated = false
+
+## Hint shown over this object when a player can use it: take the canister out, or put one in.
+func _get_default_prompt_text() -> String:
+	return "Take canister" if activated else "Insert canister"

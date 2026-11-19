@@ -2,6 +2,7 @@
 ## ore goes to the refinery's input, a canister that isn't full goes to the capsule filling terminal,
 ## and a full canister goes to an empty engine slot.
 ## When the destination is off screen the arrow sits on the screen edge; on screen it hovers over the destination.
+## Also shows an interact hint, like "B: Pilot", over whatever station pressing A would use.
 ## The game makes one per player and draws it into that player's splitscreen viewport through custom_viewport.
 class_name GuideHud extends CanvasLayer
 
@@ -17,6 +18,10 @@ class_name GuideHud extends CanvasLayer
 @export var bob_distance: float = 8.0
 ## How fast the hovering arrow bobs, in radians per second.
 @export var bob_speed: float = 5.0
+
+@export_group("Interact Hint")
+## How far above a station its interact hint sits, in pixels on screen.
+@export var prompt_height: float = 48.0
 
 @export_group("Items")
 ## Status of ore that goes to the refinery.
@@ -34,6 +39,7 @@ class_name GuideHud extends CanvasLayer
 @export var engine_text: String = "Engine"
 
 @onready var _arrow_layer: Node2D = $Root/Arrows
+@onready var _interact_prompt: ButtonPrompt = $Root/InteractPrompt
 
 var _player: Player = null
 var _player_viewport: Viewport = null
@@ -56,11 +62,13 @@ func setup(player: Player, player_viewport: Viewport, refinery_input: Node2D, fi
 	_arrow = arrow_scene.instantiate() as AlertArrow
 	_arrow_layer.add_child(_arrow)
 	_arrow.visible = false
+	_interact_prompt.visible = false
 
 func _process(delta: float) -> void:
 	if _arrow == null or _player_viewport == null or not is_instance_valid(_player):
 		return
 	_time += delta
+	_update_interact_prompt()
 	var held: Dictionary = _player.item_manager.item_being_held
 	if ShipItems.has_status(held, ore_status) and _refinery_input != null:
 		_point_at(_refinery_input.global_position, ore_color, refinery_text)
@@ -73,6 +81,20 @@ func _process(delta: float) -> void:
 			_arrow.visible = false
 	else:
 		_arrow.visible = false
+
+## Shows "<key>: <action>" over the interactable pressing A would use, or hides the hint if there is none.
+func _update_interact_prompt() -> void:
+	var target: Interactable = _player.get_interact_target()
+	var text: String = target.get_prompt_text() if target != null else ""
+	if text.is_empty():
+		_interact_prompt.visible = false
+		return
+	_interact_prompt.action_text = text
+	_interact_prompt.show_for_actions([CoopInput.get_player(_player.player_number).A])
+	_interact_prompt.visible = true
+	_interact_prompt.reset_size()
+	var screen_position: Vector2 = _player_viewport.get_canvas_transform() * target.global_position
+	_interact_prompt.position = screen_position - Vector2(_interact_prompt.size.x * 0.5, prompt_height + _interact_prompt.size.y)
 
 ## Shows the arrow toward world_position: on the screen edge when it is off screen, hovering over it when on screen.
 func _point_at(world_position: Vector2, color: Color, text: String) -> void:

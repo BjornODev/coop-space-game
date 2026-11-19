@@ -4,14 +4,25 @@ class_name AlertArrow extends Node2D
 
 ## How far the countdown sits from the arrow, toward the middle of the screen, in pixels.
 @export var label_distance: float = 44.0
+## Size of an urgent arrow compared to a normal one.
+@export var urgent_scale: float = 1.35
+## How fast an urgent arrow pulses, in pulses per second.
+@export var urgent_pulse_rate: float = 2.5
 
 @onready var _pointer: Node2D = $Pointer
 @onready var _arrow: Polygon2D = $Pointer/Arrow
 @onready var _countdown_label: Label = $CountdownLabel
 
 ## Points the arrow along angle (radians, 0 is right) in color, and shows countdown_text next to it.
-func show_alert(angle: float, color: Color, countdown_text: String) -> void:
+## urgent makes the arrow bigger, pulsing, and drawn over the others, for the malfunction that needs fixing first.
+func show_alert(angle: float, color: Color, countdown_text: String, urgent: bool = false) -> void:
 	visible = true
+	z_index = 1 if urgent else 0
+	if urgent:
+		var pulse: float = 0.5 + 0.5 * sin(Time.get_ticks_msec() * 0.001 * TAU * urgent_pulse_rate)
+		_pointer.scale = Vector2.ONE * lerpf(1.0, urgent_scale, pulse)
+	else:
+		_pointer.scale = Vector2.ONE
 	_pointer.rotation = angle
 	_arrow.color = color
 	_countdown_label.text = countdown_text

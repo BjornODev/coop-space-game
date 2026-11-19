@@ -89,3 +89,7 @@ func _show_details_for(input: PlayerInput) -> void:
 	_arm_prompt.show_for_actions([input.UP, input.LEFT, input.DOWN, input.RIGHT])
 	_suction_prompt.show_for_actions([input.A])
 	_exit_prompt.show_for_actions([input.B])
+
+## Hint shown over this object when a player can use it.
+func _get_default_prompt_text() -> String:
+	return "Harvest"

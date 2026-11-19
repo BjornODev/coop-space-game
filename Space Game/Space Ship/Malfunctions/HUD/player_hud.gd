@@ -71,6 +71,7 @@ func show_time_ran_out() -> void:
 	_failed_screen.show_reason("Time ran out before reaching the destination.", Color(1.0, 0.25, 0.2), input)
 
 ## Places one arrow on the screen edge for every malfunction that is off this player's screen.
+## Arrows for the meter closest to filling are bigger, pulse, and sit on top of the rest.
 func _update_arrows(screen_size: Vector2) -> void:
 	var canvas: Transform2D = _player_viewport.get_canvas_transform()
 	var screen_rect: Rect2 = Rect2(Vector2.ZERO, screen_size)
@@ -78,7 +79,11 @@ func _update_arrows(screen_size: Vector2) -> void:
 	var arrow_rect: Rect2 = screen_rect.grow(-arrow_edge_margin)
 	var center: Vector2 = screen_size * 0.5
 	var used: int = 0
-	for target: AlertTarget in _manager.get_alert_targets(_player.global_position):
+	var targets: Array[AlertTarget] = _manager.get_alert_targets(_player.global_position)
+	var most_urgent: float = INF
+	for target: AlertTarget in targets:
+		most_urgent = minf(most_urgent, _manager.get_time_until_full(target.type))
+	for target: AlertTarget in targets:
 		var screen_position: Vector2 = canvas * target.position
 		if visible_rect.has_point(screen_position):
 			continue
@@ -88,7 +93,8 @@ func _update_arrows(screen_size: Vector2) -> void:
 		var arrow: AlertArrow = _get_arrow(used)
 		used += 1
 		arrow.position = AlertArrow.get_edge_position(arrow_rect, screen_position)
-		arrow.show_alert(direction.angle(), _manager.get_color(target.type), _manager.get_countdown_text(target.type))
+		var urgent: bool = not is_inf(most_urgent) and is_equal_approx(_manager.get_time_until_full(target.type), most_urgent)
+		arrow.show_alert(direction.angle(), _manager.get_color(target.type), _manager.get_countdown_text(target.type), urgent)
 	_hide_arrows_from(used)
 
 ## The arrow at index, creating more arrows as needed.

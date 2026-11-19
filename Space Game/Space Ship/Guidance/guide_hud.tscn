@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://Space Game/Space Ship/Guidance/guide_hud.gd" id="1_guide"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Malfunctions/HUD/alert_arrow.tscn" id="2_arrow"]
 [ext_resource type="Theme" uid="uid://w7mhbu37d037" path="res://Space Game/Space Ship/Bridge/Theme/bridge_theme.tres" id="3_theme"]
+[ext_resource type="PackedScene" path="res://Space Game/Space Ship/Bridge/Screens/button_prompt.tscn" id="4_prompt"]
 
 [node name="GuideHud" type="CanvasLayer"]
 script = ExtResource("1_guide")
@@ -17,3 +18,12 @@ mouse_filter = 2
 theme = ExtResource("3_theme")
 
 [node name="Arrows" type="Node2D" parent="Root"]
+
+[node name="InteractPrompt" parent="Root" instance=ExtResource("4_prompt")]
+visible = false
+layout_mode = 0
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 18
+horizontal_alignment = 1
+action_text = "Use"
