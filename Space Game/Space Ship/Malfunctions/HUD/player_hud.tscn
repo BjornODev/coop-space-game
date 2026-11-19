@@ -1,17 +1,17 @@
-[gd_scene format=3]
+[gd_scene format=3 uid="uid://dyvtcf0bvdmh6"]
 
-[ext_resource type="Script" path="res://Space Game/Space Ship/Malfunctions/HUD/player_hud.gd" id="1_hud"]
+[ext_resource type="Script" uid="uid://dqex5e10mddlu" path="res://Space Game/Space Ship/Malfunctions/HUD/player_hud.gd" id="1_hud"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Malfunctions/HUD/alert_arrow.tscn" id="2_arrow"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Malfunctions/HUD/meter_row.tscn" id="3_row"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Malfunctions/HUD/mission_failed_screen.tscn" id="4_failed"]
 [ext_resource type="Theme" uid="uid://w7mhbu37d037" path="res://Space Game/Space Ship/Bridge/Theme/bridge_theme.tres" id="5_theme"]
 
-[node name="PlayerHud" type="CanvasLayer"]
+[node name="PlayerHud" type="CanvasLayer" unique_id=395512290]
 process_mode = 3
 script = ExtResource("1_hud")
 alert_arrow_scene = ExtResource("2_arrow")
 
-[node name="Root" type="Control" parent="."]
+[node name="Root" type="Control" parent="." unique_id=17237112]
 layout_mode = 3
 anchors_preset = 0
 offset_right = 960.0
@@ -19,7 +19,8 @@ offset_bottom = 540.0
 mouse_filter = 2
 theme = ExtResource("5_theme")
 
-[node name="MeterPanel" type="PanelContainer" parent="Root"]
+[node name="MeterPanel" type="PanelContainer" parent="Root" unique_id=1069990042]
+visible = false
 layout_mode = 0
 offset_left = 12.0
 offset_top = 12.0
@@ -27,24 +28,24 @@ offset_right = 300.0
 offset_bottom = 130.0
 mouse_filter = 2
 
-[node name="Meters" type="VBoxContainer" parent="Root/MeterPanel"]
+[node name="Meters" type="VBoxContainer" parent="Root/MeterPanel" unique_id=236211114]
 layout_mode = 2
 mouse_filter = 2
 
-[node name="FireRow" parent="Root/MeterPanel/Meters" instance=ExtResource("3_row")]
+[node name="FireRow" parent="Root/MeterPanel/Meters" unique_id=753999543 instance=ExtResource("3_row")]
 layout_mode = 2
 
-[node name="OxygenRow" parent="Root/MeterPanel/Meters" instance=ExtResource("3_row")]
+[node name="OxygenRow" parent="Root/MeterPanel/Meters" unique_id=57888764 instance=ExtResource("3_row")]
 layout_mode = 2
 
-[node name="CommsRow" parent="Root/MeterPanel/Meters" instance=ExtResource("3_row")]
+[node name="CommsRow" parent="Root/MeterPanel/Meters" unique_id=2119140117 instance=ExtResource("3_row")]
 layout_mode = 2
 
-[node name="HullRow" parent="Root/MeterPanel/Meters" instance=ExtResource("3_row")]
+[node name="HullRow" parent="Root/MeterPanel/Meters" unique_id=2004718954 instance=ExtResource("3_row")]
 layout_mode = 2
 
-[node name="Arrows" type="Node2D" parent="Root"]
+[node name="Arrows" type="Node2D" parent="Root" unique_id=613306871]
 
-[node name="MissionFailedScreen" parent="Root" instance=ExtResource("4_failed")]
+[node name="MissionFailedScreen" parent="Root" unique_id=1692803971 instance=ExtResource("4_failed")]
 visible = false
 layout_mode = 1
