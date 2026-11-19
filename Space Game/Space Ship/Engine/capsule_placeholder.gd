@@ -1,7 +1,7 @@
 extends Control
 
-@onready var indicator: ColorRect = $Indicator
 @onready var capsule_grabber: Interactable = $CapsuleGrabber
+@onready var canister: Sprite2D = $FuelCanisterHolder/Canister
 
 signal update_fuel_available(amount : int)
 
@@ -18,13 +18,12 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
 	if not capsule["Activated"]:
-		indicator.color = Color("gray")
+		canister.visible = false
 		return
 	
 	if capsule["fuel_left"]:
-		indicator.color = Color("red")
-	else:
-		indicator.color = Color("green")
+		canister.frame = ceili(capsule["fuel_left"]/100.0*14.0)
+		canister.visible = true
 
 func give_player_capsule(player : Player) -> void:
 	capsule["Item"]["Purity"] = capsule["fuel_left"]

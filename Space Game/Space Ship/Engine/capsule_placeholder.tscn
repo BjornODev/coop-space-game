@@ -2,6 +2,8 @@
 
 [ext_resource type="Script" uid="uid://cx0ibiitkg6dh" path="res://Space Game/Space Ship/Engine/capsule_placeholder.gd" id="1_ahaoe"]
 [ext_resource type="Script" uid="uid://ctfruyrm11ir" path="res://Space Game/Space Ship/Engine/capsule_grabber.gd" id="2_s8la6"]
+[ext_resource type="Texture2D" uid="uid://c63jg8whd3bxw" path="res://Space Game/Assets/Fuel_Canister_Holder.png" id="3_h2usi"]
+[ext_resource type="Texture2D" uid="uid://dgomidhcuva6y" path="res://Space Game/Assets/Fuel_Canister.png" id="4_gs6gq"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_k2tvh"]
 size = Vector2(50, 100)
@@ -24,14 +26,18 @@ position = Vector2(25, 48)
 shape = SubResource("RectangleShape2D_k2tvh")
 
 [node name="Backdrop" type="ColorRect" parent="." unique_id=2110921189]
+visible = false
 layout_mode = 0
 offset_right = 51.0
 offset_bottom = 98.0
 
-[node name="Indicator" type="ColorRect" parent="." unique_id=732726762]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 13.0
-offset_right = 38.0
-offset_bottom = 83.0
-color = Color(0.74509805, 0.74509805, 0.74509805, 1)
+[node name="FuelCanisterHolder" type="Sprite2D" parent="." unique_id=1109629956]
+texture_filter = 1
+position = Vector2(26, 49)
+scale = Vector2(5.3, 5.3)
+texture = ExtResource("3_h2usi")
+
+[node name="Canister" type="Sprite2D" parent="FuelCanisterHolder" unique_id=1935413286]
+scale = Vector2(0.45, 0.45)
+texture = ExtResource("4_gs6gq")
+hframes = 15
