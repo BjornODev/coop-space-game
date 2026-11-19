@@ -35,6 +35,8 @@ const PAUSE_MENU = preload("res://Space Game/Pause/pause_menu.tscn")
 const SPAWN_SPACING = 120
 
 @onready var fuel_ticker: Timer = $FuelTicker
+## Light rumble while the engine burns fuel, heavy jolt when the ship hits an asteroid.
+@onready var screen_shake: ScreenShake = $ScreenShake
 @export var fuel_ticker_speed : float = 0.05
 
 ## Kept from start() so a restart brings back the same players with the same controls.
@@ -52,6 +54,7 @@ func _ready() -> void:
 	bridge.space_simulation.connect("asteroid_harvested",sorting_unit.send_item_to_spawn_area,CONNECT_DEFERRED)
 
 	bridge.navigation_screen.connect("requesting_boost",toggle_boosting)
+	bridge.space_simulation.asteroid_hit.connect(_on_asteroid_hit)
 	fuel_ticker.wait_time = fuel_ticker_speed
 	fuel_ticker.connect("timeout",toggle_boosting)
 	if malfunction_manager != null:
@@ -88,6 +91,7 @@ func start(player_count: int, joined_players: Array[bool], zoom_matching) -> voi
 			zoom = 0.75
 		camera.zoom = Vector2.ONE * zoom * UiScale.get_resolution_scale()
 		stored_players[i].set_camera(camera)
+		screen_shake.add_camera(camera)
 		_add_guide_hud(stored_players[i], camera)
 		if malfunction_manager != null:
 			_add_hud(stored_players[i], camera)
@@ -107,9 +111,14 @@ func toggle_boosting(attempting_boost : bool = true) -> void:
 		fuel_ticker.start()
 
 func _process(_delta: float) -> void:
+	# the fuel ticker only runs while boosting is actually burning fuel
+	screen_shake.set_rumble(not fuel_ticker.is_stopped())
 	if engine_unit and bridge.fuel_label:
 		var fuel_amt : int = engine_unit.drain_fuel(0)
 		bridge.fuel_label.text = "Fuel Available: " + str(fuel_amt)
+
+func _on_asteroid_hit(_asteroid: BridgeAsteroid) -> void:
+	screen_shake.impact()
 
 func disable_boosting() -> void:
 	fuel_ticker.stop()

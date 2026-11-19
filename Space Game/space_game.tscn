@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/LevelTimer/level_timer_hud.tscn" id="26_timer_hud"]
 [ext_resource type="Script" uid="uid://kfgwkc5qiftd" path="res://Space Game/Space Ship/Audio/music_level_hooks.gd" id="27_music_hooks"]
 [ext_resource type="PackedScene" path="res://Space Game/Space Ship/Minimap/ship_minimap.tscn" id="28_minimap"]
+[ext_resource type="Script" uid="uid://tf88l341ixuv" path="res://Space Game/Effects/screen_shake.gd" id="29_screen_shake"]
 
 [node name="Space Game" type="Node2D" unique_id=1468521417]
 script = ExtResource("1_game")
@@ -330,6 +331,11 @@ script = ExtResource("21_director")
 simulation = NodePath("../../Bridge/SpaceSimulation")
 fire_system = NodePath("../FireSystem")
 comms_panel = NodePath("../../FullLayout/CommsPanel")
+
+[node name="ScreenShake" type="Node" parent="." unique_id=1739204816]
+script = ExtResource("29_screen_shake")
+rumble_strength = 1.25
+rumble_speed = 10.0
 
 [node name="FuelTicker" type="Timer" parent="." unique_id=459683178]
 
