@@ -21,9 +21,15 @@ signal asteroid_harvested(data: Dictionary)
 @export var planet_a_position: Vector2 = Vector2.ZERO
 ## The destination.
 @export var planet_b_position: Vector2 = Vector2(60000.0, -12000.0)
-## How close the ship's center has to get to planet B to count as arrived.
-@export var arrival_radius: float = 400.0
-## No asteroid is placed within this distance of either planet.
+## Radius of planet A. Planets are solid: the ship bumps off them like asteroids.
+@export var planet_a_radius: float = 500.0
+## Radius of planet B.
+@export var planet_b_radius: float = 500.0
+## How close the ship's edge has to get to planet B's surface to count as arrived.
+@export var arrival_radius: float = 200.0
+## Gap between the ship's edge and planet A's surface at the start of a run.
+@export var launch_gap: float = 50.0
+## No asteroid is placed within this distance of either planet's center. Keep it larger than the planet radii.
 @export var planet_clear_radius: float = 1500.0
 
 @export_group("Ship")
@@ -169,7 +175,7 @@ func _physics_process(delta: float) -> void:
 	_check_collisions()
 	_check_arrival()
 
-## Puts the ship back at planet A, at rest and facing planet B, resets the arm, and scatters a new set of asteroids.
+## Puts the ship back just outside planet A, at rest and facing planet B, resets the arm, and scatters a new set of asteroids.
 func start_run() -> void:
 	if random_seed == 0:
 		_rng.randomize()
@@ -182,8 +188,8 @@ func start_run() -> void:
 	clear_pilot_input()
 	clear_arm_input()
 	_reset_arm()
-	ship_position = planet_a_position
 	ship_heading = planet_a_position.angle_to_point(planet_b_position)
+	ship_position = planet_a_position + get_ship_direction() * (planet_a_radius + ship_radius + launch_gap)
 	ship_velocity = Vector2.ZERO
 
 	for _i: int in cluster_count:
@@ -283,6 +289,13 @@ func has_arrived() -> bool:
 func get_distance_to_destination() -> float:
 	return ship_position.distance_to(planet_b_position)
 
+## Planet centers and radii, for displays. Each entry is {"position": Vector2, "radius": float}.
+func get_planets() -> Array[Dictionary]:
+	return [
+		{"position": planet_a_position, "radius": planet_a_radius},
+		{"position": planet_b_position, "radius": planet_b_radius},
+	]
+
 ## The most fuel any asteroid could hold. Scanned colors are normalized against this.
 func get_highest_possible_fuel() -> int:
 	return maxi(fuel_capacity_at_min_size, fuel_capacity_at_max_size)
@@ -307,6 +320,20 @@ func _check_collisions() -> void:
 		if not _touching.has(asteroid):
 			_touching[asteroid] = true
 			asteroid_hit.emit(asteroid)
+	_collide_with_planet(planet_a_position, planet_a_radius)
+	_collide_with_planet(planet_b_position, planet_b_radius)
+
+## Planets are solid and never move. The ship is pushed out and bounces off like it does off an asteroid.
+func _collide_with_planet(center: Vector2, radius: float) -> void:
+	var away: Vector2 = ship_position - center
+	var min_distance: float = ship_radius + radius
+	if away.length() >= min_distance:
+		return
+	var normal: Vector2 = away.normalized() if not away.is_zero_approx() else -get_ship_direction()
+	ship_position = center + normal * min_distance
+	var closing_speed: float = ship_velocity.dot(normal)
+	if closing_speed < 0.0:
+		ship_velocity -= normal * closing_speed * (1.0 + collision_bounciness)
 
 func _reset_arm() -> void:
 	arm_angle_degrees = clampf(arm_start_angle_degrees, -arm_swing_limit_degrees, arm_swing_limit_degrees)
@@ -368,7 +395,7 @@ func _create_harvested_item(asteroid: BridgeAsteroid) -> Dictionary:
 	}
 
 func _check_arrival() -> void:
-	if not _has_arrived and get_distance_to_destination() <= arrival_radius:
+	if not _has_arrived and get_distance_to_destination() <= planet_b_radius + ship_radius + arrival_radius:
 		_has_arrived = true
 		arrived_at_destination.emit()
 

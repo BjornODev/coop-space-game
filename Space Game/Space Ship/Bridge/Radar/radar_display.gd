@@ -1,6 +1,7 @@
 ## A square, heading-up radar centered on the ship. The world turns around the ship so its heading always points up.
 ## Every asteroid within range is shown as a RadarBlip at its true position and size, plus a line showing
-## where the ship is drifting and the ship's suction arm. Planets are not shown, so finding planet B takes the route view.
+## where the ship is drifting and the ship's suction arm. Planets A and B are drawn at true size when in range,
+## but the radar only reaches a short way, so finding planet B still takes the route view.
 ## Used by the navigation, scanner, and harvesting screens. Call set_simulation() before it can show anything.
 class_name RadarDisplay extends Control
 
@@ -25,7 +26,11 @@ class_name RadarDisplay extends Control
 @export var ship_reverse_color: Color = Color(0.0, 0.8, 1.0)
 ## The velocity line reaches where the ship will be after this many seconds of coasting.
 @export var velocity_line_seconds: float = 3.0
+## Planet colors, matching the route view.
+@export var planet_a_color: Color = Color(0.0, 1.0, 1.0)
+@export var planet_b_color: Color = Color(1.0, 0.0, 1.0)
 
+@onready var _planet_layer: Control = $Planets
 @onready var _blip_layer: Control = $Blips
 @onready var _velocity_line: Line2D = $VelocityLine
 @onready var _ship_marker: Polygon2D = $ShipMarker
@@ -34,9 +39,13 @@ class_name RadarDisplay extends Control
 var _simulation: SpaceSimulation = null
 var _blips: Dictionary[BridgeAsteroid, RadarBlip] = {}
 
+func _ready() -> void:
+	_planet_layer.draw.connect(_draw_planets)
+
 func _process(_delta: float) -> void:
 	if _simulation == null:
 		return
+	_planet_layer.queue_redraw()
 	_update_ship_marker()
 	_update_arm()
 	_update_blips()
@@ -80,6 +89,18 @@ func get_blip_radius_px(asteroid: BridgeAsteroid) -> float:
 func is_in_range(asteroid: BridgeAsteroid) -> bool:
 	var radar_rect: Rect2 = Rect2(Vector2.ZERO, size).grow(get_blip_radius_px(asteroid))
 	return radar_rect.has_point(world_to_radar(asteroid.position))
+
+func _draw_planets() -> void:
+	if _simulation == null:
+		return
+	var colors: Array[Color] = [planet_a_color, planet_b_color]
+	var planets: Array[Dictionary] = _simulation.get_planets()
+	var radar_rect: Rect2 = Rect2(Vector2.ZERO, size)
+	for i: int in planets.size():
+		var radius_px: float = maxf(planets[i]["radius"] * get_pixels_per_unit(), min_blip_radius)
+		var center: Vector2 = world_to_radar(planets[i]["position"])
+		if radar_rect.grow(radius_px).has_point(center):
+			_planet_layer.draw_circle(center, radius_px, colors[i % colors.size()])
 
 func _update_ship_marker() -> void:
 	var center: Vector2 = get_center_px()
