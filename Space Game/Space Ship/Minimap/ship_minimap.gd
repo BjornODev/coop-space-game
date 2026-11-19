@@ -59,6 +59,8 @@ var _offset: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	# draws on the window itself instead of the first player's view, so it sits between all the views
 	custom_viewport = get_tree().root
+	# keep the same size on screen at any render resolution, so labels and markers are drawn with more pixels
+	scale = Vector2.ONE * UiScale.get_resolution_scale()
 	_frame.visible = false
 	for layer: Control in [_map, _markers]:
 		layer.offset_left = padding
@@ -124,7 +126,7 @@ func _get_player_count() -> int:
 
 ## Sizes the frame to the ship's shape and places it for player_count.
 func _place_frame(player_count: int) -> void:
-	var window: Vector2 = get_tree().root.get_visible_rect().size
+	var window: Vector2 = get_tree().root.get_visible_rect().size / scale
 	var aspect: float = _world_bounds.size.x / _world_bounds.size.y if _world_bounds.size.y > 0.0 else 1.0
 	var size: Vector2
 	var center: Vector2

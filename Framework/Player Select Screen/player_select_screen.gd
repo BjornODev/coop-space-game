@@ -33,6 +33,14 @@ var just_removed_player: bool = false
 ## Always 4.
 const MAX_PLAYER_COUNT: int = 4
 
+## Window height in pixels this screen's layout was made for (Godot's default 1152x648). At a higher project
+## resolution the screen is scaled up by the difference, so it stays the same size on screen but sharper.
+const DESIGN_HEIGHT: float = 648.0
+
+@onready var canvas_layer: CanvasLayer = $"CanvasLayer" as CanvasLayer
+## Full-screen root of the cards, buttons and screen boundaries.
+@onready var layout_root: Control = $"CanvasLayer/Control" as Control
+
 ## Holds all possible control types. At the start of the project, the allowed controls are added.
 var allowed_control_types: Array[String] = []
 
@@ -67,6 +75,21 @@ var framework_control: FrameworkControl
 
 ## Little animation variable.
 var instructions_visible = true
+
+func _ready() -> void:
+	var height: float = float(ProjectSettings.get_setting("display/window/size/viewport_height", DESIGN_HEIGHT))
+	canvas_layer.scale = Vector2.ONE * maxf(height / DESIGN_HEIGHT, 0.1)
+	get_viewport().size_changed.connect(_fit_layout_to_screen)
+	_fit_layout_to_screen()
+
+## The layer is scaled up, so the full-screen layout root is shrunk by the same amount to still end at the
+## screen edges. Cursors, cards and boundaries all live in the layer, so their physics stays consistent.
+func _fit_layout_to_screen() -> void:
+	var screen: Vector2 = get_viewport().get_visible_rect().size
+	var layer_scale: float = canvas_layer.scale.x
+	# anchored to the full screen, so these offsets take the extra size back off the right and bottom
+	layout_root.offset_right = screen.x / layer_scale - screen.x
+	layout_root.offset_bottom = screen.y / layer_scale - screen.y
 
 func player_select_screen_start(min_players: int, max_players: int, wasd: bool, arrow_keys: bool, controller: bool) -> void:
 	minimum_players = min_players

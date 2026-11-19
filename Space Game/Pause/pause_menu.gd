@@ -43,6 +43,8 @@ func _ready() -> void:
 func setup(player_numbers: Array[int]) -> void:
 	_player_numbers = player_numbers.duplicate()
 	custom_viewport = get_tree().root
+	# keep the same size on screen at any render resolution
+	scale = Vector2.ONE * UiScale.get_resolution_scale()
 
 ## Turns the menu off, for when the run is over and another screen has taken over. Closes it if open.
 func set_enabled(enabled: bool) -> void:
@@ -74,7 +76,7 @@ func resume() -> void:
 func _process(_delta: float) -> void:
 	if not _enabled:
 		return
-	_root.size = get_tree().root.get_visible_rect().size
+	_root.size = get_tree().root.get_visible_rect().size / scale
 	for player_number: int in _player_numbers:
 		if Input.is_action_just_pressed(CoopInput.get_player(player_number).START):
 			if visible:

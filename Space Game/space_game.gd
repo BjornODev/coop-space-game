@@ -27,6 +27,10 @@ const PAUSE_MENU = preload("res://Space Game/Pause/pause_menu.tscn")
 ## Counts down to the destination. Its time limit is set in start().
 @onready var level_timer: LevelTimer = $LevelTimer
 
+## Size of each player's HUD (meters, alert arrows, interact hints, mission failed screen) with 1, 2, 3 and 4 players,
+## in pixels of the 1920x1080 render. Smaller splitscreen views get bigger text so it stays readable.
+@export var hud_scale_by_player_count: Array[float] = [1.25, 1.5, 1.75, 1.75]
+
 ## Distance between players when they spawn.
 const SPAWN_SPACING = 120
 
@@ -58,6 +62,8 @@ func _ready() -> void:
 func start(player_count: int, joined_players: Array[bool], zoom_matching) -> void:
 	_joined_players = joined_players.duplicate()
 	_zoom_matching = zoom_matching
+	# set first, since the HUDs made below size themselves by it
+	number_of_players = player_count
 	var stored_players = []
 
 	# player number comes from joined_players index so each player keeps the controls they joined with
@@ -73,20 +79,20 @@ func start(player_count: int, joined_players: Array[bool], zoom_matching) -> voi
 	for i in stored_players.size():
 		stored_players[i].position = player_spawn.position + Vector2((i - (stored_players.size() - 1) / 2.0) * SPAWN_SPACING, 0)
 		var camera: Camera2D = Cameras.get_camera(i + 1)
-		# screens get smaller with more players, so zoom out to compensate
+		# screens get smaller with more players, so zoom out to compensate. These zooms were tuned at the old
+		# render resolution, so they're scaled up to show the same amount of the ship at the current one.
+		var zoom: float = 1.0
 		if player_count >= 3:
-			camera.zoom = Vector2(0.5, 0.5)
+			zoom = 0.5
 		elif player_count == 2:
-			camera.zoom = Vector2(0.75, 0.75)
-		else:
-			camera.zoom = Vector2.ONE
+			zoom = 0.75
+		camera.zoom = Vector2.ONE * zoom * UiScale.get_resolution_scale()
 		stored_players[i].set_camera(camera)
 		_add_guide_hud(stored_players[i], camera)
 		if malfunction_manager != null:
 			_add_hud(stored_players[i], camera)
 
 	_add_pause_menu(joined_players)
-	number_of_players = player_count
 	if malfunction_director != null:
 		malfunction_director.player_count = player_count
 	level_timer.start_level(player_count)
@@ -175,7 +181,7 @@ func _add_pause_menu(joined_players: Array[bool]) -> void:
 func _add_hud(hud_player: Player, camera: Camera2D) -> void:
 	var hud: PlayerHud = PLAYER_HUD.instantiate() as PlayerHud
 	add_child(hud)
-	hud.setup(malfunction_manager, hud_player, camera.get_viewport())
+	hud.setup(malfunction_manager, hud_player, camera.get_viewport(), _get_hud_scale())
 	hud.restart_requested.connect(restart_run)
 	_huds.append(hud)
 
@@ -183,8 +189,15 @@ func _add_hud(hud_player: Player, camera: Camera2D) -> void:
 func _add_guide_hud(hud_player: Player, camera: Camera2D) -> void:
 	var guide: GuideHud = GUIDE_HUD.instantiate() as GuideHud
 	add_child(guide)
-	guide.setup(hud_player, camera.get_viewport(), refining_unit.input_terminal, refining_unit.output_terminal, engine_unit)
+	guide.setup(hud_player, camera.get_viewport(), refining_unit.input_terminal, refining_unit.output_terminal, engine_unit, _get_hud_scale())
 	_guide_huds.append(guide)
+
+## Scale for each player's HUD at the current player count.
+func _get_hud_scale() -> float:
+	if hud_scale_by_player_count.is_empty():
+		return 1.0
+	var index: int = clampi(number_of_players - 1, 0, hud_scale_by_player_count.size() - 1)
+	return hud_scale_by_player_count[index]
 
 ## Freezes the ship and shows every player which meter filled.
 func _on_mission_failed(type: Malfunction.Type) -> void:

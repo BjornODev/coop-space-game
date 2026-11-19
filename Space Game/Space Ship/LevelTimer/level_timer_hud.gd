@@ -25,6 +25,8 @@ var _pulse_tween: Tween = null
 func _ready() -> void:
 	# draws on the window itself instead of the first player's view, so everyone sees the same timer
 	custom_viewport = get_tree().root
+	# keep the same size on screen at any render resolution
+	scale = Vector2.ONE * UiScale.get_resolution_scale()
 	MusicManager.beat.connect(_on_beat)
 	_panel.visible = false
 
@@ -39,7 +41,7 @@ func _process(_delta: float) -> void:
 		_label.text = _format(level_timer.time_remaining, true)
 	_label.modulate = urgent_color if _is_urgent() else normal_color
 	# keep the panel centered at the top as the window or text changes size
-	var window_width: float = get_tree().root.get_visible_rect().size.x
+	var window_width: float = get_tree().root.get_visible_rect().size.x / scale.x
 	_panel.size = _panel.get_combined_minimum_size()
 	_panel.position = Vector2((window_width - _panel.size.x) * 0.5, _panel.position.y)
 	_panel.pivot_offset = _panel.size * 0.5

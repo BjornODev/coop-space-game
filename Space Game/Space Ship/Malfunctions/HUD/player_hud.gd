@@ -28,18 +28,23 @@ var _manager: MalfunctionManager = null
 var _player: Player = null
 var _player_viewport: Viewport = null
 var _arrows: Array[AlertArrow] = []
+## Size of everything on this HUD. Positions inside it are in screen pixels divided by this.
+var _hud_scale: float = 1.0
 
 func _ready() -> void:
 	_failed_screen.visible = false
 	_failed_screen.restart_pressed.connect(_on_restart_pressed)
 
 ## Connects the HUD to the meters and to the player it belongs to. player_viewport is the splitscreen viewport
-## showing that player's camera. Call after adding the HUD to the tree.
-func setup(manager: MalfunctionManager, player: Player, player_viewport: Viewport) -> void:
+## showing that player's camera. hud_scale sizes the whole HUD, so text stays readable on small splitscreen views.
+## Call after adding the HUD to the tree.
+func setup(manager: MalfunctionManager, player: Player, player_viewport: Viewport, hud_scale: float = 1.0) -> void:
 	_manager = manager
 	_player = player
 	_player_viewport = player_viewport
 	custom_viewport = player_viewport
+	_hud_scale = maxf(hud_scale, 0.1)
+	scale = Vector2.ONE * _hud_scale
 	for i: int in Malfunction.ALL_TYPES.size():
 		var type: Malfunction.Type = Malfunction.ALL_TYPES[i]
 		_meter_rows[i].setup(manager.get_display_name(type), manager.get_color(type))
@@ -47,7 +52,8 @@ func setup(manager: MalfunctionManager, player: Player, player_viewport: Viewpor
 func _process(_delta: float) -> void:
 	if _manager == null or _player_viewport == null or not is_instance_valid(_player):
 		return
-	var screen_size: Vector2 = _player_viewport.get_visible_rect().size
+	# the HUD is scaled up, so it works in screen pixels divided by the scale
+	var screen_size: Vector2 = _player_viewport.get_visible_rect().size / _hud_scale
 	_root.size = screen_size
 	for i: int in Malfunction.ALL_TYPES.size():
 		var type: Malfunction.Type = Malfunction.ALL_TYPES[i]
@@ -73,7 +79,7 @@ func show_time_ran_out() -> void:
 ## Places one arrow on the screen edge for every malfunction that is off this player's screen.
 ## Arrows for the meter closest to filling are bigger, pulse, and sit on top of the rest.
 func _update_arrows(screen_size: Vector2) -> void:
-	var canvas: Transform2D = _player_viewport.get_canvas_transform()
+	var canvas: Transform2D = Transform2D().scaled(Vector2.ONE / _hud_scale) * _player_viewport.get_canvas_transform()
 	var screen_rect: Rect2 = Rect2(Vector2.ZERO, screen_size)
 	var visible_rect: Rect2 = screen_rect.grow(-on_screen_margin)
 	var arrow_rect: Rect2 = screen_rect.grow(-arrow_edge_margin)

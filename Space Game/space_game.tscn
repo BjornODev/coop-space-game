@@ -291,6 +291,12 @@ prompt_text = null
 [node name="PumpTerminal2" parent="RefiningUnit/ProcessBox/PumpTerminals" parent_id_path=PackedInt32Array(2077531568, 2118834581) index="1" unique_id=1542701618]
 prompt_text = null
 
+[node name="OreLabel" parent="RefiningUnit" index="3" unique_id=378640836]
+offset_left = -352.0
+offset_top = 721.0
+offset_right = -242.0
+offset_bottom = 744.0
+
 [node name="EngineUnit" parent="." unique_id=1883932248 instance=ExtResource("4_qic3w")]
 position = Vector2(60, 3870)
 

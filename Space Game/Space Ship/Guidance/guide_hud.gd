@@ -48,14 +48,19 @@ var _filling_terminal: Node2D = null
 var _engine: Node2D = null
 var _arrow: AlertArrow = null
 var _time: float = 0.0
+## Size of everything on this HUD. Positions inside it are in screen pixels divided by this.
+var _hud_scale: float = 1.0
 
 ## Connects the HUD to its player and the stations it points at. player_viewport is the splitscreen viewport
 ## showing that player's camera. engine is the EngineUnit, whose empty capsule slots are pointed at.
+## hud_scale sizes the arrow and hint, so they stay readable on small splitscreen views.
 ## Call after adding the HUD to the tree.
-func setup(player: Player, player_viewport: Viewport, refinery_input: Node2D, filling_terminal: Node2D, engine: Node2D) -> void:
+func setup(player: Player, player_viewport: Viewport, refinery_input: Node2D, filling_terminal: Node2D, engine: Node2D, hud_scale: float = 1.0) -> void:
 	_player = player
 	_player_viewport = player_viewport
 	custom_viewport = player_viewport
+	_hud_scale = maxf(hud_scale, 0.1)
+	scale = Vector2.ONE * _hud_scale
 	_refinery_input = refinery_input
 	_filling_terminal = filling_terminal
 	_engine = engine
@@ -93,13 +98,13 @@ func _update_interact_prompt() -> void:
 	_interact_prompt.show_for_actions([CoopInput.get_player(_player.player_number).A])
 	_interact_prompt.visible = true
 	_interact_prompt.reset_size()
-	var screen_position: Vector2 = _player_viewport.get_canvas_transform() * target.global_position
+	var screen_position: Vector2 = _to_hud(target.global_position)
 	_interact_prompt.position = screen_position - Vector2(_interact_prompt.size.x * 0.5, prompt_height + _interact_prompt.size.y)
 
 ## Shows the arrow toward world_position: on the screen edge when it is off screen, hovering over it when on screen.
 func _point_at(world_position: Vector2, color: Color, text: String) -> void:
-	var screen_size: Vector2 = _player_viewport.get_visible_rect().size
-	var screen_position: Vector2 = _player_viewport.get_canvas_transform() * world_position
+	var screen_size: Vector2 = _player_viewport.get_visible_rect().size / _hud_scale
+	var screen_position: Vector2 = _to_hud(world_position)
 	var screen_rect: Rect2 = Rect2(Vector2.ZERO, screen_size)
 	if screen_rect.grow(-on_screen_margin).has_point(screen_position):
 		var bob: float = sin(_time * bob_speed) * bob_distance
@@ -112,6 +117,10 @@ func _point_at(world_position: Vector2, color: Color, text: String) -> void:
 		return
 	_arrow.position = AlertArrow.get_edge_position(arrow_rect, screen_position)
 	_arrow.show_alert(arrow_rect.get_center().angle_to_point(screen_position), color, text)
+
+## Where world_position appears on this player's screen, in this HUD's scaled-down coordinates.
+func _to_hud(world_position: Vector2) -> Vector2:
+	return (_player_viewport.get_canvas_transform() * world_position) / _hud_scale
 
 ## The nearest engine capsule slot with no canister in it, or the engine itself when every slot is taken.
 func _get_engine_slot_position() -> Vector2:
