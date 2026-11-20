@@ -1,0 +1,157 @@
+[gd_scene format=3 uid="uid://cald5147gooyi"]
+
+[ext_resource type="Texture2D" uid="uid://cm7brikcy5k06" path="res://Space Game/Assets/Pump_Animated.png" id="1_4xesk"]
+[ext_resource type="Texture2D" uid="uid://da5qstgbikhrp" path="res://Space Game/Assets/Alarm_Light.png" id="2_y0jg5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3bdfm"]
+size = Vector2(71.5, 72)
+
+[sub_resource type="Animation" id="Animation_3bdfm"]
+resource_name = "Alarm"
+length = 0.001
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alarm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5, 2, 2.001, 2.5, 3, 3.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 0, 0, 1, 2, 3]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Pump:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.499, 0.999, 1.499, 1.999, 2.499, 2.999),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="Animation" id="Animation_4xesk"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pump:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [4]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Alarm:frame")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="Animation" id="Animation_y0jg5"]
+resource_name = "Run_Pump"
+length = 3.5000000000000004
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Pump:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.0009999999, 0.5, 1, 1.5, 2, 2.5, 3),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [1, 2, 3, 4, 5, 6, 7]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_3bdfm"]
+_data = {
+&"Alarm": SubResource("Animation_3bdfm"),
+&"RESET": SubResource("Animation_4xesk"),
+&"Run_Pump": SubResource("Animation_y0jg5")
+}
+
+[sub_resource type="Animation" id="Animation_3hd4f"]
+resource_name = "Alarm"
+length = 2.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alarm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1, 1.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3]
+}
+
+[sub_resource type="Animation" id="Animation_l5lkn"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Alarm:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [1]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_262cx"]
+_data = {
+&"Alarm": SubResource("Animation_3hd4f"),
+&"RESET": SubResource("Animation_l5lkn")
+}
+
+[node name="PumpTerminal" type="Area2D" unique_id=108101874]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1946542201]
+position = Vector2(-1.3369446, 0.16189575)
+shape = SubResource("RectangleShape2D_3bdfm")
+
+[node name="Pump" type="Sprite2D" parent="." unique_id=2064488599]
+texture_filter = 1
+position = Vector2(-1, 7.0000005)
+scale = Vector2(6, 6)
+texture = ExtResource("1_4xesk")
+hframes = 8
+frame = 4
+
+[node name="Alarm" type="Sprite2D" parent="." unique_id=1486459986]
+texture_filter = 1
+position = Vector2(22, -25)
+scale = Vector2(2, 2)
+texture = ExtResource("2_y0jg5")
+hframes = 4
+frame = 1
+
+[node name="PumpAnimator" type="AnimationPlayer" parent="." unique_id=1437028208]
+libraries/ = SubResource("AnimationLibrary_3bdfm")
+autoplay = &"Run_Pump"
+
+[node name="AlarmAnimator" type="AnimationPlayer" parent="." unique_id=14400166]
+libraries/ = SubResource("AnimationLibrary_262cx")
+speed_scale = 5.0
